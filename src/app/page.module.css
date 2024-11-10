@@ -108,6 +108,11 @@ a.secondary {
   flex-shrink: 0;
 }
 
+.nav{
+  display: flex;
+  gap: 15px
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
