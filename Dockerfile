@@ -1,8 +1,7 @@
 #Устанавливаем зависимости
 FROM node:20.11-alpine as dependencies
 WORKDIR /app
-RUN npm install -g pnpm
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml ./
 RUN pnpm install
 
 #Билдим приложение
