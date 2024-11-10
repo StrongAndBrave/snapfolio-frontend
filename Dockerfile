@@ -1,6 +1,7 @@
 #Устанавливаем зависимости
 FROM node:20.11-alpine as dependencies
 WORKDIR /app
+RUN npm install -g pnpm
 COPY package*.json pnpm-lock.yaml ./
 RUN pnpm install
 
@@ -11,6 +12,7 @@ FROM node:20.11-alpine as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+RUN npm install -g pnpm
 RUN pnpm run build:production
 
 #Стейдж запуска
