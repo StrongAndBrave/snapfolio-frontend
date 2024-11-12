@@ -29,9 +29,6 @@ pnpm-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Storybook
-.storybook/
-
 # IDEs
 .idea/
 
