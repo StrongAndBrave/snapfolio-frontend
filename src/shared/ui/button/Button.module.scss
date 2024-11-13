@@ -1,0 +1,141 @@
+$transition: all $transition-normal ease-in-out;
+$outlined-background: transparent;
+
+.button {
+    display: inline-block;
+    border: none;
+    padding: 6px 24px;
+    min-width: 85px;
+    max-width: 100%;
+    width: fit-content;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: $transition;
+    word-wrap: break-word;
+    text-decoration: none;
+    text-transform: capitalize;
+    text-align: center;
+    color: $light-100;
+    font-family: var(--font-inter), sans-serif;
+
+    @include apply-text-style(h3);
+
+    &:focus-visible {
+        outline: none;
+        border: 2px solid $accent-700;
+    }
+
+    &:disabled {
+        cursor: auto;
+    }
+}
+
+.text {
+    background-color: transparent;
+    color: $accent-500;
+    width: fit-content;
+
+    &:hover {
+        color: $accent-100;
+    }
+
+    &:active {
+        color: $accent-700;
+    }
+
+    &:disabled {
+        color: $accent-900;
+    }
+}
+
+.contained {
+    background-color: $accent-500;
+
+    &:hover {
+        background-color: $accent-100;
+    }
+
+    &:active {
+        background-color: $accent-700;
+    }
+
+    &:disabled {
+        background-color: $accent-900;
+        color: $light-900;
+    }
+}
+
+.outlined {
+    background-color: $outlined-background;
+    border: 1px solid $accent-500;
+    color: $accent-500;
+
+    &:hover {
+        border: 1px solid $accent-100;
+        color: $accent-100;
+    }
+
+    &:active {
+        border: 1px solid $accent-700;
+        color: $accent-700;
+    }
+
+    &:disabled {
+        border: 1px solid $accent-900;
+        color: $accent-900;
+    }
+
+    &:focus-visible {
+        color: $accent-700;
+    }
+}
+
+.default {
+    background-color: $dark-300;
+
+    &:active {
+        background-color: $dark-500;
+    }
+
+    &:hover {
+        background-color: $dark-100;
+    }
+
+    &:disabled {
+        background-color: $dark-500;
+        color: $light-900;
+    }
+
+    &:focus-visible {
+        border: 1px solid $accent-300;
+        outline: none;
+    }
+}
+
+.button-language {
+    padding: 6px 12px;
+    width: fit-content;
+    min-width: 115px;
+    background-color: $dark-300;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        background-color: $dark-100;
+    }
+
+    & span {
+        text-transform: capitalize;
+    }
+
+    & svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
