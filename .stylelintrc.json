@@ -1,11 +1,9 @@
 {
-    "plugins": ["stylelint-prettier"],
-    "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
-    "rules": {
-        "color-hex-length": "long",
-        "prettier/prettier": true,
-        "import-notation": null,
-        "scss/at-import-partial-extension": null,
-        "scss/load-partial-extension": null
-    }
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss"
+  ],
+  "rules": {
+
+  }
 }
