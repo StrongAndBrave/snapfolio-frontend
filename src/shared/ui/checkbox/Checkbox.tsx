@@ -37,4 +37,3 @@ export const Checkbox = ({ checked, onChange, children, disabled, ...rest }: Pro
         </label>
     );
 };
-
