@@ -1,0 +1,43 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+}
+
+.inputContainer {
+    position: relative;
+    max-width: 280px;
+
+    .eyeIcon {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+.inputField {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #1c1c1c;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+        border-color: red; // изменяет цвет границы
+        outline: none; // убирает стандартную обводку
+    }
+}
+
+.errorMessage {
+    color: red;
+}

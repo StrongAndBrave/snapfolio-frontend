@@ -1,27 +1,29 @@
-// Input.stories.tsx
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import { Input } from './Input';
+import { Meta, StoryObj } from '@storybook/react';
+import Input from './Input';
 
-export default {
-    title: 'Components/Input',
+const meta: Meta<typeof Input> = {
+    title: 'Example/InputComponent',
     component: Input,
-} as Meta;
-
-const Template: StoryFn = args => <Input {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-    placeholder: 'Введите текст...',
+    parameters: {
+        backgrounds: {
+            default: 'dark',
+        },
+    },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-    disabled: true,
-    placeholder: 'Поле отключено',
+export default meta;
+
+type Story = StoryObj<typeof Input>;
+
+export const Email: Story = {
+    render: () => <Input name="Email" type="email" color="#ccc" />,
 };
 
-export const WithValue = Template.bind({});
-WithValue.args = {
-    value: 'Предустановленное значение',
+export const Password: Story = {
+    render: () => <Input name="Password" type="password" color="#ccc" />,
+};
+
+export const Text: Story = {
+    render: () => <Input name="Text" type="text" color="#ccc" />,
 };
