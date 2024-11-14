@@ -1,0 +1,83 @@
+.wrapper{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wrapper.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.radioInput {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.customRadio {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $light-100;
+  border-radius: 50%;
+  position: relative;
+  transition: border-color 0.2s;
+
+  &::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: $light-100;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-color: transparent;
+    transition: $transition-normal;
+    pointer-events: none;
+  }
+
+  &:active::before {
+    background-color: $dark-100;
+  }
+
+  &:hover::before {
+    background-color: $dark-300;
+  }
+
+  &:focus::before {
+    background-color: $dark-500;
+  }
+}
+
+.radioInput:checked + .customRadio::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.wrapper.disabled .customRadio:hover::before {
+  background-color: transparent;
+}
+
+.label {
+  display: flex;
+  font-family: Inter, sans-serif;
+  font-weight: map-get($base-link, font-weight);
+  font-size: map-get($regular-link, font-size);
+  line-height: map-get($regular-link, line-height);
+  color: $light-100;
+}
