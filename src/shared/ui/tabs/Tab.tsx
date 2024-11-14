@@ -1,36 +1,36 @@
-import { useState } from "react";
-import styles from "./tab.module.scss";
+import { ComponentPropsWithoutRef, MouseEvent, MouseEventHandler } from 'react';
+import styles from './tab.module.scss';
 
-export interface ButtonProps {
+type Props = {
     primary?: boolean;
     label: string;
-    onClick?: (label: string) => void;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
     disabled?: boolean;
     isActive?: boolean;
-}
+    classname?: string;
+} & ComponentPropsWithoutRef<'button'>;
 
-
-export default function Tab({
+export const Tab = ({
     primary = false,
     label,
     onClick,
     disabled = false,
     isActive = false,
+    classname,
     ...props
-}: ButtonProps) {
+}: Props) => {
+    const buttonView = primary ? styles.primary : styles.secondary;
 
-    const buttonView = primary ? styles['tab--primary'] : styles['tab--secondary'];
-
-    const handleClick = () => {
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
-            onClick(label);
+            onClick(event);
         }
     };
 
     return (
         <button
             type="button"
-            className={`${styles.tab} ${isActive && styles.active} ${buttonView}`}
+            className={`${classname && classname} ${styles.tab} ${isActive && styles.active} ${buttonView}`}
             onClick={handleClick}
             {...props}
             disabled={disabled}
@@ -38,4 +38,4 @@ export default function Tab({
             {label}
         </button>
     );
-}
+};

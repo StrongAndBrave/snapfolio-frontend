@@ -2,10 +2,12 @@
     border: none;
     background-color: transparent;
     padding: 6px 24px;
-    @include apply-text-style(h3);
     border-bottom: 2px solid $accent-500;
     color: $accent-500;
     cursor: pointer;
+    transition: background-color $transition-normal ease-in-out;
+
+    @include apply-text-style(h3);
 
     &:hover {
         background-color: rgba($accent-100, 0.4);
@@ -25,7 +27,7 @@
     }
 }
 
-.tab--secondary {
+.secondary {
     color: $dark-100;
     border-bottom-color: $dark-100;
 
