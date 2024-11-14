@@ -1,42 +1,35 @@
-import styles from "./textarea.module.scss";
-import { ComponentPropsWithoutRef } from "react";
-
+import styles from './textarea.module.scss';
+import { ComponentPropsWithoutRef } from 'react';
 
 export type TextareaProps = {
-    title?: string;
+    label?: string;
     placeholder?: string;
-    fullWidth?: boolean;
     error?: boolean;
     errorText?: string;
     disabled?: boolean;
-} & ComponentPropsWithoutRef<'textarea'>
+} & ComponentPropsWithoutRef<'textarea'>;
 
-export default function Textarea({
-    title = 'Text-area',
-    placeholder = 'Text-area',
-    fullWidth = true,
+export const Textarea = ({
+    label = '',
+    placeholder = '',
     error = false,
-    errorText = 'Error text',
+    errorText = '',
     disabled = false,
     className,
-    ...rest 
-}: TextareaProps) {
-
+    ...rest
+}: TextareaProps) => {
     return (
-        <div className={styles.container} style={{ width: fullWidth ? '100%' : 'fit-content' }}>
-            <span className={`${styles.title} ${disabled && styles['title--disabled']}`}>{title}</span>
+        <div className={`${styles.container} ${className && className}`}>
+            <label className={`${styles.title} ${disabled && styles['title--disabled']}`}>{label}</label>
             <textarea
                 className={`${styles.textarea} ${error && styles.error} ${disabled && styles.disabled}`}
-                style={{ width: fullWidth ? '100%' : 'auto' }}
-                name={title}
-                id={title}
+                name={label}
+                id={label}
                 placeholder={placeholder}
                 disabled={disabled}
                 {...rest}
             />
-            {error && 
-                <span className={styles['error-text']}>{errorText}</span>
-            }
+            {error && <span className={styles['error-text']}>{errorText}</span>}
         </div>
     );
-}
+};

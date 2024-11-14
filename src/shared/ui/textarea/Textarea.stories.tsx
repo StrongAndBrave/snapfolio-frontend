@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import Textarea from "./Textarea";
-
+import { Textarea } from './Textarea';
 
 const meta = {
     title: 'Example/Textarea',
@@ -13,9 +12,8 @@ const meta = {
         controls: { expanded: true },
     },
     argTypes: {
-        title: { control: { type: 'text' } },
+        label: { control: { type: 'text' } },
         placeholder: { control: { type: 'text' } },
-        fullWidth: { control: { type: 'boolean' } },
         error: { control: { type: 'boolean' } },
         disabled: { control: { type: 'boolean' } },
     },
@@ -29,18 +27,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
+        label: 'Text-area',
+        placeholder: 'Text-area',
     },
 };
 
 export const Error: Story = {
     args: {
+        label: 'Text-area',
+        placeholder: 'Text-area',
         error: true,
-        errorText: 'Error text'
+        errorText: 'Error text',
     },
 };
 
 export const Disabled: Story = {
     args: {
+        label: 'Text-area',
+        placeholder: 'Text-area',
         disabled: true,
     },
 };
