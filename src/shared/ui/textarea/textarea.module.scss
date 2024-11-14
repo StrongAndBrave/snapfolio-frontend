@@ -12,10 +12,6 @@
     margin-bottom: 2px;
 
     @include apply-text-style(regular-14);
-
-    &--disabled {
-        color: $dark-100;
-    }
 }
 
 .textarea {
@@ -27,6 +23,7 @@
     color: $light-100;
     box-sizing: border-box;
     width: 100%;
+    transition: border-color $transition-normal ease-in-out;
 
     @include apply-text-style(regular-16);
 
@@ -42,7 +39,7 @@
         border-color: $danger-500;
     }
 
-    &.disabled {
+    &:disabled {
         color: $dark-100;
         pointer-events: none;
         opacity: 0.8;
