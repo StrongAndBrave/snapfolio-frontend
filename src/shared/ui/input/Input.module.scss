@@ -4,7 +4,8 @@
     gap: 5px;
 }
 
-.label {
+.eyeIcon {
+    color: $light-900;
 }
 
 .inputContainer {
@@ -15,29 +16,79 @@
         position: absolute;
         right: 8px;
         top: 50%;
-        transform: translateY(-50%);
-        color: white;
-
+        transform: translateY(-40%);
+        color: $light-100;
         cursor: pointer;
         user-select: none;
     }
+
+    .loupeIcon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-40%);
+    }
+}
+
+.label {
+    color: $light-900;
 }
 
 .inputField {
-    padding: 8px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #1c1c1c;
+    color: $light-100;
+
+    padding: 8px;
+
+    border: 1px solid $light-900;
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0); // прозрачный
     width: 100%;
     box-sizing: border-box;
 
     &:focus {
-        border-color: red; // изменяет цвет границы
-        outline: none; // убирает стандартную обводку
+        border-color: $accent-500 !important;
+        outline: none;
+    }
+
+    &:active {
+        border-color: $light-100;
+        color: $light-100;
+        outline: none;
+    }
+
+    &:hover {
+        border-color: $dark-100;
+        outline: none;
+    }
+
+    &:hover::placeholder {
+        color: $dark-100;
+    }
+
+    &[type='search'] {
+        padding-left: 41px;
+    }
+
+    &[type='password'] {
+        padding-right: 40px;
     }
 }
 
 .errorMessage {
-    color: red;
+    color: $danger-500;
+    min-height: 20px;
+}
+
+.error {
+    border-color: $danger-500;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.passwordInput {
+    padding-right: 40px;
 }
