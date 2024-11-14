@@ -1,3 +1,82 @@
-.title {
-    color: $danger-700;
+.wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.wrapper.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.hiddenCheckbox {
+    display: none;
+}
+
+.checkbox {
+    margin-right: 11px;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
+    border: 2px solid $light-100;
+    border-radius: 3px;
+    position: relative;
+    transition: $transition-normal;
+    flex-shrink: 0;
+
+    &.checked {
+        background-color: $light-100;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            border: solid $dark-900;
+            border-width: 0 2px 2px 0;
+            transform: translate(-50%, -60%) rotate(45deg);
+            top: 50%;
+            left: 50%;
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        background-color: transparent;
+        transition: $transition-normal;
+        pointer-events: none;
+    }
+
+    &:active::before {
+        background-color: $dark-100;
+    }
+
+    &:hover::before {
+        background-color: $dark-300;
+    }
+
+    &:focus::before {
+        background-color: $dark-500;
+    }
+}
+
+.wrapper.disabled .checkbox:hover::before {
+    background-color: transparent;
+}
+
+.label {
+    display: flex;
+    font-family: Inter, sans-serif;
+    font-weight: map-get($base-link, font-weight);
+    font-size: map-get($regular-link, font-size);
+    line-height: map-get($regular-link, line-height);
+    color: $light-100;
 }
