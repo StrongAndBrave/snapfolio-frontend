@@ -6,8 +6,8 @@ import './../../../shared/assets/fonts';
 const meta = {
     title: 'Components/Select',
     component: Select,
+    tags: ['autodocs'],
     argTypes: {
-        as: { control: 'text' },
         languageOptions: { control: 'object' },
         options: { control: 'object' },
         onChange: { action: 'changed' },
