@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect, ElementType, ReactNode } from 'react';
 import styles from './Select.module.scss';
+import Image from 'next/image';
 
 type Option = {
     value: string;
@@ -19,7 +20,7 @@ export type Props<T extends ElementType = 'div'> = {
     children?: ReactNode;
 } & React.ComponentProps<T>;
 
-export const Select = React.forwardRef<HTMLDivElement, Props>(
+const SelectComponent = React.forwardRef<HTMLDivElement, Props>(
     ({
         as: Component = 'div',
         languageOptions = [],
@@ -66,20 +67,26 @@ export const Select = React.forwardRef<HTMLDivElement, Props>(
         }, []);
 
         const hasLanguage = selectedOption && selectedOption.flag;
-        const classNameSelectedOption = `
+        const stylesSelectOptions = ` 
             ${styles.selected} ${isDisabled ? styles.disabled : ''} 
             ${isDropdownOpen ? styles.open : styles.closed} 
-            ${hasLanguage ? styles.withLanguage : styles.withoutLanguage}
+            ${hasLanguage ? styles['with-language'] : styles['without-language']}
         `;
         return (
-            <Component className={styles.customSelect} ref={selectRef} {...props}>
+            <Component className={styles['custom-select']} ref={selectRef} {...props}>
                 <div
-                    className={classNameSelectedOption}
+                    className={stylesSelectOptions}
                     onClick={() => !isDisabled && setDropdownOpen(prev => !prev)}
                     tabIndex={0}
                 >
                     {selectedOption && selectedOption.flag && (
-                        <img src={selectedOption.flag} alt={selectedOption.label} className={styles.flag} />
+                        <Image
+                            width={1}
+                            height={1}
+                            src={selectedOption.flag}
+                            alt={selectedOption.label}
+                            className={styles.flag}
+                        />
                     )}
                     {selectedOption ? selectedOption.label : 'Select an option'}
                 </div>
@@ -90,7 +97,13 @@ export const Select = React.forwardRef<HTMLDivElement, Props>(
                             allOptions.map(option => (
                                 <li key={option.value} onClick={() => handleChange(option)}>
                                     {option.flag && (
-                                        <img src={option.flag} alt={option.label} className={styles.flag} />
+                                        <Image
+                                            width={1}
+                                            height={1}
+                                            src={option.flag}
+                                            alt={option.label}
+                                            className={styles.flag}
+                                        />
                                     )}
                                     {option.label}
                                 </li>
@@ -105,3 +118,6 @@ export const Select = React.forwardRef<HTMLDivElement, Props>(
         );
     },
 );
+
+SelectComponent.displayName = 'Select';
+export const Select = SelectComponent;
