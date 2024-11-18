@@ -5,7 +5,7 @@ import { useState, MouseEvent } from 'react';
 import { Tab } from './Tab';
 
 const meta = {
-    title: 'Example/Tabs',
+    title: 'Components/Tabs',
     component: Tab,
     tags: ['autodocs'],
     parameters: {

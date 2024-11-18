@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ComponentPropsWithRef} from 'react';
+import React, { ChangeEvent, ComponentPropsWithRef } from 'react';
 import styles from './RadioButton.module.scss';
 
 type Props = {
@@ -7,10 +7,9 @@ type Props = {
     checked: boolean;
     children?: React.ReactNode;
     onChange: (value: string) => void;
-} & ComponentPropsWithRef<'input'>
+} & ComponentPropsWithRef<'input'>;
 
-export const RadioButton = ({name, value, checked, onChange, children, disabled = false, ...rest}: Props) => {
-
+export const RadioButton = ({ name, value, checked, onChange, children, disabled = false, ...rest }: Props) => {
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!disabled) {
             onChange(e.currentTarget.value);
