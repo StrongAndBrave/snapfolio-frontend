@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, MouseEvent, MouseEventHandler } from 'react';
-import styles from './tab.module.scss';
+import styles from './Tab.module.scss';
 
 type Props = {
     primary?: boolean;
