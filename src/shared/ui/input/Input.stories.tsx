@@ -5,11 +5,6 @@ import Input from './Input';
 const meta: Meta<typeof Input> = {
     title: 'Example/InputComponent',
     component: Input,
-    parameters: {
-        backgrounds: {
-            default: 'dark',
-        },
-    },
 };
 
 export default meta;

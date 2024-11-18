@@ -10,7 +10,6 @@
 
 .inputContainer {
     position: relative;
-    max-width: 280px;
 
     .eyeIcon {
         position: absolute;
@@ -45,6 +44,10 @@
     background-color: rgba(0, 0, 0, 0); // прозрачный
     width: 100%;
     box-sizing: border-box;
+
+    transition:
+        border-color $transition-normal,
+        color $transition-normal;
 
     &:focus {
         border-color: $accent-500 !important;
