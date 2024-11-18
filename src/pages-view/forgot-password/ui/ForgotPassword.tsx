@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const FargotPassword = () => {
+export const ForgotPassword = () => {
     return <div></div>;
 };
