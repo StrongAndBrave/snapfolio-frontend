@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: $dark-900;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.title {
+    color: $light-900;
+    margin-bottom: 2px;
+
+    @include apply-text-style(regular-14);
+}
+
+.textarea {
+    resize: none;
+    padding: 6px 12px;
+    border: 1px solid $dark-100;
+    background-color: $dark-500;
+    cursor: pointer;
+    color: $light-100;
+    box-sizing: border-box;
+    width: 100%;
+    transition: border-color $transition-normal ease-in-out;
+
+    @include apply-text-style(regular-16);
+
+    &:active {
+        border-color: $light-100;
+    }
+
+    &:focus-visible {
+        outline: 1px solid $accent-700;
+    }
+
+    &.error {
+        border-color: $danger-500;
+    }
+
+    &:disabled {
+        color: $dark-100;
+        pointer-events: none;
+        opacity: 0.8;
+    }
+}
+
+.error-text {
+    color: $danger-500;
+    font-size: 14px;
+    margin-top: 4px;
+}
