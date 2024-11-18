@@ -1,4 +1,4 @@
-import styles from './textarea.module.scss';
+import styles from './Textarea.module.scss';
 import { ComponentPropsWithoutRef } from 'react';
 
 type Props = {
@@ -18,12 +18,9 @@ export const Textarea = ({
     className,
     ...rest
 }: Props) => {
-
     return (
         <div className={`${styles.container} ${className && className}`}>
-            <label className={`${styles.title} ${disabled && styles['title-disabled']}`}>
-                {label}
-            </label>
+            <label className={`${styles.title} ${disabled && styles['title-disabled']}`}>{label}</label>
             <textarea
                 className={`${styles.textarea} ${error && styles.error}`}
                 name={label}
@@ -32,11 +29,7 @@ export const Textarea = ({
                 disabled={disabled}
                 {...rest}
             />
-            {error && 
-                <span className={styles['error-text']}>
-                    {errorText}
-                </span>
-            }
+            {error && <span className={styles['error-text']}>{errorText}</span>}
         </div>
     );
 };
