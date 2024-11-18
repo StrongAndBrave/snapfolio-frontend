@@ -75,8 +75,6 @@
 .label {
     display: flex;
     font-family: Inter, sans-serif;
-    font-weight: map-get($base-link, font-weight);
-    font-size: map-get($regular-link, font-size);
-    line-height: map-get($regular-link, line-height);
+    @include apply-text-style(regular-14);
     color: $light-100;
 }

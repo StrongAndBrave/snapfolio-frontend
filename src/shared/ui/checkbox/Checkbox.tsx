@@ -7,7 +7,7 @@ type Props = {
     children?: React.ReactNode;
 } & ComponentPropsWithRef<'input'>;
 
-export const Checkbox = ({ checked, onChange, children, disabled = false, ...rest }: Props) => {
+export const Checkbox = ({ checked, onChange, children, disabled, ...rest }: Props) => {
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!disabled) {
             onChange(e.currentTarget.checked);
@@ -29,7 +29,7 @@ export const Checkbox = ({ checked, onChange, children, disabled = false, ...res
                 {...rest}
             />
             <div
-                className={`${styles.checkbox} ${checked ? styles.checked : ''} ${disabled ? styles.disabled : ''}`}
+                className={`${styles.checkbox} ${checked ? styles.checked : ''}`}
                 tabIndex={0}
                 onClick={handleResetFocus}
             />
@@ -37,4 +37,3 @@ export const Checkbox = ({ checked, onChange, children, disabled = false, ...res
         </label>
     );
 };
-
