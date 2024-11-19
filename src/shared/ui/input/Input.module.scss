@@ -1,7 +1,6 @@
 .inputWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    font-family: Inter, sans-serif;
+    @include apply-text-style(regular-16);
 }
 
 .eyeIcon {
@@ -10,7 +9,6 @@
 
 .inputContainer {
     position: relative;
-    max-width: 280px;
 
     .eyeIcon {
         position: absolute;
@@ -26,7 +24,7 @@
         position: absolute;
         left: 10px;
         top: 50%;
-        transform: translateY(-40%);
+        transform: translateY(-35%);
     }
 }
 
@@ -46,10 +44,9 @@
     width: 100%;
     box-sizing: border-box;
 
-    &:focus {
-        border-color: $accent-500 !important;
-        outline: none;
-    }
+    transition:
+        border-color $transition-normal,
+        color $transition-normal;
 
     &:active {
         border-color: $light-100;
@@ -59,6 +56,11 @@
 
     &:hover {
         border-color: $dark-100;
+        outline: none;
+    }
+
+    &:focus {
+        border-color: $accent-500;
         outline: none;
     }
 
@@ -80,15 +82,11 @@
     min-height: 20px;
 }
 
-.error {
+.inputField.error {
     border-color: $danger-500;
 }
 
 .disabled {
     pointer-events: none;
     opacity: 0.5;
-}
-
-.passwordInput {
-    padding-right: 40px;
 }
