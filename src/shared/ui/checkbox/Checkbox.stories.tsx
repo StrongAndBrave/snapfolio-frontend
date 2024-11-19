@@ -4,7 +4,7 @@ import { fn } from '@storybook/test';
 import { Checkbox } from './Checkbox';
 
 const meta = {
-    title: 'Example/Checkbox',
+    title: 'Components/Checkbox',
     component: Checkbox,
     parameters: {
         layout: 'centered',

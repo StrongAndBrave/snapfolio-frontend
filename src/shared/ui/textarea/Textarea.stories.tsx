@@ -4,7 +4,7 @@ import { fn } from '@storybook/test';
 import { Textarea } from './Textarea';
 
 const meta = {
-    title: 'Example/Textarea',
+    title: 'Components/Textarea',
     component: Textarea,
     tags: ['autodocs'],
     parameters: {
