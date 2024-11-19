@@ -23,7 +23,7 @@ export const Input = ({ type, error, disabled, label, ...rest }: Props) => {
                 />
             </div>
 
-            <div className={s.errorMessage}>{error ? error : ''}</div>
+            <div className={s.errorMessage}>{error || ''}</div>
         </div>
     );
 };
