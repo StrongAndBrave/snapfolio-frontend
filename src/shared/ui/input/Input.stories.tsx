@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import Input from './Input';
 import { PasswordInput } from './Password/PasswordInput';
+import { SearchInput } from './Search/SearchInput';
 
 const meta: Meta<typeof Input> = {
     title: 'Example/InputComponent',
@@ -15,30 +16,24 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
     render: () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <Input type="email" label="Email" variant="text" placeholder="Epam@epam.com" />
-            <Input type="password" label="Password" variant="text" placeholder="Password" />
-            <Input type="search" label="Search" variant="search" placeholder="Input search" />
+            <Input type={'text'} label="Default" />
+            <Input type={'text'} error="Заполните поле" label="Default" />
+            <Input type={'text'} disabled label="Default" />
         </div>
     ),
 };
 
-export const Error: Story = {
+export const Email: Story = {
     render: () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <Input type="email" error="Заполните это поле" label="Email" variant="text" placeholder="Epam@epam.com" />
-            <Input type="password" error="Заполните это поле" label="Password" variant="text" placeholder="Password" />
-            <Input
-                type="search"
-                error="Заполните это поле"
-                label="Search"
-                variant="search"
-                placeholder="Input search"
-            />
+            <Input type={'email'} label="Email" />
+            <Input type={'email'} error="Заполните поле" label="Email" />
+            <Input type={'email'} disabled label="Email" />
         </div>
     ),
 };
 
-export const Disabled: Story = {
+export const Password: Story = {
     render: () => (
         <div
             style={{
@@ -47,17 +42,25 @@ export const Disabled: Story = {
                 gap: '10px',
             }}
         >
-            <Input type="email" disabled={true} label="Email" variant="text" placeholder="Epam@epam.com" />
-            <Input type="password" disabled={true} label="Password" variant="text" placeholder="Password" />
-            <Input type="search" disabled={true} label="Search" variant="search" placeholder="Input search" />
+            <PasswordInput />
+            <PasswordInput error="Обязательное поле" />
+            <PasswordInput disabled />
         </div>
     ),
 };
 
-export const Password: Story = {
+export const Search: Story = {
     render: () => (
-        <div>
-            <PasswordInput label="Password" />
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+            }}
+        >
+            <SearchInput />
+            <SearchInput error="Заполните поле" />
+            <SearchInput disabled />
         </div>
     ),
 };
