@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import Input from './Input';
+import { PasswordInput } from './Password/PasswordInput';
 
 const meta: Meta<typeof Input> = {
     title: 'Example/InputComponent',
@@ -49,6 +50,14 @@ export const Disabled: Story = {
             <Input type="email" disabled={true} label="Email" variant="text" placeholder="Epam@epam.com" />
             <Input type="password" disabled={true} label="Password" variant="text" placeholder="Password" />
             <Input type="search" disabled={true} label="Search" variant="search" placeholder="Input search" />
+        </div>
+    ),
+};
+
+export const Password: Story = {
+    render: () => (
+        <div>
+            <PasswordInput label="Password" />
         </div>
     ),
 };
