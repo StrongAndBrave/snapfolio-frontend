@@ -1,4 +1,6 @@
 .inputWrapper {
+    font-family: Inter, sans-serif;
+    @include apply-text-style(regular-16);
 }
 
 .eyeIcon {
@@ -46,11 +48,6 @@
         border-color $transition-normal,
         color $transition-normal;
 
-    &:focus {
-        border-color: $accent-500 !important;
-        outline: none;
-    }
-
     &:active {
         border-color: $light-100;
         color: $light-100;
@@ -59,6 +56,11 @@
 
     &:hover {
         border-color: $dark-100;
+        outline: none;
+    }
+
+    &:focus {
+        border-color: $accent-500;
         outline: none;
     }
 
@@ -80,15 +82,11 @@
     min-height: 20px;
 }
 
-.error {
+.inputField.error {
     border-color: $danger-500;
 }
 
 .disabled {
     pointer-events: none;
     opacity: 0.5;
-}
-
-.passwordInput {
-    padding-right: 40px;
 }

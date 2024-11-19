@@ -1,4 +1,3 @@
-'use client';
 import React, { ComponentPropsWithRef } from 'react';
 import s from './Input.module.scss';
 
@@ -10,7 +9,7 @@ type Props = {
     label?: string;
 } & ComponentPropsWithRef<'input'>;
 
-const Input = ({ type, error, disabled, label, ...rest }: Props) => {
+export const Input = ({ type, error, disabled, label, ...rest }: Props) => {
     return (
         <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
             {label && <label className={s.label}>{label}</label>}
@@ -28,5 +27,3 @@ const Input = ({ type, error, disabled, label, ...rest }: Props) => {
         </div>
     );
 };
-
-export default Input;

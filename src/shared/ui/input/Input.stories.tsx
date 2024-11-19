@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import Input from './Input';
-import { PasswordInput } from './Password/PasswordInput';
-import { SearchInput } from './Search/SearchInput';
+import { Input } from './Input';
+import { Password } from '../password/Password';
+import { Search } from '../search/Search';
 
 const meta: Meta<typeof Input> = {
-    title: 'Example/InputComponent',
+    title: 'components/Input',
     component: Input,
 };
 
@@ -33,7 +33,7 @@ export const Email: Story = {
     ),
 };
 
-export const Password: Story = {
+export const Passwords: Story = {
     render: () => (
         <div
             style={{
@@ -42,14 +42,14 @@ export const Password: Story = {
                 gap: '10px',
             }}
         >
-            <PasswordInput />
-            <PasswordInput error="Обязательное поле" />
-            <PasswordInput disabled />
+            <Password />
+            <Password error="Обязательное поле" />
+            <Password disabled />
         </div>
     ),
 };
 
-export const Search: Story = {
+export const Searches: Story = {
     render: () => (
         <div
             style={{
@@ -58,9 +58,9 @@ export const Search: Story = {
                 gap: '10px',
             }}
         >
-            <SearchInput />
-            <SearchInput error="Заполните поле" />
-            <SearchInput disabled />
+            <Search />
+            <Search error="Заполните поле" />
+            <Search disabled />
         </div>
     ),
 };

@@ -1,14 +1,12 @@
-'use client';
-
 import React, { useState, ComponentPropsWithRef } from 'react';
-import s from './../Input.module.scss';
+import s from './../input/Input.module.scss';
 import { LoupeIcon } from './icons/LoupeIcon';
 
 type Props = {
     error?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const SearchInput = ({ error, disabled, ...rest }: Props) => {
+export const Search = ({ error, disabled, ...rest }: Props) => {
     return (
         <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
             <div className={s.inputContainer}>

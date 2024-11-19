@@ -1,11 +1,11 @@
-import { FC, memo, SVGProps } from 'react';
+import { FC, SVGProps } from 'react';
 
 type Props = SVGProps<SVGSVGElement> & {
     size?: number;
     color?: string;
 };
 
-export const EyeOnIcon: FC<Props> = memo(({ size = 24, color = 'currentColor', ...rest }) => (
+export const EyeOnIcon: FC<Props> = ({ size = 24, color = 'currentColor', ...rest }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...rest}>
         <path
             d="M21.87 11.5C21.23 10.39 17.71 4.81 11.73 5C6.2 5.14 3 10 2.13 11.5C2.04 11.65 1.99 11.82 1.99 12C1.99 12.17 2.04 12.34 2.13 12.5C2.76 13.59 6.13 19 12.02 19L12.27 19C17.79 18.86 21.01 14 21.87 12.5C21.95 12.34 22 12.17 22 12C22 11.82 21.95 11.65 21.87 11.5ZM12.22 17C7.91 17.1 5.1 13.41 4.22 12C5.22 10.39 7.83 7.09 11.83 7C16.12 6.89 18.94 10.59 19.83 12C18.79 13.61 16.22 16.9 12.22 17Z"
@@ -16,4 +16,4 @@ export const EyeOnIcon: FC<Props> = memo(({ size = 24, color = 'currentColor', .
             fill={color}
         />
     </svg>
-));
+);

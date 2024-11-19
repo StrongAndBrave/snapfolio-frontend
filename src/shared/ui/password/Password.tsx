@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, ComponentPropsWithRef } from 'react';
-import s from './../Input.module.scss';
+import s from './../input/Input.module.scss';
 import { EyeOnIcon } from './icons/EyeOnIcon';
 import { EyeOffIcon } from './icons/EyeOffIcon';
 
@@ -9,7 +9,7 @@ type Props = {
     error?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const PasswordInput = ({ error, disabled, ...rest }: Props) => {
+export const Password = ({ error, disabled, ...rest }: Props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const handleChangeCurrentType = () => {
