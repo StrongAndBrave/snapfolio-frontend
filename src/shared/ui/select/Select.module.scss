@@ -12,13 +12,13 @@ $border-radius: 3px;
     .selected {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: normal;
         background-color: $dark-900;
         background-repeat: no-repeat;
         background-position: right 10px center;
         border: 1px solid $dark-100;
         border-radius: $border-radius;
-        padding: 5px 40px 5px 12px;
+        padding: 5px 35px 5px 12px;
         cursor: pointer;
 
         &:hover {
@@ -54,12 +54,17 @@ $border-radius: 3px;
         }
 
         &.with-language {
-            min-width: 84px;
+            min-width: 163px;
             min-height: 36px;
         }
 
         &.without-language {
             min-width: 210px;
+            min-height: 36px;
+        }
+
+        &.with-language-icon {
+            min-width: 84px;
             min-height: 36px;
         }
     }

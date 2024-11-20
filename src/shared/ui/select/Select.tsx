@@ -10,37 +10,24 @@ type Option = {
 };
 
 export type Props = {
-    languageOptions?: Option[];
     options?: Option[];
     onChange?: (value: string) => void;
-    defaultLanguage?: Option;
     value?: string;
     isDisabled?: boolean;
     children?: ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Select = ({
-    languageOptions = [],
-    options = [],
-    onChange,
-    defaultLanguage,
-    value,
-    isDisabled = false,
-    ...props
-}: Props) => {
-    const allOptions = languageOptions.length > 0 ? languageOptions : options;
-    const [selectedOption, setSelectedOption] = useState<Option | null>(
-        defaultLanguage || (allOptions.length > 0 ? allOptions[0] : null),
-    );
+export const Select = ({ options = [], onChange, value, isDisabled = false, ...props }: Props) => {
+    const [selectedOption, setSelectedOption] = useState<Option | null>(options.length > 0 ? options[0] : null);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const selectRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (value) {
-            const option = allOptions.find(opt => opt.value === value);
+            const option = options.find(opt => opt.value === value);
             setSelectedOption(option || null);
         }
-    }, [value, allOptions]);
+    }, [value, options]);
 
     const handleChange = (option: Option) => {
         setSelectedOption(option);
@@ -63,11 +50,13 @@ export const Select = ({
         };
     }, []);
 
-    const hasLanguage = selectedOption && selectedOption.flag;
+    const hasFlag = selectedOption?.flag;
+    const hasFlagIcon = selectedOption?.label.length === 0;
     const stylesSelectOptions = ` 
             ${styles.selected} ${isDisabled ? styles.disabled : ''} 
             ${isDropdownOpen ? styles.open : styles.closed} 
-            ${hasLanguage ? styles['with-language'] : styles['without-language']}
+            ${hasFlag ? styles['with-language'] : styles['without-language']}
+            ${hasFlagIcon && hasFlag ? styles['with-language-icon'] : ''}
         `;
     return (
         <div className={styles['custom-select']} ref={selectRef} {...props}>
@@ -90,8 +79,8 @@ export const Select = ({
 
             {isDropdownOpen && (
                 <ul className={styles.dropdown}>
-                    {allOptions.length > 0 ? (
-                        allOptions.map(option => (
+                    {options.length > 0 ? (
+                        options.map(option => (
                             <li key={option.value} onClick={() => handleChange(option)}>
                                 {option.flag && (
                                     <Image

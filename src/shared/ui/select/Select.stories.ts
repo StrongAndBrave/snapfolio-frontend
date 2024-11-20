@@ -8,10 +8,8 @@ const meta = {
     component: Select,
     tags: ['autodocs'],
     argTypes: {
-        languageOptions: { control: 'object' },
         options: { control: 'object' },
         onChange: { action: 'changed' },
-        defaultLanguage: { control: 'object' },
         value: { control: 'text' },
         isDisabled: { control: 'boolean' },
         children: { control: 'text' },
@@ -33,20 +31,18 @@ export const Default: Story = {
 };
 export const Language: Story = {
     args: {
-        languageOptions: [
+        options: [
             { value: 'en', label: 'English', flag: '/svg/en.svg' },
             { value: 'ru', label: 'Russian', flag: '/svg/ru.svg' },
         ],
-        defaultLanguage: { value: 'en', label: 'English', flag: '/svg/en.svg' },
     },
 };
 export const LanguageIcon: Story = {
     args: {
-        languageOptions: [
+        options: [
             { value: 'en', label: '', flag: '/svg/en.svg' },
             { value: 'ru', label: '', flag: '/svg/ru.svg' },
         ],
-        defaultLanguage: { value: 'ru', label: '', flag: '/svg/ru.svg' },
     },
 };
 export const Disabled: Story = {
