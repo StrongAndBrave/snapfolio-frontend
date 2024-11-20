@@ -1,4 +1,4 @@
-import React, { useState, ComponentPropsWithRef } from 'react';
+import React, { ComponentPropsWithRef } from 'react';
 import s from './../input/Input.module.scss';
 import { LoupeIcon } from './icons/LoupeIcon';
 
