@@ -7,9 +7,10 @@ import { EyeOffIcon } from './icons/EyeOffIcon';
 
 type Props = {
     error?: string;
+    label?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const Password = ({ error, disabled, ...rest }: Props) => {
+export const Password = ({ error, disabled, label, ...rest }: Props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const handleChangeCurrentType = () => {
@@ -21,7 +22,7 @@ export const Password = ({ error, disabled, ...rest }: Props) => {
 
     return (
         <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
-            <label className={s.label}>Password</label>
+            <label className={s.label}> {label ? label : 'Password'}</label>
 
             <div className={s.inputContainer}>
                 <input
