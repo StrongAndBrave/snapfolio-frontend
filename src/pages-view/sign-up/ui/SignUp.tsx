@@ -7,6 +7,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { z, ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import styles from './SignUp.module.scss';
+import { useState } from 'react';
+import { Modal } from '@/features/modal';
 
 // import dynamic from 'next/dynamic';
 
@@ -43,12 +45,16 @@ const schema: ZodType<Inputs> = z
         passwordConfirm: z.string(),
         checkbox: z.literal(true),
     })
+    .required()
     .refine(data => data.password === data.passwordConfirm, {
         message: 'Passwords must match',
         path: ['passwordConfirm'],
     });
 
 export const SignUp = () => {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [emailData, setEmailData] = useState('');
+
     const {
         register,
         handleSubmit,
@@ -58,13 +64,14 @@ export const SignUp = () => {
 
     const onSubmit: SubmitHandler<Inputs> = data => {
         console.log(data);
+        setEmailData(data.email);
+        setIsOpenModal(true);
         reset();
     };
-    const onClick = () => {
-        console.log(errors);
-    };
 
-    console.log('errors', errors);
+    const onModalClose = () => {
+        setIsOpenModal(false);
+    };
 
     const isSubmitBtnDisabled = !!Object.keys(errors).length;
 
@@ -74,7 +81,7 @@ export const SignUp = () => {
                 <div className={styles.header}>
                     <h1>Sign Up</h1>
                     <div className={styles['buttons-wrapper']}>
-                        <button onClick={onClick}>
+                        <button>
                             <Image src={'/svg/google.svg'} width={36} height={36} alt={'google logo'} />
                         </button>
                         <button>
@@ -105,7 +112,6 @@ export const SignUp = () => {
                         type={'submit'}
                         className={styles.submit}
                         fullWidth
-                        onClick={onClick}
                         disabled={isSubmitBtnDisabled}
                     >
                         Sign Up
@@ -118,6 +124,18 @@ export const SignUp = () => {
                     </Button>
                 </div>
             </div>
+
+            {/* modal window */}
+            {isOpenModal && (
+                <Modal onClose={onModalClose} title={'Email sent'}>
+                    <div className={styles['modal-content']}>
+                        <p>We have sent a link to confirm your email to {emailData || 'epam@epam.com'}</p>
+                        <Button variant={'contained'} onClick={onModalClose} className={styles['modal-button']}>
+                            OK
+                        </Button>
+                    </div>
+                </Modal>
+            )}
         </div>
     );
 };

@@ -56,3 +56,13 @@
 .submit {
   margin-top: 12px;
 }
+
+.modal-content{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-button{
+  align-self: flex-end;
+}

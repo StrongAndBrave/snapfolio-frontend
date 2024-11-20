@@ -1,0 +1,43 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+  background-color: $dark-300;
+  border: 1px solid $dark-100;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  max-width: 378px;
+}
+
+.header {
+  width: 100%;
+  padding: 12px 24px;
+  border-bottom: 1px solid $dark-100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title{
+  @include apply-text-style(h1);
+}
+
+.button-close {
+  width: 24px;
+  height: 24px;
+  background-image: url('/svg/close.svg');
+}
+
+.content {
+  padding: 30px 24px;
+}

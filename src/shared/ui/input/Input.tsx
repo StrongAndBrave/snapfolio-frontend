@@ -7,9 +7,10 @@ type Props = {
     type: InputTypes;
     error?: string;
     label?: string;
+    placeholder?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const Input = ({ type, error, disabled, label, ...rest }: Props) => {
+export const Input = ({ type, error, disabled, label, placeholder, ...rest }: Props) => {
     return (
         <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
             {label && <label className={s.label}>{label}</label>}
@@ -18,7 +19,7 @@ export const Input = ({ type, error, disabled, label, ...rest }: Props) => {
                 <input
                     type={type}
                     className={`${s.inputField} ${error ? s.error : ''}  `}
-                    placeholder={type === 'email' ? 'Epam@epam.com ' : ''}
+                    placeholder={placeholder ?? label}
                     {...rest}
                 />
             </div>
