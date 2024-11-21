@@ -10,11 +10,14 @@
 }
 
 .hiddenCheckbox {
-    display: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    pointer-events: all;
 }
 
 .checkbox {
-    margin-right: 11px;
     width: 18px;
     height: 18px;
     background-color: transparent;
@@ -23,6 +26,8 @@
     position: relative;
     transition: $transition-normal;
     flex-shrink: 0;
+    z-index: 2;
+    outline: 0;
 
     &.checked {
         background-color: $light-100;
@@ -39,37 +44,49 @@
             left: 50%;
         }
     }
-
-    &::before {
-        content: '';
-        position: absolute;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: -1;
-        background-color: transparent;
-        transition: $transition-normal;
-        pointer-events: none;
-    }
-
-    &:active::before {
-        background-color: $dark-100;
-    }
-
-    &:hover::before {
-        background-color: $dark-300;
-    }
-
-    &:focus::before {
-        background-color: $dark-500;
-    }
 }
 
 .wrapper.disabled .checkbox:hover::before {
     background-color: transparent;
+}
+
+.outline {
+    position: relative;
+    margin-right: 11px;
+}
+.outlineBg {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: $transition-normal;
+    pointer-events: none;
+    font-size: 0;
+    color: transparent;
+}
+
+.outline:hover .outlineBg {
+    width: 36px;
+    height: 36px;
+    background-color: $dark-300;
+}
+
+.hiddenCheckbox:active + .outlineBg {
+    width: 36px;
+    height: 36px;
+    background-color: $dark-100;
+}
+
+.hiddenCheckbox:focus-visible + .outlineBg {
+    width: 36px;
+    height: 36px;
+    background-color: $dark-500;
+    border: 1px solid $light-100;
 }
 
 .label {
