@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef, ChangeEvent } from 'react';
+import React, {ComponentPropsWithRef, ChangeEvent} from 'react';
 import styles from './Checkbox.module.scss';
 
 type Props = {

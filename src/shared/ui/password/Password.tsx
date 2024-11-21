@@ -10,7 +10,7 @@ type Props = {
     label?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const Password = ({ error, disabled, label, ...rest }: Props) => {
+export const Password = ({ error, disabled, label, placeholder, className, ...rest }: Props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const handleChangeCurrentType = () => {
@@ -21,7 +21,7 @@ export const Password = ({ error, disabled, label, ...rest }: Props) => {
     const eyeIcon = isVisible ? <EyeOnIcon /> : <EyeOffIcon />;
 
     return (
-        <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
+        <div className={`${s.inputWrapper} ${className} ${disabled ? s.disabled : ''}`}>
             <label className={s.label}> {label ? label : 'Password'}</label>
 
             <div className={s.inputContainer}>
@@ -31,7 +31,7 @@ export const Password = ({ error, disabled, label, ...rest }: Props) => {
                         ${s.inputField} 
                         ${error ? s.error : ''} 
                         ${s.passwordInput}`}
-                    placeholder="Password"
+                    placeholder={placeholder}
                     {...rest}
                 />
                 <div className={s.eyeIcon} onClick={handleChangeCurrentType}>
