@@ -9,19 +9,15 @@ type Props = {
     onChange: (value: string) => void;
 } & ComponentPropsWithRef<'input'>;
 
-export const RadioButton = ({ name, value, checked, onChange, children, disabled = false, ...rest }: Props) => {
+export const RadioButton = ({ name, value, checked, onChange, children, disabled, className, ...rest }: Props) => {
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!disabled) {
             onChange(e.currentTarget.value);
         }
     };
 
-    const handleResetFocus = (e: React.MouseEvent) => {
-        (e.currentTarget as HTMLElement).blur();
-    };
-
     return (
-        <label className={`${styles.wrapper} ${disabled ? styles.disabled : ''}`}>
+        <label className={`${styles.wrapper} ${className} ${disabled ? styles.disabled : ''}`}>
             <input
                 type="radio"
                 name={name}
@@ -32,7 +28,7 @@ export const RadioButton = ({ name, value, checked, onChange, children, disabled
                 className={styles.radioInput}
                 {...rest}
             />
-            <span onClick={handleResetFocus} className={styles.customRadio} tabIndex={0}></span>
+            <span className={styles.customRadio} aria-hidden></span>
             {children && <span className={styles.label}>{children}</span>}
         </label>
     );
