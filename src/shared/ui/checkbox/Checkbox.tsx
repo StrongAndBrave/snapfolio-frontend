@@ -5,7 +5,6 @@ type Props = {
     checked: boolean;
     onChange: (checked: boolean) => void;
     children?: React.ReactNode;
-    className?: string;
 } & ComponentPropsWithRef<'input'>;
 
 export const Checkbox = ({ checked, onChange, children, disabled, className, ...rest }: Props) => {
