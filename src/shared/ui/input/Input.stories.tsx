@@ -16,9 +16,9 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
     render: () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <Input type={'text'} label="Default" />
-            <Input type={'text'} error="Заполните поле" label="Default" />
-            <Input type={'text'} disabled label="Default" />
+            <Input type={'text'} label="Default" placeholder="text" />
+            <Input type={'text'} error="Заполните поле" label="Default" placeholder="text" />
+            <Input type={'text'} disabled label="Default" placeholder="text" />
         </div>
     ),
 };
