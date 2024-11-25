@@ -15,6 +15,7 @@ export const Search = ({ error, disabled, ...rest }: Props) => {
                     className={` 
                         ${s.inputField} 
                         ${error ? s.error : ''} 
+                        ${s.searchInput}
                     `}
                     placeholder="Input search"
                     {...rest}

@@ -67,14 +67,14 @@
     &:hover::placeholder {
         color: $dark-100;
     }
+}
 
-    &[type='search'] {
-        padding-left: 41px;
-    }
+.passwordInput {
+    padding-right: 40px;
+}
 
-    &[type='password'] {
-        padding-right: 40px;
-    }
+.searchInput {
+    padding-left: 41px;
 }
 
 .errorMessage {
