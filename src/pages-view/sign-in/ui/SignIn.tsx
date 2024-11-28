@@ -1,9 +1,10 @@
 import React from 'react';
+import {SignInWidget} from "@/widgets/sign-in";
 
 export const SignIn = () => {
     return (
-        <div>
-            <h1>Sign In</h1>
-        </div>
+        <>
+            <SignInWidget/>
+        </>
     );
 };

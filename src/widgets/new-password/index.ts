@@ -1,0 +1,1 @@
+export { NewPasswordWidget } from './ui/NewPassword'
