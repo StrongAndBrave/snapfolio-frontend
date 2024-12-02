@@ -38,34 +38,43 @@
 
     padding: 8px;
 
-    border: 1px solid $light-900;
+    border: 1px solid $dark-100;
     border-radius: 2px;
-    background-color: rgba(0, 0, 0, 0); // прозрачный
+    background-color: transparent;
     width: 100%;
     box-sizing: border-box;
+    outline: 0;
 
     transition:
         border-color $transition-normal,
         color $transition-normal;
 
+    &::placeholder {
+        color: $light-900;
+    }
+
     &:active {
         border-color: $light-100;
-        color: $light-100;
-        outline: none;
     }
 
     &:hover {
-        border-color: $dark-100;
-        outline: none;
+        border-color: $light-900;
     }
 
-    &:focus {
+    &:focus-visible {
         border-color: $accent-500;
-        outline: none;
     }
 
     &:hover::placeholder {
         color: $dark-100;
+    }
+
+    &[type='search'] {
+        padding-left: 41px;
+    }
+
+    &[type='password'] {
+        padding-right: 40px;
     }
 }
 
@@ -79,7 +88,8 @@
 
 .errorMessage {
     color: $danger-500;
-    min-height: 20px;
+    min-height: 24px;
+    @include apply-text-style(regular-14);
 }
 
 .inputField.error {
