@@ -18,6 +18,10 @@ export const metadata: Metadata = {
 export const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <html lang="en">
+            <head>
+                <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
+                <link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
+            </head>
             <body className={`${inter.variable}`}>{children}</body>
         </html>
     );
