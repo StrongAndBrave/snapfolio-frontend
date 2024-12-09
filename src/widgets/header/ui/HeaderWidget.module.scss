@@ -1,0 +1,81 @@
+.header {
+    padding: 12px 60px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid $dark-300;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: $dark-700;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav,
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.nav-auth {
+    min-width: 400px;
+}
+
+.auth-btns {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-mobile {
+    position: relative;
+}
+
+.more svg {
+    fill: $light-100;
+}
+
+.open svg {
+    fill: $accent-500;
+}
+
+.menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 12px;
+    background-color: $dark-500;
+    border: 1px solid $dark-100;
+    min-width: 160px;
+    @include apply-text-style(small);
+
+    button {
+        color: $light-100;
+        font-size: inherit;
+    }
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .nav {
+        display: block;
+        margin-left: auto;
+        min-width: 120px;
+    }
+
+    .nav-auth {
+        min-width: 100px;
+    }
+
+    .header {
+        padding: 12px 15px;
+    }
+}

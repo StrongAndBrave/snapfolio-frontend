@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/app/styles/styles.scss';
 import { inter } from '@/shared/assets/fonts';
+import { ClientLayout } from '@/widgets/layouts/client-layout';
 
 export const metadata: Metadata = {
     title: 'Inctagram',
@@ -22,7 +23,9 @@ export const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>
                 <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
                 <link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
             </head>
-            <body className={`${inter.variable}`}>{children}</body>
+            <body className={`${inter.variable}`}>
+                <ClientLayout>{children}</ClientLayout>
+            </body>
         </html>
     );
 };

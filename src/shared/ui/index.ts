@@ -7,3 +7,8 @@ export { RadioButton } from './radiobutton';
 export { Input } from './input';
 export { Password } from './password';
 export { Search } from './search';
+export { Logo } from './logo';
+export { NotificationBtn } from './notification-btn';
+export { BtnAuth } from './btn-auth';
+export { ButtonUI } from './buttonUI';
+export { Modal } from './modal';

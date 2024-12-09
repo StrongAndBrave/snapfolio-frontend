@@ -1,0 +1,41 @@
+.container {
+    max-width: 972px;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 36px;
+
+    @include apply-text-style(h2);
+    background-color: $dark-500;
+    border: 1px solid $dark-300;
+    border-radius: 2px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+}
+
+.count {
+    border: 1px solid $dark-300;
+    border-radius: 2px;
+}
+
+.list {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    background-color: $dark-700;
+}
+
+.cell {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+
+    &:not(:last-child) {
+        border-right: 1px solid $dark-300;
+    }
+}

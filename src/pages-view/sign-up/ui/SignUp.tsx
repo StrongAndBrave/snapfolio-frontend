@@ -1,9 +1,5 @@
-import React from 'react';
+import { AuthWidget } from '@/widgets/auth';
 
 export const SignUp = () => {
-    return (
-        <div>
-            <h1>Sign Up</h1>
-        </div>
-    );
+    return <AuthWidget type="sign-up" />;
 };

@@ -1,0 +1,70 @@
+.link {
+    color: $accent-300;
+
+    @include apply-text-style(small);
+
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: color $transition-normal ease-in-out;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 4px;
+        width: 100%;
+        border-bottom: 1px solid $accent-300;
+    }
+
+    &:hover {
+        color: $accent-500;
+
+        &::after {
+            color: $accent-500;
+        }
+    }
+
+    &:active {
+        color: $accent-100;
+
+        &::after {
+            color: $accent-100;
+        }
+    }
+}
+
+.with-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity $transition-normal ease-in-out;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &:active {
+        opacity: 0.6;
+    }
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .text {
+        display: none;
+    }
+
+    .with-icon {
+        @include apply-text-style(small);
+    }
+}

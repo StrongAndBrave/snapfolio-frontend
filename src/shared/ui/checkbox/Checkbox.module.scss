@@ -1,97 +1,108 @@
-.wrapper {
+.label {
+    position: relative;
     display: flex;
     align-items: center;
+    gap: 8px;
+    color: $light-100;
     cursor: pointer;
+    z-index: 0;
+
+    @include apply-text-style(regular-14);
+
+    &:has(.input:disabled) {
+        opacity: 0.7;
+        cursor: default;
+    }
 }
 
-.wrapper.disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-.hiddenCheckbox {
+.input {
+    position: absolute;
+    opacity: 0;
     width: 0;
     height: 0;
-    opacity: 0;
-    position: absolute;
-    pointer-events: all;
+    pointer-events: none;
+
+    &:focus-visible + .fake::after {
+        opacity: 1;
+        background-color: $dark-500;
+    }
+
+    &:checked + .fake::before,
+    &:checked + .fake {
+        opacity: 1;
+        background-color: $light-100;
+    }
+
+    &:disabled + .fake::after {
+        content: none;
+    }
+
+    &:disabled + .fake {
+        cursor: default;
+    }
 }
 
-.checkbox {
-    width: 18px;
+.fake {
+    margin-right: 11px;
+    position: relative;
+    display: block;
     height: 18px;
+    width: 18px;
+    border-radius: 2px;
     background-color: transparent;
     border: 2px solid $light-100;
-    border-radius: 3px;
-    position: relative;
-    transition: $transition-normal;
-    flex-shrink: 0;
-    z-index: 2;
-    outline: 0;
+    cursor: pointer;
 
-    &.checked {
-        background-color: $light-100;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        //opacity: 0;
+        transform: translate(-50%, -50%);
+        background-color: transparent;
+        z-index: 0;
+        transition: $transition-normal;
+    }
 
+    &::before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 10px;
+        border: solid $dark-900;
+        border-width: 0 2px 2px 0;
+        opacity: 0;
+        transform: translate(-50%, -60%) rotate(45deg);
+        top: 50%;
+        left: 50%;
+    }
+
+    &:hover {
         &::after {
-            content: '';
-            position: absolute;
-            width: 5px;
-            height: 10px;
-            border: solid $dark-900;
-            border-width: 0 2px 2px 0;
-            transform: translate(-50%, -60%) rotate(45deg);
-            top: 50%;
-            left: 50%;
+            width: 36px;
+            height: 36px;
+            background-color: $dark-300;
+        }
+    }
+
+    &:active {
+        &::after {
+            width: 36px;
+            height: 36px;
+            background-color: $dark-100;
         }
     }
 }
 
-.wrapper.disabled .checkbox:hover::before {
-    background-color: transparent;
-}
-
-.outline {
-    position: relative;
-    margin-right: 11px;
-}
-.outlineBg {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    transition: $transition-normal;
-    pointer-events: none;
-    font-size: 0;
-    color: transparent;
-}
-
-.outline:hover .outlineBg {
-    width: 36px;
-    height: 36px;
-    background-color: $dark-300;
-}
-
-.hiddenCheckbox:active + .outlineBg {
-    width: 36px;
-    height: 36px;
-    background-color: $dark-100;
-}
-
-.hiddenCheckbox:focus-visible + .outlineBg {
-    width: 36px;
-    height: 36px;
-    background-color: $dark-500;
-    border: 1px solid $light-100;
-}
-
-.label {
+.text {
     display: flex;
-    font-family: Inter, sans-serif;
-    @include apply-text-style(regular-14);
-    color: $light-100;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    @include apply-text-style(small);
 }
