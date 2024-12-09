@@ -1,0 +1,8 @@
+.recaptcha {
+    display: flex;
+    justify-content: center;
+}
+
+.recaptcha .rc-anchor-dark {
+    background: #171717;
+}

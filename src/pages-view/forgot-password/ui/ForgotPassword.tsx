@@ -1,5 +1,5 @@
-import React from 'react';
+import { AuthWidget } from '@/widgets/auth';
 
 export const ForgotPassword = () => {
-    return <div></div>;
+    return <AuthWidget type="forgot" />;
 };

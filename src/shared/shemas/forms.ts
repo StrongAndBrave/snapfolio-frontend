@@ -42,7 +42,18 @@ export const formRegisterSchema = defaulFieldsSchema
         path: ['confirm_password'],
     });
 
+export const formRecoveryPasswordSchema = z
+    .object({
+        password: passwordSchema,
+        confirm_password: z.string(),
+    })
+    .refine(data => data.password === data.confirm_password, {
+        message: 'The passwords must match',
+        path: ['confirm_password'],
+    });
+
 export type TDefauldFields = z.infer<typeof defaulFieldsSchema>;
 export type TFormRegisterSchema = z.infer<typeof formRegisterSchema>;
 export type TLoginFieldsSchema = z.infer<typeof loginFieldsSchema>;
 export type TEmailSchema = z.infer<typeof emailSchema>;
+export type TRecoveryPasswordSchema = z.infer<typeof formRecoveryPasswordSchema>;

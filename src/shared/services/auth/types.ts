@@ -26,3 +26,16 @@ export type LoginDataRequest = {
 export type LoginDataResponse = {
     accessToken: string;
 };
+
+// PASSWORD RECOVERY
+
+export type PasswordRecovery = {
+    email: string;
+    recaptcha: string;
+    baseUrl: string;
+};
+
+export type NewPassword = {
+    newPassword: string;
+    recoveryCode: string;
+};
