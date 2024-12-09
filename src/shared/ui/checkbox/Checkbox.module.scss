@@ -24,7 +24,8 @@
         opacity: 1;
         background-color: $dark-500;
     }
-    &:checked + .fake:before, &:checked + .fake {
+    &:checked + .fake:before,
+    &:checked + .fake {
         opacity: 1;
         background-color: $light-100;
     }
@@ -59,7 +60,6 @@
         background-color: transparent;
         z-index: $z-index-negative;
         transition: $transition-normal;
-
     }
     &::before {
         content: '';

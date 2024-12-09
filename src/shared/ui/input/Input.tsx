@@ -15,11 +15,7 @@ export const Input = ({ type, error, disabled, label, className, ...rest }: Prop
             {label && <label className={s.label}>{label}</label>}
 
             <div className={s.inputContainer}>
-                <input
-                    type={type}
-                    className={`${s.inputField} ${error ? s.error : ''}  `}
-                    {...rest}
-                />
+                <input type={type} className={`${s.inputField} ${error ? s.error : ''}  `} {...rest} />
             </div>
 
             <div className={s.errorMessage}>{error ? error : ''}</div>

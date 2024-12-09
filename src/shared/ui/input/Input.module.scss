@@ -81,7 +81,7 @@
 .errorMessage {
     color: $danger-500;
     min-height: 20px;
-    @include apply-text-style(regular-14)
+    @include apply-text-style(regular-14);
 }
 
 .inputField.error {

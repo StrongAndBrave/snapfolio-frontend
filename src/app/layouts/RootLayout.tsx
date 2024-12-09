@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/app/styles/styles.scss';
 import { interSans } from '@/shared/assets/fonts';
+import { ReduxWrapper } from '@/app/layouts/ReduxWrapper';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <html lang="en">
-            <body className={`${interSans.variable}`}>{children}</body>
+            <body className={`${interSans.variable}`}>
+                <ReduxWrapper>{children}</ReduxWrapper>
+            </body>
         </html>
     );
 };

@@ -18,8 +18,8 @@
     position: relative;
     box-shadow: 0 0 0 0 $dark-100;
     transition:
-            border-color 0.2s,
-            box-shadow 0.3s;
+        border-color 0.2s,
+        box-shadow 0.3s;
 
     &::after {
         content: '';
