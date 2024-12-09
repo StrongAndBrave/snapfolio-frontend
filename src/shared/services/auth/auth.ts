@@ -1,5 +1,5 @@
 import { baseApi } from '@/shared/api/api';
-import { Confirmation, EmailResending, Registration } from './types';
+import { Confirmation, EmailResending, LoginDataRequest, LoginDataResponse, Registration } from './types';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: create => ({
@@ -22,6 +22,14 @@ export const authApi = baseApi.injectEndpoints({
                 url: '/auth/registration-email-resending',
                 method: 'POST',
                 body: body,
+            }),
+        }),
+        postLoginData: create.mutation<LoginDataResponse, LoginDataRequest>({
+            query: body => ({
+                url: '/auth/login',
+                method: 'POST',
+                credentials: 'include',
+                body,
             }),
         }),
     }),

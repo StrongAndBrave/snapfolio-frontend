@@ -1,0 +1,60 @@
+.wrapper {
+    padding: 24px;
+    background-color: $dark-500;
+    border: 1px solid $dark-300;
+    width: 378px;
+}
+
+.title {
+    @include apply-text-style(h1);
+
+    text-transform: capitalize;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.auth-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inputs {
+    margin-bottom: 20px;
+}
+
+.forgot {
+    color: $light-900;
+    margin-bottom: 24px;
+    text-align: right;
+    text-decoration: none;
+}
+
+.legal {
+    margin-bottom: 12px;
+}
+
+.btn-wrapper {
+    margin-bottom: 18px;
+}
+
+.sign-text {
+    text-align: center;
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .wrapper {
+        min-width: 100%;
+        background-color: $dark-700;
+        border: none;
+        padding: 20px 12px;
+    }
+}

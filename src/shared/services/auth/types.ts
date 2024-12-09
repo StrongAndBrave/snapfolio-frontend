@@ -15,3 +15,14 @@ export type EmailResending = {
 export type Confirmation = {
     confirmationCode: string;
 };
+
+// SIGN IN
+
+export type LoginDataRequest = {
+    email: string;
+    password: string;
+};
+
+export type LoginDataResponse = {
+    accessToken: string;
+};
