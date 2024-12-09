@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { HeaderPopup } from './HeaderPopup';
 
-
 const OPTIONS = [
     {
         value: 'en',
@@ -23,7 +22,7 @@ const OPTIONS = [
 ];
 
 export const HeaderMenu = () => {
-   const isAuthorized = false; // поменять на актуальные данные
+    const isAuthorized = false; // поменять на актуальные данные
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const [windowSize, setWindowSize] = useState<{
@@ -48,7 +47,6 @@ export const HeaderMenu = () => {
     }, []);
 
     const isDesktop = (windowSize.width || Infinity) >= 767;
-
 
     return isDesktop && isAuthorized ? (
         <div className={styles.nav}>

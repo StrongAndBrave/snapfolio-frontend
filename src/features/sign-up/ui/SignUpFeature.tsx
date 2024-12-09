@@ -28,7 +28,11 @@ export const SignUpFeature = () => {
         mode: 'onChange',
     });
 
-    const { formState: { errors, isValid }, reset, setError } = form;
+    const {
+        formState: { errors, isValid },
+        reset,
+        setError,
+    } = form;
 
     useEffect(() => {
         if (isSuccess) {
@@ -36,8 +40,9 @@ export const SignUpFeature = () => {
         }
         if (error) {
             if (typeof error === 'object' && 'data' in error) {
-                const messages = (error.data as { messages: { message: string, field?: keyof TFormRegisterSchema }[] }).messages;
-                messages.forEach((msg) => {
+                const messages = (error.data as { messages: { message: string; field?: keyof TFormRegisterSchema }[] })
+                    .messages;
+                messages.forEach(msg => {
                     if (msg.field) {
                         setError(msg.field, { type: 'server', message: msg.message });
                     }

@@ -1,12 +1,12 @@
-'use client'
-import { authApi } from "@/shared/services/auth/auth";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from "./RegistrationConfirmFeature.module.scss";
-import { Button, Modal } from "@/shared/ui";
-import Link from "next/link";
-import { EmailVerified } from "@/widgets/email-verified";
-import { LinkExpired } from "@/widgets/link-expired";
+'use client';
+import { authApi } from '@/shared/services/auth/auth';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import styles from './RegistrationConfirmFeature.module.scss';
+import { Button, Modal } from '@/shared/ui';
+import Link from 'next/link';
+import { EmailVerified } from '@/widgets/email-verified';
+import { LinkExpired } from '@/widgets/link-expired';
 
 export const RegistrationConfirmFeature = () => {
     const searchParams = useSearchParams();
@@ -72,7 +72,7 @@ export const RegistrationConfirmFeature = () => {
     }
 
     if (isSuccess) {
-        return (<EmailVerified />);
+        return <EmailVerified />;
     }
 
     if (isError && !isVerified) {
@@ -84,12 +84,18 @@ export const RegistrationConfirmFeature = () => {
                 handleModalClose={handleModalRegistration}
                 email={email as string}
             />
-        )
+        );
     }
 
     return (
         <div className={styles.container}>
-            <Modal selector={'modal-root'} header={'Error'} show={showModal} onClose={handleModalClose} needHeaderBtn={false}>
+            <Modal
+                selector={'modal-root'}
+                header={'Error'}
+                show={showModal}
+                onClose={handleModalClose}
+                needHeaderBtn={false}
+            >
                 <>
                     <p style={{ marginBottom: '18px' }}>Your email address {email} is already verified.</p>
                     <Button

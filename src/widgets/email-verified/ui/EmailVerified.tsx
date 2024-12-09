@@ -1,8 +1,8 @@
-import { Button } from "@/shared/ui";
-import styles from "./EmailVerified.module.scss";
-import Link from "next/link";
-import Image from "next/image";
-import confirmImg from "../../../../public/auth/confirm-email@2x.png"
+import { Button } from '@/shared/ui';
+import styles from './EmailVerified.module.scss';
+import Link from 'next/link';
+import Image from 'next/image';
+import confirmImg from '../../../../public/auth/confirm-email@2x.png';
 
 export const EmailVerified = () => {
     return (
@@ -19,4 +19,4 @@ export const EmailVerified = () => {
             </div>
         </div>
     );
-}
+};

@@ -1,1 +1,1 @@
-export { EmailVerified } from "./ui/EmailVerified";
+export { EmailVerified } from './ui/EmailVerified';

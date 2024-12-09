@@ -42,7 +42,6 @@ export const formRegisterSchema = defaulFieldsSchema
         path: ['confirm_password'],
     });
 
-
 export type TDefauldFields = z.infer<typeof defaulFieldsSchema>;
 export type TFormRegisterSchema = z.infer<typeof formRegisterSchema>;
 export type TLoginFieldsSchema = z.infer<typeof loginFieldsSchema>;

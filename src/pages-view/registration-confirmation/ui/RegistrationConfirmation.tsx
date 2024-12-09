@@ -1,7 +1,5 @@
-import { AuthWidget } from "@/widgets/auth"
+import { AuthWidget } from '@/widgets/auth';
 
 export const RegistrationConfirmation = () => {
-    return (
-        <AuthWidget type={'registration-confirm'} />
-    )
-}
+    return <AuthWidget type={'registration-confirm'} />;
+};

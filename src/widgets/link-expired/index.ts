@@ -1,1 +1,1 @@
-export { LinkExpired } from "./ui/LinkExpired";
+export { LinkExpired } from './ui/LinkExpired';

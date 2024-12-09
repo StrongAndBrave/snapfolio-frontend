@@ -23,35 +23,37 @@ export const Modal = ({ children, show, onClose, selector, header, className, ne
 
     if (!mounted || !ref.current) {
         return null;
-    };
+    }
 
     return show
         ? createPortal(
-            <div className={styles.overflow}>
-                <div className={styles.modal}>
-                    <header className={`${styles.header} ${className ? styles[className] : ''}`}>
-                        {header && (
-                            <h1 className={`${styles.title} ${header === 'Error' && styles.error}`}>{header}</h1>
-                        )}
-                        {needHeaderBtn && <button onClick={onClose} className={styles.close}>
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                                    fill="white"
-                                />
-                            </svg>
-                        </button>}
-                    </header>
-                    <div className={styles.content}>{children}</div>
-                </div>
-            </div>,
-            ref.current,
-        )
+              <div className={styles.overflow}>
+                  <div className={styles.modal}>
+                      <header className={`${styles.header} ${className ? styles[className] : ''}`}>
+                          {header && (
+                              <h1 className={`${styles.title} ${header === 'Error' && styles.error}`}>{header}</h1>
+                          )}
+                          {needHeaderBtn && (
+                              <button onClick={onClose} className={styles.close}>
+                                  <svg
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                      <path
+                                          d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                                          fill="white"
+                                      />
+                                  </svg>
+                              </button>
+                          )}
+                      </header>
+                      <div className={styles.content}>{children}</div>
+                  </div>
+              </div>,
+              ref.current,
+          )
         : null;
 };
