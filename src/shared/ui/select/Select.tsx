@@ -51,12 +51,10 @@ export const Select = ({ options = [], onChange, value, isDisabled = false, ...p
     }, []);
 
     const hasFlag = selectedOption?.flag;
-    const hasFlagIcon = selectedOption?.label.length === 0;
     const stylesSelectOptions = ` 
             ${styles.selected} ${isDisabled ? styles.disabled : ''} 
             ${isDropdownOpen ? styles.open : styles.closed} 
             ${hasFlag ? styles['with-language'] : styles['without-language']}
-            ${hasFlagIcon && hasFlag ? styles['with-language-icon'] : ''}
         `;
     return (
         <div className={styles['custom-select']} ref={selectRef} {...props}>
@@ -74,7 +72,7 @@ export const Select = ({ options = [], onChange, value, isDisabled = false, ...p
                         className={styles.flag}
                     />
                 )}
-                {selectedOption ? selectedOption.label : 'Select an option'}
+                <span>{selectedOption ? selectedOption.label : 'Select an option'}</span>
             </div>
 
             {isDropdownOpen && (
@@ -91,7 +89,7 @@ export const Select = ({ options = [], onChange, value, isDisabled = false, ...p
                                         className={styles.flag}
                                     />
                                 )}
-                                {option.label}
+                                <span>{option.label}</span>
                             </li>
                         ))
                     ) : (

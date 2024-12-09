@@ -15,6 +15,7 @@ export const Search = ({ error, disabled, placeholder, className, ...rest }: Pro
                     className={` 
                         ${s.inputField} 
                         ${error ? s.error : ''} 
+                        ${s.searchInput}
                     `}
                     placeholder={placeholder}
                     {...rest}

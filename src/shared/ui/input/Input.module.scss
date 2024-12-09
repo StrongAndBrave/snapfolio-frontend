@@ -78,9 +78,17 @@
     }
 }
 
+.passwordInput {
+    padding-right: 40px;
+}
+
+.searchInput {
+    padding-left: 41px;
+}
+
 .errorMessage {
     color: $danger-500;
-    min-height: 20px;
+    min-height: 24px;
     @include apply-text-style(regular-14);
 }
 
@@ -91,4 +99,14 @@
 .disabled {
     pointer-events: none;
     opacity: 0.5;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: $light-100;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: $light-100;
 }

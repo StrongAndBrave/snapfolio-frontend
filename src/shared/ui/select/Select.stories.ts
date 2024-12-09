@@ -37,14 +37,6 @@ export const Language: Story = {
         ],
     },
 };
-export const LanguageIcon: Story = {
-    args: {
-        options: [
-            { value: 'en', label: '', flag: '/svg/en.svg' },
-            { value: 'ru', label: '', flag: '/svg/ru.svg' },
-        ],
-    },
-};
 export const Disabled: Story = {
     args: {
         options: [
