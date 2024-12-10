@@ -22,7 +22,7 @@ export const SignUpForm = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [email, setEmail] = useState<string | null>();
-    const [signUp, { isLoading, error }] = useSignUpMutation();
+    const [signUp] = useSignUpMutation();
 
     const onSubmit: SubmitHandler<SignUpData> = formData => {
         const payload = {
@@ -34,7 +34,7 @@ export const SignUpForm = () => {
         setEmail(() => payload.email);
         signUp(payload)
             .unwrap()
-            .then(res => {
+            .then(() => {
                 setIsOpen(true);
                 reset();
             })

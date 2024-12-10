@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { SignUpWidget } from '@/widgets/sign-up';
 import { FormLayout } from '@/features/auth/ui/FormLayout';
 import { SignUpForm, SocialAuth } from '@/features/auth';
 import styles from '@/features/auth/ui/Form.module.scss';

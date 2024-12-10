@@ -32,7 +32,7 @@ export const NewPasswordForm = () => {
             };
             newPassword(payload)
                 .unwrap()
-                .then(res => {
+                .then(() => {
                     router.push('/auth/sign-in');
                 })
                 .catch(err => {

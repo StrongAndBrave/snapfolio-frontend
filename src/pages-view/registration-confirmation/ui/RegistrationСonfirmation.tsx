@@ -16,10 +16,10 @@ export const RegistrationConfirmation = () => {
         if (!code) return;
         confirmationToken({ code })
             .unwrap()
-            .then(data => {
+            .then(() => {
                 router.push('/auth/registration-success');
             })
-            .catch(err => {
+            .catch(() => {
                 router.push(`/auth/email-resending?email=${email}`);
             });
     }, [code]);

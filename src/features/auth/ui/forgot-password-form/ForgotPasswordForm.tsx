@@ -27,7 +27,7 @@ export const ForgotPasswordForm = () => {
         setIsSuccess(() => false);
         passwordRecovery(formData)
             .unwrap()
-            .then(data => {
+            .then(() => {
                 setIsSuccess(() => true);
                 reset();
             })

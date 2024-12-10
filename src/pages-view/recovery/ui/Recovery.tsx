@@ -15,10 +15,10 @@ export const Recovery = () => {
         if (!recoveryCode) return;
         checkRecoveryCode(recoveryCode)
             .unwrap()
-            .then(data => {
+            .then(() => {
                 router.push(`/auth/new-password?code=${recoveryCode}`);
             })
-            .catch(err => {
+            .catch(() => {
                 router.push('/auth/forgot-password');
             });
     }, [recoveryCode]);

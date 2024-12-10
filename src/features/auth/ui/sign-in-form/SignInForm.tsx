@@ -18,14 +18,11 @@ export const SignInForm = () => {
         mode: 'onTouched',
         resolver: zodResolver(signInSchema),
     });
-    const [signIn, { isLoading }] = useSignInMutation();
+    const [signIn] = useSignInMutation();
     const onSubmit: SubmitHandler<SignInData> = formData => {
         signIn(formData)
             .unwrap()
-            .then(
-                data => console.log(data.accessToken),
-                //редирект
-            )
+            .then()
             .catch(err => {
                 if (err.status === 400) {
                     setError('email', { type: 'server', message: err.data.messages });
