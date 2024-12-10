@@ -39,3 +39,18 @@ export type NewPassword = {
     newPassword: string;
     recoveryCode: string;
 };
+
+// USER
+
+export type UserInfo = {
+    userId: number;
+    userName: string;
+    email: string;
+    isBlocked: boolean;
+};
+
+// UPDATE TOKENS
+
+export type TokensResponse = {
+    accessToken: string;
+};

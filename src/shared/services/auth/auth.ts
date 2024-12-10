@@ -7,6 +7,8 @@ import {
     NewPassword,
     PasswordRecovery,
     Registration,
+    TokensResponse,
+    UserInfo,
 } from './types';
 
 export const authApi = baseApi.injectEndpoints({
@@ -29,7 +31,7 @@ export const authApi = baseApi.injectEndpoints({
             query: body => ({
                 url: '/auth/registration-email-resending',
                 method: 'POST',
-                body: body,
+                body,
             }),
         }),
         postLoginData: create.mutation<LoginDataResponse, LoginDataRequest>({
@@ -55,6 +57,57 @@ export const authApi = baseApi.injectEndpoints({
                 credentials: 'include',
                 body,
             }),
+        }),
+        postLogout: create.mutation<void, void>({
+            query: () => ({
+                url: '/auth/logout',
+                method: 'POST',
+                credentials: 'include',
+            }),
+        }),
+        getUserInfo: create.query<UserInfo, void>({
+            query: () => {
+                if (typeof window !== 'undefined') {
+                    const token = localStorage.getItem('accessToken');
+                    return {
+                        url: '/auth/me',
+                        method: 'GET',
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            Accept: 'application/json',
+                        },
+                        credentials: 'include',
+                    };
+                }
+                return {
+                    url: '',
+                    method: 'GET',
+                    headers: {},
+                    credentials: 'include',
+                };
+            },
+        }),
+        updateTokens: create.mutation<TokensResponse, void>({
+            query: () => {
+                if (typeof window !== 'undefined') {
+                    const token = localStorage.getItem('accessToken');
+                    return {
+                        url: '/auth/update-tokens',
+                        method: 'POST',
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            Accept: 'application/json',
+                        },
+                        credentials: 'include',
+                    };
+                }
+                return {
+                    url: '',
+                    method: 'POST',
+                    headers: {},
+                    credentials: 'include',
+                };
+            },
         }),
     }),
     overrideExisting: true,

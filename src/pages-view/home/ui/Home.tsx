@@ -1,5 +1,9 @@
-import styles from './Home.module.scss';
+import { RegistredUsers } from '@/entities/registred-users';
 
 export const Home = () => {
-    return <section className={styles.container}>Home</section>;
+    return (
+        <>
+            <RegistredUsers />
+        </>
+    );
 };

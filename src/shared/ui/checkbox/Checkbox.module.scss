@@ -104,5 +104,6 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 4px;
+
     @include apply-text-style(small);
 }

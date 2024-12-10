@@ -21,7 +21,7 @@
 .nav-auth {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 20px;
     min-width: 200px;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -29,6 +29,7 @@
 
 .nav-auth {
     min-width: 400px;
+    gap: 8px;
 }
 
 .auth-btns {
@@ -56,6 +57,7 @@
     background-color: $dark-500;
     border: 1px solid $dark-100;
     min-width: 160px;
+
     @include apply-text-style(small);
 
     button {

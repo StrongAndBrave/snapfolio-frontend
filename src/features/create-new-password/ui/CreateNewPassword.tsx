@@ -1,4 +1,5 @@
 'use client';
+import dynamic from 'next/dynamic';
 
 import { Button, Password } from '@/shared/ui';
 import { AuthFormLayout } from '@/widgets/layouts/auth-form-layout';
@@ -14,7 +15,7 @@ import congirmSvg from '../../../../public/auth/confirm-email@2x.png';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export const CreateNewPassword = () => {
+const CreateNewPasswordInner = () => {
     const searchParams = useSearchParams();
     const code = searchParams.get('code');
 
@@ -33,8 +34,9 @@ export const CreateNewPassword = () => {
             password: '',
             confirm_password: '',
         },
-        mode: 'onBlur',
-        reValidateMode: 'onChange',
+        mode: 'onChange',
+        // mode: 'onBlur',
+        // reValidateMode: 'onChange',
     });
 
     const {
@@ -122,3 +124,7 @@ export const CreateNewPassword = () => {
         </>
     );
 };
+
+export const CreateNewPassword = dynamic(() => Promise.resolve(CreateNewPasswordInner), {
+    ssr: false,
+});

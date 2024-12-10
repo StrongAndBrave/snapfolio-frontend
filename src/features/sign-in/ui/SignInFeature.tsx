@@ -1,4 +1,6 @@
 'use client';
+import dynamic from 'next/dynamic';
+
 import { Button, Input, Password } from '@/shared/ui';
 import styles from './SignInFeature.module.scss';
 import Link from 'next/link';
@@ -8,10 +10,13 @@ import { loginFieldsSchema, TLoginFieldsSchema } from '@/shared/shemas/forms';
 import { authApi } from '@/shared/services/auth/auth';
 import { useRouter } from 'next/navigation';
 import { AuthFormLayout } from '@/widgets/layouts/auth-form-layout';
+import { useDispatch } from 'react-redux';
+import { login } from '@/shared/store/authSlice';
 
-export const SignInFeature = () => {
+const SignInFeatureInner = () => {
     const [postLogin, { isLoading }] = authApi.usePostLoginDataMutation();
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const form = useForm<TLoginFieldsSchema>({
         resolver: zodResolver(loginFieldsSchema),
@@ -35,7 +40,10 @@ export const SignInFeature = () => {
             password: data.password,
         });
         if (response.data) {
-            localStorage.setItem('accessToken', response.data.accessToken);
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('accessToken', response.data.accessToken);
+            }
+            dispatch(login());
             router.push('/');
         } else {
             setError('password', {
@@ -82,3 +90,7 @@ export const SignInFeature = () => {
         </AuthFormLayout>
     );
 };
+
+export const SignInFeature = dynamic(() => Promise.resolve(SignInFeatureInner), {
+    ssr: false,
+});

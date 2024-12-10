@@ -46,7 +46,7 @@ export const ForgotPasswordFeature = () => {
         if (recaptcha) {
             await postPasswordRecovery({
                 email: data.email,
-                recaptcha: recaptcha,
+                recaptcha,
                 baseUrl: baseURL,
             });
         }

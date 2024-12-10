@@ -1,4 +1,5 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { authApi } from '@/shared/services/auth/auth';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -8,7 +9,7 @@ import Link from 'next/link';
 import { EmailVerified } from '@/widgets/email-verified';
 import { LinkExpired } from '@/widgets/link-expired';
 
-export const RegistrationConfirmFeature = () => {
+const RegistrationConfirmFeatureInner = () => {
     const searchParams = useSearchParams();
     const code = searchParams.get('code');
     const email = searchParams.get('email');
@@ -111,3 +112,7 @@ export const RegistrationConfirmFeature = () => {
         </div>
     );
 };
+
+export const RegistrationConfirmFeature = dynamic(() => Promise.resolve(RegistrationConfirmFeatureInner), {
+    ssr: false,
+});

@@ -3,13 +3,18 @@ import Link from 'next/link';
 import styles from './ButtonUI.module.scss';
 import Image from 'next/image';
 
-type Props<T extends ElementType | typeof Link> = {
+type LinkPropsType = {
+    as: typeof Link;
+    href: string;
+};
+
+type Props<T extends ElementType> = {
     as?: T;
     children?: ReactNode;
     src?: string;
     alt?: string;
     isNoMobileText?: boolean;
-} & (T extends typeof Link ? ComponentPropsWithoutRef<typeof Link> : ComponentPropsWithoutRef<'button'>);
+} & (T extends typeof Link ? LinkPropsType : ComponentPropsWithoutRef<'button'>);
 
 export const ButtonUI = <T extends ElementType | typeof Link = 'button'>({
     as,
@@ -22,7 +27,7 @@ export const ButtonUI = <T extends ElementType | typeof Link = 'button'>({
     const Component = (as || 'button') as ElementType;
     return (
         <Component className={src ? styles['with-icon'] : styles.link} {...props}>
-            {src && <Image src={src} alt={alt ? alt : 'icon'} className={styles.icon} />}
+            {src && <Image src={src} alt={alt || 'icon'} className={styles.icon} />}
             {children && <span className={isNoMobileText ? styles.text : ''}>{children}</span>}
         </Component>
     );

@@ -22,7 +22,7 @@ export const Password = ({ error, disabled, label, ...rest }: Props) => {
 
     return (
         <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
-            <label className={s.label}> {label ? label : 'Password'}</label>
+            <label className={s.label}> {label || 'Password'}</label>
 
             <div className={s.inputContainer}>
                 <input
@@ -39,7 +39,7 @@ export const Password = ({ error, disabled, label, ...rest }: Props) => {
                 </div>
             </div>
 
-            {<div className={s.errorMessage}>{error ? error : ''}</div>}
+            {<div className={s.errorMessage}>{error || ''}</div>}
         </div>
     );
 };

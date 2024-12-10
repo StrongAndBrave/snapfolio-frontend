@@ -1,5 +1,5 @@
 'use client';
-
+import dynamic from 'next/dynamic';
 import { Button, Checkbox, Input, ButtonUI, Password, Modal } from '@/shared/ui';
 import styles from './SignUpFeature.module.scss';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { authApi } from '@/shared/services/auth/auth';
 import { AuthFormLayout } from '@/widgets/layouts/auth-form-layout';
 
-export const SignUpFeature = () => {
+export const SignUpFeatureInner = () => {
     const [postRegistration, { isLoading, isSuccess, error }] = authApi.usePostRegistrationMutation();
     const [showPortalRegistration, setShowPortalRegistration] = useState<boolean>(false);
 
@@ -143,3 +143,7 @@ export const SignUpFeature = () => {
         </div>
     );
 };
+
+export const SignUpFeature = dynamic(() => Promise.resolve(SignUpFeatureInner), {
+    ssr: false,
+});

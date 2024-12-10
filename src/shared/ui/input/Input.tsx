@@ -18,7 +18,7 @@ export const Input = ({ type, error, disabled, label, ...rest }: Props) => {
                 <input type={type} className={`${s.inputField} ${error ? s.error : ''}  `} {...rest} />
             </div>
 
-            <div className={s.errorMessage}>{error ? error : ''}</div>
+            <div className={s.errorMessage}>{error && error}</div>
         </div>
     );
 };

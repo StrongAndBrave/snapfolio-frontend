@@ -42,6 +42,7 @@
 
 .interval {
     @include apply-text-style(small);
+
     color: $light-900;
 }
 

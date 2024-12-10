@@ -5,6 +5,7 @@
     margin-bottom: 36px;
 
     @include apply-text-style(h2);
+
     background-color: $dark-500;
     border: 1px solid $dark-300;
     border-radius: 2px;

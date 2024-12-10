@@ -3,7 +3,7 @@ import { Header } from '@/widgets/header';
 import { PropsWithChildren } from 'react';
 import styles from './ClientLayout.module.scss';
 import { Provider } from 'react-redux';
-import { store } from '@/shared/store';
+import { store } from '@/shared/store/store';
 
 export const ClientLayout = ({ children }: PropsWithChildren<unknown>) => {
     return (
