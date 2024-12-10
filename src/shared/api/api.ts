@@ -1,8 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const baseUrl = 'https://inctagram.work/api/v1/';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import customBaseQuery from './customBaseQuery';
 
 export const baseApi = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl }),
+    baseQuery: customBaseQuery,
     endpoints: () => ({}),
 });
