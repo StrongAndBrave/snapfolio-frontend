@@ -1,1 +1,1 @@
-export { RegistrationConfirmation as default } from '../../../src/pages-view/registration-confirmation';
+export { RegistrationConfirmation as default } from '@/pages-view/auth';

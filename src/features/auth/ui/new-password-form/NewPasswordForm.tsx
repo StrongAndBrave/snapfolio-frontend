@@ -47,13 +47,11 @@ export const NewPasswordForm = () => {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <Password
                 label={'Password'}
-                className={styles.field}
                 error={errors.password && errors.password.message}
                 {...register('password')}
             />
             <Password
                 label={'Password confirmation'}
-                className={styles.field}
                 error={errors.passwordConfirmation && errors.passwordConfirmation.message}
                 {...register('passwordConfirmation')}
             />

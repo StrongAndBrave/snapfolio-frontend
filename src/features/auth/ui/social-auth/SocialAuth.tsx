@@ -1,16 +1,16 @@
 'use client';
 import React from 'react';
 import styles from './SocialAuth.module.scss';
-import { Button } from '@/shared/ui';
 import { useLazyGithubAuthQuery } from '@/features/auth/api/authApi';
+import {BtnAuth} from "@/shared/ui/btn-auth";
 
 export const SocialAuth = () => {
     const [trigger] = useLazyGithubAuthQuery();
 
     return (
         <div className={styles.authButtons}>
-            <Button>g</Button>
-            <Button onClick={() => trigger()}>g</Button>
+            <BtnAuth label="google" type="button" />
+            <BtnAuth onClick={()=>trigger()} label="github" type="button" />
         </div>
     );
 };

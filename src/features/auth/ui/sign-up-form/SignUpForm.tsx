@@ -50,26 +50,22 @@ export const SignUpForm = () => {
             <Input
                 type={'text'}
                 label={'Username'}
-                className={styles.field}
                 error={errors.userName && errors.userName.message}
                 {...register('userName')}
             />
             <Input
                 type={'email'}
                 label={'Email'}
-                className={styles.field}
                 error={errors.email && errors.email.message}
                 {...register('email')}
             />
             <Password
                 label={'Password'}
-                className={styles.field}
                 error={errors.password && errors.password.message}
                 {...register('password')}
             />
             <Password
                 label={'Password confirmation'}
-                className={styles.field}
                 error={errors.passwordConfirmation && errors.passwordConfirmation.message}
                 {...register('passwordConfirmation')}
             />

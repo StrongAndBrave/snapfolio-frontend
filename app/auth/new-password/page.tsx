@@ -1,1 +1,1 @@
-export { NewPassword as default } from '@/pages-view/new-password';
+export { NewPassword as default } from '@/pages-view/auth';

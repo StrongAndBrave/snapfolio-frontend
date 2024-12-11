@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from './EmailResending.module.scss';
 import { Button } from '@/shared/ui';
 import Image from 'next/image';
-import imgNewLink from '../../../../public/newLink.png';
+import imgNewLink from '../../../../../public/newLink.png';
 import { useSearchParams } from 'next/navigation';
 import { useResendSignUpLinkMutation } from '@/features/auth/api/authApi';
 

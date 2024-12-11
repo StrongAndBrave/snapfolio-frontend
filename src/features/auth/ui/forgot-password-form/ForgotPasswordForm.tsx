@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 import styles from '@/features/auth/ui/Form.module.scss';
@@ -21,8 +21,11 @@ export const ForgotPasswordForm = () => {
         mode: 'onTouched',
         resolver: zodResolver(forgotPasswordSchema),
     });
+
     const [passwordRecovery] = usePasswordRecoveryMutation();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
     const onSubmit: SubmitHandler<ForgotPasswordData> = formData => {
         setIsSuccess(() => false);
         passwordRecovery(formData)
@@ -35,6 +38,7 @@ export const ForgotPasswordForm = () => {
                 err.data?.messages?.forEach((error: { field: keyof ForgotPasswordData; message: string }) => {
                     setError(error.field, { type: 'server', message: error.message });
                 });
+                recaptchaRef?.current?.reset();
             });
     };
 
@@ -43,7 +47,6 @@ export const ForgotPasswordForm = () => {
             <Input
                 type={'email'}
                 label={'Email'}
-                className={styles.field}
                 error={errors.email && errors.email.message}
                 {...register('email')}
                 disabled={isSuccess}
@@ -75,6 +78,7 @@ export const ForgotPasswordForm = () => {
                                 hl="en"
                                 sitekey="6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM"
                                 onChange={field.onChange}
+                                ref={recaptchaRef}
                             />
                         )}
                     />

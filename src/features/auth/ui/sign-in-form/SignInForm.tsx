@@ -7,8 +7,10 @@ import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInData, signInSchema } from '@/features/auth/model/SignInSchem';
 import { useSignInMutation } from '@/features/auth/api/authApi';
+import { useRouter } from 'next/navigation';
 
 export const SignInForm = () => {
+
     const {
         register,
         handleSubmit,
@@ -18,11 +20,15 @@ export const SignInForm = () => {
         mode: 'onTouched',
         resolver: zodResolver(signInSchema),
     });
+
     const [signIn] = useSignInMutation();
+    const router = useRouter();
     const onSubmit: SubmitHandler<SignInData> = formData => {
         signIn(formData)
             .unwrap()
-            .then()
+            .then(() =>
+                router.push('/')
+            )
             .catch(err => {
                 if (err.status === 400) {
                     setError('email', { type: 'server', message: err.data.messages });
@@ -36,13 +42,11 @@ export const SignInForm = () => {
             <Input
                 type={'email'}
                 label={'Email'}
-                className={styles.field}
                 error={errors.email && errors.email.message}
                 {...register('email')}
             />
             <Password
                 label={'Password'}
-                className={styles.field}
                 error={errors.password && errors.password.message}
                 {...register('password')}
             />

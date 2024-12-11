@@ -1,1 +1,1 @@
-export { RegistrationSuccess as default } from '../../../src/pages-view/registration-success';
+export { RegistrationSuccess as default } from '@/pages-view/auth';

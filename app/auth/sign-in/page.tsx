@@ -1,1 +1,1 @@
-export { SignIn as default } from '@/pages-view/sign-in';
+export { SignIn as default } from '@/pages-view/auth';

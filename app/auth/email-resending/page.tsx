@@ -1,1 +1,1 @@
-export { EmailResending as default } from '../../../src/pages-view/email-resending';
+export { EmailResending as default } from '@/pages-view/auth';

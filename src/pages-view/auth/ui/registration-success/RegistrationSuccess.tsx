@@ -3,7 +3,7 @@ import styles from './RegistrationSuccess.module.scss';
 import { Button } from '@/shared/ui';
 import Link from 'next/link';
 import Image from 'next/image';
-import imgSuccess from '../../../../public/succsess.png';
+import imgSuccess from '../../../../../public/succsess.png';
 
 export const RegistrationSuccess = () => {
     return (

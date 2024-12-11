@@ -2,6 +2,7 @@ import { SignUpPayload } from '@/features/auth/model/SignUpSchem';
 import { baseApi } from '@/shared/api/baseApi';
 import { SignInData } from '@/features/auth/model/SignInSchem';
 import { ForgotPasswordData } from '@/features/auth/model/ForgotPasswordSchem';
+import {setCredentials} from "@/app/store/authSlice";
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: builder => ({
@@ -26,23 +27,34 @@ export const authApi = baseApi.injectEndpoints({
                 body: { email, baseUrl: 'http://localhost:3000' },
             }),
         }),
-        signIn: builder.mutation<void, SignInData>({
+        signIn: builder.mutation<{ accessToken: string }, SignInData>({
             query: SignInData => ({
                 method: 'POST',
                 url: `/api/v1/auth/login`,
                 body: SignInData,
             }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const {data} = await queryFulfilled;
+
+                    localStorage.setItem('accessToken', data.accessToken);
+
+                    dispatch(setCredentials({accessToken: data.accessToken}));
+
+                } catch (error) {
+                    console.error('Login failed:', error);
+                }
+            }
         }),
-        logout: builder.mutation<void, unknown>({
+        logout: builder.mutation<void, void>({
             query: () => ({
                 method: 'POST',
                 url: `/api/v1/auth/logout`,
             }),
         }),
-        me: builder.query<void, { email: string }>({
-            query: ({ email }) => ({
+        me: builder.query<unknown, void>({
+            query: () => ({
                 url: `/api/v1/auth/me`,
-                body: email,
             }),
         }),
         passwordRecovery: builder.mutation<void, ForgotPasswordData>({
@@ -93,4 +105,6 @@ export const {
     useCheckRecoveryCodeMutation,
     useNewPasswordMutation,
     useLazyGithubAuthQuery,
+    useLazyMeQuery,
+    useLogoutMutation
 } = authApi;

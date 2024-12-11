@@ -1,1 +1,1 @@
-export { Recovery as default } from '@/pages-view/recovery';
+export { Recovery as default } from '@/pages-view/auth';

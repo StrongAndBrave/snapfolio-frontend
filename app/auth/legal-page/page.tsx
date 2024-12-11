@@ -1,1 +1,1 @@
-export { LegalPage as default } from '@/pages-view/legal-page';
+export { LegalPage as default } from '@/pages-view/auth';
