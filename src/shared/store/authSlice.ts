@@ -13,6 +13,9 @@ const authSlice = createSlice({
         },
         logout: state => {
             state.isAuthorized = false;
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('accessToken');
+            }
         },
         initializeAuth: state => {
             state.isAuthorized = typeof window !== 'undefined' ? !!localStorage.getItem('accessToken') : false;

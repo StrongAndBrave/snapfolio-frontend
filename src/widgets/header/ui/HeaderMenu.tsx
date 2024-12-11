@@ -44,9 +44,6 @@ export const HeaderMenuInner = () => {
     const handleLogoutClick = async () => {
         try {
             await postLogout().unwrap();
-            if (typeof window !== 'undefined') {
-                localStorage.removeItem('accessToken');
-            }
             dispatch(logout());
             router.push('/auth/sign-in');
         } catch (error) {
