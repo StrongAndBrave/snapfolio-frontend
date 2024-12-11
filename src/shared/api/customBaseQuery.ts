@@ -15,7 +15,15 @@ const customBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryEr
 
     if (result.error && result.error.status === 401) {
         // Попытка обновить токен
-        const refreshResult = await baseQuery('/auth/update-tokens', api, extraOptions);
+        const refreshResult = await baseQuery(
+            {
+                url: '/auth/update-tokens',
+                method: 'POST',
+                credentials: 'include',
+            },
+            api,
+            extraOptions,
+        );
 
         if (refreshResult.data) {
             // Сохранить новый токен и повторить исходный запрос
