@@ -31,6 +31,15 @@ const customBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryEr
             result = await baseQuery(args, api, extraOptions);
         } else {
             // Обработка ошибки обновления токена
+            await baseQuery(
+                {
+                    url: '/auth/logout',
+                    method: 'POST',
+                    credentials: 'include',
+                },
+                api,
+                extraOptions,
+            );
             api.dispatch({ type: '/auth/logout' });
         }
     }

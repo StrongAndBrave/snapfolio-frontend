@@ -9,13 +9,15 @@ import styles from './ForgotPasswordFeature.module.scss';
 import Link from 'next/link';
 import { Recaptcha } from '@/shared/ui/recaptcha';
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 
-export const ForgotPasswordFeature = () => {
+export const ForgotPasswordFeatureInner = () => {
     const [postPasswordRecovery, { isLoading, isSuccess, error }] = authApi.usePostPasswordRecoveryMutation();
     const [recaptcha, setRecaptcha] = useState<string | null>(null);
     const [errorText, setErrorText] = useState<string>('');
 
-    const baseURL = process.env.NODE_ENV === 'production' ? 'https://snapfolio.ru' : 'http://localhost:3000';
+    // const baseURL = process.env.NODE_ENV === 'production' ? 'https://snapfolio.ru' : 'http://localhost:3000';
+    const baseURL = document.location.origin;
 
     useEffect(() => {
         if (error && typeof error === 'object' && 'data' in error) {
@@ -93,3 +95,7 @@ export const ForgotPasswordFeature = () => {
         </AuthFormLayout>
     );
 };
+
+export const ForgotPasswordFeature = dynamic(() => Promise.resolve(ForgotPasswordFeatureInner), {
+    ssr: false,
+});

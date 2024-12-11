@@ -14,7 +14,8 @@ export const SignUpFeatureInner = () => {
     const [postRegistration, { isLoading, isSuccess, error }] = authApi.usePostRegistrationMutation();
     const [showPortalRegistration, setShowPortalRegistration] = useState<boolean>(false);
 
-    const baseURL = process.env.NODE_ENV === 'production' ? 'https://snapfolio.ru' : 'http://localhost:3000';
+    // const baseURL = process.env.NODE_ENV === 'production' ? 'https://snapfolio.ru' : 'http://localhost:3000';
+    const baseURL = document.location.origin;
 
     const form = useForm<TFormRegisterSchema>({
         resolver: zodResolver(formRegisterSchema),

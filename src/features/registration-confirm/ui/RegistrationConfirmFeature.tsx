@@ -13,7 +13,9 @@ const RegistrationConfirmFeatureInner = () => {
     const searchParams = useSearchParams();
     const code = searchParams.get('code');
     const email = searchParams.get('email');
-    const baseURL = process.env.NODE_ENV === 'production' ? 'https://snapfolio.ru' : 'http://localhost:3000';
+    console.log(document.location.origin);
+    const baseURL = document.location.origin;
+    // const baseURL = process.env.NODE_ENV === 'production' ? 'https://snapfolio.ru' : 'http://localhost:3000';
 
     const [postRegistrationConfirmation, { isLoading, isSuccess, isError }] =
         authApi.usePostRegistrationConfirmationMutation();
