@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/app/styles/styles.scss';
 import { inter } from '@/shared/assets/fonts';
 import { ReduxWrapper } from '@/app/layouts/ReduxWrapper';
+import {Header} from "@/widgets";
 
 export const metadata: Metadata = {
     title: 'Inctagram',
@@ -24,7 +25,10 @@ export const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>
                 <link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
             </head>
             <body className={`${inter.variable}`}>
-                <ReduxWrapper>{children}</ReduxWrapper>
+                <ReduxWrapper>
+                    <Header/>
+                    {children}
+                </ReduxWrapper>
             </body>
         </html>
     );
