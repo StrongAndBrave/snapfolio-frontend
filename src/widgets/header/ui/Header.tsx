@@ -4,9 +4,9 @@ import styles from './Header.module.scss'
 import Link from "next/link";
 import {Button, Select} from "@/shared/ui";
 import {options} from './languageOptions'
-import {selectIsAuthorized} from "@/app/store/authSlice";
+import {selectIsAuthorized} from "@/features/auth/model/authSlice";
 import {useAppSelector} from "@/app/store/store";
-import {useLazyMeQuery, useLogoutMutation} from "@/features/auth/api/authApi";
+import {useLogoutMutation} from "@/features/auth/api/authApi";
 
 
 export const Header = () => {

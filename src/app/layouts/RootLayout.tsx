@@ -1,8 +1,7 @@
-import type { Metadata } from 'next';
+import type {Metadata} from 'next';
 import '@/app/styles/styles.scss';
-import { inter } from '@/shared/assets/fonts';
-import { ReduxWrapper } from '@/app/layouts/ReduxWrapper';
-import {Header} from "@/widgets";
+import {inter} from '@/shared/assets/fonts';
+import {ClientLayout} from "@/app/layouts/client-layout/ClientLayout";
 
 export const metadata: Metadata = {
     title: 'Inctagram',
@@ -17,18 +16,15 @@ export const metadata: Metadata = {
     creator: 'IT-Incubator interns',
 };
 
-export const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+export const RootLayout = ({children}: Readonly<{ children: React.ReactNode }>) => {
     return (
         <html lang="en">
             <head>
-                <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
-                <link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
+                <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)"/>
+                <link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)"/>
             </head>
             <body className={`${inter.variable}`}>
-                <ReduxWrapper>
-                    <Header/>
-                    {children}
-                </ReduxWrapper>
+                <ClientLayout>{children}</ClientLayout>
             </body>
         </html>
     );

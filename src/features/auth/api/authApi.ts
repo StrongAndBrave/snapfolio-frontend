@@ -2,7 +2,7 @@ import { SignUpPayload } from '@/features/auth/model/SignUpSchem';
 import { baseApi } from '@/shared/api/baseApi';
 import { SignInData } from '@/features/auth/model/SignInSchem';
 import { ForgotPasswordData } from '@/features/auth/model/ForgotPasswordSchem';
-import {setCredentials} from "@/app/store/authSlice";
+import {login, logout} from "@/features/auth/model/authSlice";
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: builder => ({
@@ -35,12 +35,9 @@ export const authApi = baseApi.injectEndpoints({
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
+                    dispatch(login())
                     const {data} = await queryFulfilled;
-
                     localStorage.setItem('accessToken', data.accessToken);
-
-                    dispatch(setCredentials({accessToken: data.accessToken}));
-
                 } catch (error) {
                     console.error('Login failed:', error);
                 }
@@ -51,6 +48,14 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 url: `/api/v1/auth/logout`,
             }),
+            async onQueryStarted(arg, { dispatch }) {
+                try {
+                    dispatch(logout())
+                    localStorage.removeItem('accessToken');
+                } catch (error) {
+                    console.error('Logout failed:', error);
+                }
+            }
         }),
         me: builder.query<unknown, void>({
             query: () => ({
@@ -105,6 +110,6 @@ export const {
     useCheckRecoveryCodeMutation,
     useNewPasswordMutation,
     useLazyGithubAuthQuery,
-    useLazyMeQuery,
+    useMeQuery,
     useLogoutMutation
 } = authApi;
