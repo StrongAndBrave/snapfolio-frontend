@@ -1,1 +1,0 @@
-export { BtnAuth } from './BtnAuth';

@@ -1,15 +1,12 @@
-import svgEnglish from '../../../../public/svg/en.svg';
-import svgRussian from '../../../../public/svg/ru.svg';
-
 export const options = [
     {
         value: 'en',
         label: 'English',
-        flag: svgEnglish,
+        flag: '/svg/en.svg',
     },
     {
         value: 'ru',
         label: 'Russian',
-        flag: svgRussian,
+        flag: '/svg/ru.svg',
     },
 ];

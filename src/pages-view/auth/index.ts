@@ -7,3 +7,5 @@ export { RegistrationConfirmation } from './ui/registration-confirmation/Registr
 export { RegistrationSuccess } from './ui/registration-success/RegistrationSuccess';
 export { SignIn } from './ui/sign-in/SignIn';
 export { SignUp } from './ui/sign-up/SignUp';
+export { PrivacyPolicy } from './ui/(legal)/privacy-policy/PrivacyPolicy';
+export { TermsOfService } from './ui/(legal)/terms-of-service/TermsOfService';

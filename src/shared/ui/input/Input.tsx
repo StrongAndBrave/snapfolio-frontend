@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithRef } from 'react';
-import s from './Input.module.scss';
+import styles from './Input.module.scss';
 
 type InputTypes = 'email' | 'text';
 
@@ -11,14 +11,14 @@ type Props = {
 
 export const Input = ({ type, error, disabled, label, className, ...rest }: Props) => {
     return (
-        <div className={`${s.inputWrapper}  ${className} ${disabled ? s.disabled : ''}`}>
-            {label && <label className={s.label}>{label}</label>}
+        <div className={`${styles.inputWrapper}  ${className} ${disabled && styles.disabled}`}>
+            {label && <label className={styles.label}>{label}</label>}
 
-            <div className={s.inputContainer}>
-                <input type={type} className={`${s.inputField} ${error ? s.error : ''}  `} {...rest} />
+            <div className={styles.inputContainer}>
+                <input type={type} className={`${styles.inputField} ${error && styles.error}`} {...rest} />
             </div>
 
-            <div className={s.errorMessage}>{error ? error : ''}</div>
+            <div className={styles.errorMessage}>{error && error}</div>
         </div>
     );
 };

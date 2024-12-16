@@ -9,6 +9,7 @@
 
 .title {
     margin-top: 35px;
+
     @include apply-text-style(h1);
 }
 
@@ -16,6 +17,7 @@
     width: 100%;
     max-width: 294px;
     margin-top: 19px;
+
     @include apply-text-style(regular-16);
 }
 
@@ -23,7 +25,9 @@
     width: 100%;
     max-width: 294px;
     margin-top: 19px;
+
     @include apply-text-style(regular-16);
+
     color: $danger-500;
 }
 

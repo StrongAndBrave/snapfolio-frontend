@@ -10,7 +10,6 @@ import { useSignInMutation } from '@/features/auth/api/authApi';
 import { useRouter } from 'next/navigation';
 
 export const SignInForm = () => {
-
     const {
         register,
         handleSubmit,
@@ -26,9 +25,7 @@ export const SignInForm = () => {
     const onSubmit: SubmitHandler<SignInData> = formData => {
         signIn(formData)
             .unwrap()
-            .then(() =>
-                router.push('/')
-            )
+            .then(() => router.push('/'))
             .catch(err => {
                 if (err.status === 400) {
                     setError('email', { type: 'server', message: err.data.messages });
@@ -43,11 +40,13 @@ export const SignInForm = () => {
                 type={'email'}
                 label={'Email'}
                 error={errors.email && errors.email.message}
+                placeholder={'Name@gmail.com.'}
                 {...register('email')}
             />
             <Password
                 label={'Password'}
                 error={errors.password && errors.password.message}
+                placeholder={'******************'}
                 {...register('password')}
             />
             <Link className={styles.linkForgotPassword} href={'/auth/forgot-password'}>

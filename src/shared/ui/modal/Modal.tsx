@@ -1,6 +1,7 @@
-import React from 'react';
+'use client';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
+import { useEffect } from 'react';
 
 type Props = {
     isOpen: boolean;
@@ -10,6 +11,20 @@ type Props = {
 };
 
 export const Modal = ({ isOpen, onClose, children, title }: Props) => {
+    const modal = document.getElementById('modal-root');
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [onClose]);
+
     if (!isOpen) return null;
     return ReactDOM.createPortal(
         <div className={styles.overlay} onClick={onClose}>
@@ -23,6 +38,6 @@ export const Modal = ({ isOpen, onClose, children, title }: Props) => {
                 <div className={styles.content}>{children}</div>
             </div>
         </div>,
-        document.body,
+        modal || document.body,
     );
 };

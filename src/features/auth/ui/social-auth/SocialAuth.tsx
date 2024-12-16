@@ -2,15 +2,17 @@
 import React from 'react';
 import styles from './SocialAuth.module.scss';
 import { useLazyGithubAuthQuery } from '@/features/auth/api/authApi';
-import {BtnAuth} from "@/shared/ui/btn-auth";
+import { ImgBtn } from '@/shared/ui/img-btn/ImgBtn';
+import SvgGithub from '../../../../../public/svg/github.svg';
+import SvgGoogle from '../../../../../public/svg/google.svg';
 
 export const SocialAuth = () => {
     const [trigger] = useLazyGithubAuthQuery();
 
     return (
         <div className={styles.authButtons}>
-            <BtnAuth label="google" type="button" />
-            <BtnAuth onClick={()=>trigger()} label="github" type="button" />
+            <ImgBtn className={styles.authButton} icon={<SvgGoogle />} />
+            <ImgBtn className={styles.authButton} icon={<SvgGithub />} onClick={() => trigger()} />
         </div>
     );
 };

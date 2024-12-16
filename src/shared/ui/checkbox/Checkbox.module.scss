@@ -6,6 +6,7 @@
     color: $light-100;
     cursor: pointer;
     z-index: $z-index-base;
+
     @include apply-text-style(regular-14);
 
     &:has(.input:disabled) {
@@ -20,18 +21,22 @@
     width: 0;
     height: 0;
     pointer-events: none;
-    &:focus-visible + .fake:after {
+
+    &:focus-visible + .fake::after {
         opacity: 1;
         background-color: $dark-500;
     }
-    &:checked + .fake:before,
+
+    &:checked + .fake::before,
     &:checked + .fake {
         opacity: 1;
         background-color: $light-100;
     }
-    &:disabled + .fake:after {
+
+    &:disabled + .fake::after {
         content: none;
     }
+
     &:disabled + .fake {
         cursor: default;
     }
@@ -48,7 +53,7 @@
     border: 2px solid $light-100;
     cursor: pointer;
 
-    &:after {
+    &::after {
         content: '';
         position: absolute;
         width: 8px;
@@ -61,6 +66,7 @@
         z-index: $z-index-negative;
         transition: $transition-normal;
     }
+
     &::before {
         content: '';
         position: absolute;
@@ -75,14 +81,15 @@
     }
 
     &:hover {
-        &:after {
+        &::after {
             width: 36px;
             height: 36px;
             background-color: $dark-300;
         }
     }
+
     &:active {
-        &:after {
+        &::after {
             width: 36px;
             height: 36px;
             background-color: $dark-100;

@@ -3,18 +3,19 @@ import React, { useEffect } from 'react';
 import styles from './RegistrationСonfirmation.module.scss';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useSignUpConfirmationMutation } from '@/features/auth/api/authApi';
+import { Loader } from '@/shared/ui/loader/Loader';
 
 export const RegistrationConfirmation = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const code = searchParams.get('code');
+    const confirmationCode = searchParams.get('code');
     const email = searchParams.get('email');
 
-    const [confirmationToken, {}] = useSignUpConfirmationMutation();
+    const [confirmationToken] = useSignUpConfirmationMutation();
 
     useEffect(() => {
-        if (!code) return;
-        confirmationToken({ code })
+        if (!confirmationCode) return;
+        confirmationToken({ confirmationCode })
             .unwrap()
             .then(() => {
                 router.push('/auth/registration-success');
@@ -22,11 +23,11 @@ export const RegistrationConfirmation = () => {
             .catch(() => {
                 router.push(`/auth/email-resending?email=${email}`);
             });
-    }, [code]);
+    }, [confirmationCode]);
 
     return (
         <div className={styles.wrapper}>
-            <div>Идет проверка...</div>
+            <Loader />
         </div>
     );
 };

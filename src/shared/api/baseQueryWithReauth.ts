@@ -1,15 +1,15 @@
-import {fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {Mutex} from "async-mutex";
-import {BaseQueryFn, FetchArgs, FetchBaseQueryError} from "@reduxjs/toolkit/query";
-import {login, logout} from "@/features/auth/model/authSlice";
+import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Mutex } from 'async-mutex';
+import { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { login, logout } from '@/features/auth/model/authSlice';
 
 type TokensResponse = {
     accessToken: string;
 };
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers) => {
+    baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL,
+    prepareHeaders: headers => {
         const token = localStorage.getItem('accessToken');
         if (token) {
             headers.set('Authorization', `Bearer ${token}`);
@@ -20,7 +20,11 @@ const baseQuery = fetchBaseQuery({
 });
 
 const mutex = new Mutex();
-export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
+export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+    args,
+    api,
+    extraOptions,
+) => {
     await mutex.waitForUnlock(); // Ждём, пока mutex разблокируется
     let result = await baseQuery(args, api, extraOptions);
 
@@ -34,14 +38,13 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
                         method: 'POST',
                     },
                     api,
-                    extraOptions
+                    extraOptions,
                 );
 
                 if (refreshResult.data) {
-
                     localStorage.setItem('accessToken', (refreshResult.data as TokensResponse).accessToken);
 
-                    api.dispatch(login())
+                    api.dispatch(login());
 
                     // Повторяем запрос с новым токеном
                     result = await baseQuery(args, api, extraOptions);

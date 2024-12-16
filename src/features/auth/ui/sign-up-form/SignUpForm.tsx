@@ -51,29 +51,34 @@ export const SignUpForm = () => {
                 type={'text'}
                 label={'Username'}
                 error={errors.userName && errors.userName.message}
+                placeholder={'Name11'}
                 {...register('userName')}
             />
             <Input
                 type={'email'}
                 label={'Email'}
                 error={errors.email && errors.email.message}
+                placeholder={'Name@gmail.com.'}
                 {...register('email')}
             />
             <Password
                 label={'Password'}
                 error={errors.password && errors.password.message}
+                placeholder={'******************'}
                 {...register('password')}
             />
             <Password
                 label={'Password confirmation'}
                 error={errors.passwordConfirmation && errors.passwordConfirmation.message}
+                placeholder={'******************'}
                 {...register('passwordConfirmation')}
             />
 
             <div className={styles.legal}>
                 <Checkbox {...register('checkBox')} />
                 <span>
-                    I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>
+                    I agree to the <Link href={'/auth/terms-of-service'}>Terms of Service</Link> and{' '}
+                    <Link href={'/auth/privacy-policy'}>Privacy Policy</Link>
                 </span>
             </div>
 

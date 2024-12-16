@@ -48,11 +48,13 @@ export const NewPasswordForm = () => {
             <Password
                 label={'Password'}
                 error={errors.password && errors.password.message}
+                placeholder={'******************'}
                 {...register('password')}
             />
             <Password
                 label={'Password confirmation'}
                 error={errors.passwordConfirmation && errors.passwordConfirmation.message}
+                placeholder={'******************'}
                 {...register('passwordConfirmation')}
             />
             <span className={`${styles.helperText} ${styles.mb40}`}>

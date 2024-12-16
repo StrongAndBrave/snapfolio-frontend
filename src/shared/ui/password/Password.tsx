@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, ComponentPropsWithRef } from 'react';
-import s from './../input/Input.module.scss';
+import styles from './../input/Input.module.scss';
 import { EyeOnIcon } from './icons/EyeOnIcon';
 import { EyeOffIcon } from './icons/EyeOffIcon';
 
@@ -21,25 +21,25 @@ export const Password = ({ error, disabled, label, placeholder, className, ...re
     const eyeIcon = isVisible ? <EyeOnIcon /> : <EyeOffIcon />;
 
     return (
-        <div className={`${s.inputWrapper} ${className} ${disabled ? s.disabled : ''}`}>
-            <label className={s.label}> {label ? label : 'Password'}</label>
+        <div className={`${styles.inputWrapper} ${className} ${disabled && styles.disabled}`}>
+            <label className={styles.label}> {label || 'Password'}</label>
 
-            <div className={s.inputContainer}>
+            <div className={styles.inputContainer}>
                 <input
                     type={currentType}
                     className={` 
-                        ${s.inputField} 
-                        ${error ? s.error : ''} 
-                        ${s.passwordInput}`}
+                        ${styles.inputField} 
+                        ${error && styles.error} 
+                        ${styles.passwordInput}`}
                     placeholder={placeholder}
                     {...rest}
                 />
-                <div className={s.eyeIcon} onClick={handleChangeCurrentType}>
+                <div className={styles.eyeIcon} onClick={handleChangeCurrentType}>
                     {eyeIcon}
                 </div>
             </div>
 
-            {<div className={s.errorMessage}>{error ? error : ''}</div>}
+            {<div className={styles.errorMessage}>{error && error}</div>}
         </div>
     );
 };

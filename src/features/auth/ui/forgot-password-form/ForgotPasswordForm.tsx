@@ -1,5 +1,5 @@
 'use client';
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 import styles from '@/features/auth/ui/Form.module.scss';
@@ -25,6 +25,7 @@ export const ForgotPasswordForm = () => {
     const [passwordRecovery] = usePasswordRecoveryMutation();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const recaptchaRef = useRef<ReCAPTCHA>(null);
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? '';
 
     const onSubmit: SubmitHandler<ForgotPasswordData> = formData => {
         setIsSuccess(() => false);
@@ -48,6 +49,7 @@ export const ForgotPasswordForm = () => {
                 type={'email'}
                 label={'Email'}
                 error={errors.email && errors.email.message}
+                placeholder={'Name@gmail.com.'}
                 {...register('email')}
                 disabled={isSuccess}
             />
@@ -76,7 +78,7 @@ export const ForgotPasswordForm = () => {
                             <ReCAPTCHA
                                 theme="dark"
                                 hl="en"
-                                sitekey="6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM"
+                                sitekey={siteKey}
                                 onChange={field.onChange}
                                 ref={recaptchaRef}
                             />

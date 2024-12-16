@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import styles from './Recovery.module.scss';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useCheckRecoveryCodeMutation } from '@/features/auth/api/authApi';
+import { Loader } from '@/shared/ui/loader/Loader';
 
 export const Recovery = () => {
     const searchParams = useSearchParams();
@@ -13,7 +14,7 @@ export const Recovery = () => {
 
     useEffect(() => {
         if (!recoveryCode) return;
-        checkRecoveryCode(recoveryCode)
+        checkRecoveryCode({ recoveryCode })
             .unwrap()
             .then(() => {
                 router.push(`/auth/new-password?code=${recoveryCode}`);
@@ -25,7 +26,7 @@ export const Recovery = () => {
 
     return (
         <div className={styles.wrapper}>
-            <div>Идет проверка...</div>
+            <Loader />
         </div>
     );
 };
