@@ -14,10 +14,11 @@ export type Props = {
     onChange?: (value: string) => void;
     value?: string;
     isDisabled?: boolean;
+    className?: string;
     children?: ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Select = ({ options = [], onChange, value, isDisabled = false, ...props }: Props) => {
+export const Select = ({ options = [], onChange, value, className, isDisabled = false, ...props }: Props) => {
     const [selectedOption, setSelectedOption] = useState<Option | null>(options.length > 0 ? options[0] : null);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const selectRef = useRef<HTMLDivElement>(null);
@@ -57,7 +58,7 @@ export const Select = ({ options = [], onChange, value, isDisabled = false, ...p
             ${hasFlag ? styles['with-language'] : styles['without-language']}
         `;
     return (
-        <div className={styles['custom-select']} ref={selectRef} {...props}>
+        <div className={`${styles['custom-select']} ${className || ''}`} ref={selectRef} {...props}>
             <div
                 className={stylesSelectOptions}
                 onClick={() => !isDisabled && setDropdownOpen(prev => !prev)}
