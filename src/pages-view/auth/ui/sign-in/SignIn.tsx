@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormLayout } from '@/features/auth/ui/FormLayout';
 import { SignInForm, SocialAuth } from '@/features/auth';
 import styles from '@/features/auth/ui/Form.module.scss';

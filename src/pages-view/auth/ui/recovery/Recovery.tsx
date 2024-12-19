@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './Recovery.module.scss';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useCheckRecoveryCodeMutation } from '@/features/auth/api/authApi';

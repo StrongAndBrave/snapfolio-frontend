@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './RegistrationSuccess.module.scss';
 import { Button } from '@/shared/ui';
 import Link from 'next/link';

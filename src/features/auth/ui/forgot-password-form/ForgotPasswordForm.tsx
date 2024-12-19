@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 import styles from '@/features/auth/ui/Form.module.scss';

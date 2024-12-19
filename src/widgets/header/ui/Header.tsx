@@ -17,7 +17,7 @@ export const Header = () => {
             </Link>
 
             <div className={styles.headerActions}>
-                <Select options={options}/>
+                <Select options={options} />
                 {!isAuthorized && (
                     <>
                         <Button

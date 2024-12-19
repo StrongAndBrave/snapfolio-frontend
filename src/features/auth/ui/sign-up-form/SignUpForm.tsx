@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button, Checkbox, Input, Modal, Password } from '@/shared/ui';
 import Link from 'next/link';

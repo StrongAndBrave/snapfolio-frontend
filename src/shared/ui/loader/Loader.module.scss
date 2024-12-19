@@ -15,7 +15,7 @@
     background: transparent;
     margin: 0 7px;
     border-radius: 10px;
-    animation: 1.2s upDown infinite;
+    animation: 1.2s up-down infinite;
     font-size: 0;
     color: transparent;
 }
@@ -40,7 +40,7 @@
     animation-delay: 0.75s;
 }
 
-@keyframes upDown {
+@keyframes up-down {
     0% {
         height: 15px;
         background: $light-100;

@@ -1,30 +1,25 @@
-'use client'
-import {ReactNode, useEffect} from "react";
-import {usePathname, useRouter} from "next/navigation";
-import {useAppSelector} from "@/app/store/store";
-import {selectIsAuthorized} from "@/features/auth/model/authSlice";
+'use client';
+import { ReactNode, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useAppSelector } from '@/app/store/store';
+import { selectIsAuthorized } from '@/features/auth/model/authSlice';
 
 type Props = {
-    children: ReactNode
-}
+    children: ReactNode;
+};
 
-export const Protect = ({children}:Props) => {
+export const Protect = ({ children }: Props) => {
     const router = useRouter();
-    const pathname = usePathname()
+    const pathname = usePathname();
     const protectedRoutes = '/auth/';
 
     const isAuthorized = useAppSelector(selectIsAuthorized);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (isAuthorized && pathname.includes(protectedRoutes)) {
             router.push('/');
         }
-    },[isAuthorized, pathname])
+    }, [isAuthorized, pathname]);
 
-
-    return (
-        <div>
-            {isAuthorized ? null : children }
-        </div>
-    );
+    return <div>{isAuthorized ? null : children}</div>;
 };
