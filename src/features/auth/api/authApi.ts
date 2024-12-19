@@ -36,9 +36,9 @@ export const authApi = baseApi.injectEndpoints({
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
-                    dispatch(login());
                     const { data } = await queryFulfilled;
                     localStorage.setItem('accessToken', data.accessToken);
+                    dispatch(login());
                 } catch (error) {
                     console.error('Login failed:', error);
                 }

@@ -1,7 +1,1 @@
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
-    return <div>{children}</div>;
-}
+export { AuthLayout as default } from '@/app/layouts/auth-layout/AuthLayout';

@@ -7,7 +7,7 @@ export default function Home() {
         <div className={styles.page}>
             <main className={styles.main}>
                 <nav className={styles.nav}>
-                    <Link href={'/auth/profile'}>Profile</Link>
+                    <Link href={'/profile'}>Profile</Link>
                     <Link href={'/auth/sign-in'}>Sign In</Link>
                     <Link href={'/auth/sign-up'}>Sign Up</Link>
                     <Link href={'/auth/new-password'}>New Password</Link>
