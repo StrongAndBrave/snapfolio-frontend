@@ -15,33 +15,6 @@
     }
 }
 
-.input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-
-    &:focus-visible + .fake::after {
-        opacity: 1;
-        background-color: $dark-500;
-    }
-
-    &:checked + .fake::before,
-    &:checked + .fake {
-        opacity: 1;
-        background-color: $light-100;
-    }
-
-    &:disabled + .fake::after {
-        content: none;
-    }
-
-    &:disabled + .fake {
-        cursor: default;
-    }
-}
-
 .fake {
     margin-right: 11px;
     position: relative;
@@ -94,6 +67,33 @@
             height: 36px;
             background-color: $dark-100;
         }
+    }
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+
+    &:focus-visible + .fake::after {
+        opacity: 1;
+        background-color: $dark-500;
+    }
+
+    &:checked + .fake::before,
+    &:checked + .fake {
+        opacity: 1;
+        background-color: $light-100;
+    }
+
+    &:disabled + .fake::after {
+        content: none;
+    }
+
+    &:disabled + .fake {
+        cursor: default;
     }
 }
 

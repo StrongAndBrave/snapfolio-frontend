@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import styles from './SocialAuth.module.scss';
 import { useLazyGithubAuthQuery } from '@/features/auth/api/authApi';
 import { ImgBtn } from '@/shared/ui/img-btn/ImgBtn';

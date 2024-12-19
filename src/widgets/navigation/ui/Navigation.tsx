@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import styles from './Navigation.module.scss';
 import { ImgBtn } from '@/shared/ui/img-btn/ImgBtn';
 import Link from 'next/link';

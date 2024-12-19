@@ -1,6 +1,5 @@
 export { EmailResending } from './ui/email-resending/EmailResending';
 export { ForgotPassword } from './ui/forgot-password/ForgotPassword';
-export { LegalPage } from './ui/legal-page/LegalPage';
 export { NewPassword } from './ui/new-password/NewPassword';
 export { Recovery } from './ui/recovery/Recovery';
 export { RegistrationConfirmation } from './ui/registration-confirmation/RegistrationСonfirmation';

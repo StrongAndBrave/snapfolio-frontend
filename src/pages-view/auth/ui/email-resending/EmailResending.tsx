@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './EmailResending.module.scss';
 import { Button } from '@/shared/ui';
 import Image from 'next/image';

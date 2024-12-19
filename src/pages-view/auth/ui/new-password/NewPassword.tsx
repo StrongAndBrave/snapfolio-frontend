@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormLayout } from '@/features/auth/ui/FormLayout';
 import { NewPasswordForm } from '@/features/auth';
 
