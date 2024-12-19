@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, ComponentPropsWithRef } from 'react';
-import s from './../input/Input.module.scss';
+import styles from './../input/Input.module.scss';
 import { EyeOnIcon } from './icons/EyeOnIcon';
 import { EyeOffIcon } from './icons/EyeOffIcon';
 
@@ -10,7 +10,7 @@ type Props = {
     label?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const Password = ({ error, disabled, label, ...rest }: Props) => {
+export const Password = ({ error, disabled, label, placeholder, className, ...rest }: Props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const handleChangeCurrentType = () => {
@@ -21,25 +21,25 @@ export const Password = ({ error, disabled, label, ...rest }: Props) => {
     const eyeIcon = isVisible ? <EyeOnIcon /> : <EyeOffIcon />;
 
     return (
-        <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
-            <label className={s.label}> {label ? label : 'Password'}</label>
+        <div className={`${styles.inputWrapper} ${className} ${disabled && styles.disabled}`}>
+            <label className={styles.label}> {label || 'Password'}</label>
 
-            <div className={s.inputContainer}>
+            <div className={styles.inputContainer}>
                 <input
                     type={currentType}
                     className={` 
-                        ${s.inputField} 
-                        ${error ? s.error : ''} 
-                        ${s.passwordInput}`}
-                    placeholder="Password"
+                        ${styles.inputField} 
+                        ${error && styles.error} 
+                        ${styles.passwordInput}`}
+                    placeholder={placeholder}
                     {...rest}
                 />
-                <div className={s.eyeIcon} onClick={handleChangeCurrentType}>
+                <div className={styles.eyeIcon} onClick={handleChangeCurrentType}>
                     {eyeIcon}
                 </div>
             </div>
 
-            {<div className={s.errorMessage}>{error ? error : ''}</div>}
+            {<div className={styles.errorMessage}>{error && error}</div>}
         </div>
     );
 };

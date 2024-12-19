@@ -41,6 +41,7 @@ $light-900: #8d9094;
 $transition-normal: 0.3s;
 
 // для позиционированных элементов
+$z-index-negative: -1;
 $z-index-base: 1;
 $z-index-dropdown: 10;
 $z-index-modal: 100;

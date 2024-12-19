@@ -65,6 +65,8 @@
 .label {
     display: flex;
     font-family: Inter, sans-serif;
+
     @include apply-text-style(regular-14);
+
     color: $light-100;
 }

@@ -6,9 +6,9 @@ type Props = {
     error?: string;
 } & ComponentPropsWithRef<'input'>;
 
-export const Search = ({ error, disabled, ...rest }: Props) => {
+export const Search = ({ error, disabled, placeholder, className, ...rest }: Props) => {
     return (
-        <div className={`${s.inputWrapper} ${disabled ? s.disabled : ''}`}>
+        <div className={`${s.inputWrapper} ${className} ${disabled ? s.disabled : ''}`}>
             <div className={s.inputContainer}>
                 <input
                     type={'search'}
@@ -17,7 +17,7 @@ export const Search = ({ error, disabled, ...rest }: Props) => {
                         ${error ? s.error : ''} 
                         ${s.searchInput}
                     `}
-                    placeholder="Input search"
+                    placeholder={placeholder}
                     {...rest}
                 />
 

@@ -8,8 +8,9 @@ export default function Home() {
             <main className={styles.main}>
                 <nav className={styles.nav}>
                     <Link href={'/profile'}>Profile</Link>
-                    <Link href={'/sign-in'}>Sign In</Link>
-                    <Link href={'/sign-up'}>Sign Up</Link>
+                    <Link href={'/auth/sign-in'}>Sign In</Link>
+                    <Link href={'/auth/sign-up'}>Sign Up</Link>
+                    <Link href={'/auth/new-password'}>New Password</Link>
                 </nav>
                 <Image className={styles.logo} src="/next.svg" alt="Next.js logo" width={180} height={38} priority />
                 <ol>

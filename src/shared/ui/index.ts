@@ -7,3 +7,4 @@ export { RadioButton } from './radiobutton';
 export { Input } from './input';
 export { Password } from './password';
 export { Search } from './search';
+export { Modal } from './modal';

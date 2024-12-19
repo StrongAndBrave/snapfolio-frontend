@@ -1,0 +1,11 @@
+export { EmailResending } from './ui/email-resending/EmailResending';
+export { ForgotPassword } from './ui/forgot-password/ForgotPassword';
+export { LegalPage } from './ui/legal-page/LegalPage';
+export { NewPassword } from './ui/new-password/NewPassword';
+export { Recovery } from './ui/recovery/Recovery';
+export { RegistrationConfirmation } from './ui/registration-confirmation/RegistrationСonfirmation';
+export { RegistrationSuccess } from './ui/registration-success/RegistrationSuccess';
+export { SignIn } from './ui/sign-in/SignIn';
+export { SignUp } from './ui/sign-up/SignUp';
+export { PrivacyPolicy } from './ui/(legal)/privacy-policy/PrivacyPolicy';
+export { TermsOfService } from './ui/(legal)/terms-of-service/TermsOfService';

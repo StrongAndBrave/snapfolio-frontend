@@ -6,9 +6,23 @@ const nextConfig: NextConfig = {
     sassOptions: {
         additionalData: `@import "./src/app/styles/variables.scss";`,
     },
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/i,
+            use: ['@svgr/webpack'],
+        });
+
+        return config;
+    },
     experimental: {
         turbo: {
             useSwcCss: true,
+            rules: {
+                '*.svg': {
+                    loaders: ['@svgr/webpack'],
+                    as: '*.js',
+                },
+            },
         },
     },
     images: {
