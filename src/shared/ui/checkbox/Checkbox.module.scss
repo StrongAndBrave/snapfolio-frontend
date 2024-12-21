@@ -1,0 +1,106 @@
+.label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $light-100;
+    cursor: pointer;
+    z-index: $z-index-base;
+
+    @include apply-text-style(regular-14);
+
+    &:has(.input:disabled) {
+        opacity: 0.7;
+        cursor: default;
+    }
+}
+
+.fake {
+    margin-right: 11px;
+    position: relative;
+    display: block;
+    height: 18px;
+    width: 18px;
+    border-radius: 2px;
+    background-color: transparent;
+    border: 2px solid $light-100;
+    cursor: pointer;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-color: transparent;
+        z-index: $z-index-negative;
+        transition: $transition-normal;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 10px;
+        border: solid $dark-900;
+        border-width: 0 2px 2px 0;
+        opacity: 0;
+        transform: translate(-50%, -60%) rotate(45deg);
+        top: 50%;
+        left: 50%;
+    }
+
+    &:hover {
+        &::after {
+            width: 36px;
+            height: 36px;
+            background-color: $dark-300;
+        }
+    }
+
+    &:active {
+        &::after {
+            width: 36px;
+            height: 36px;
+            background-color: $dark-100;
+        }
+    }
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+
+    &:focus-visible + .fake::after {
+        opacity: 1;
+        background-color: $dark-500;
+    }
+
+    &:checked + .fake::before,
+    &:checked + .fake {
+        opacity: 1;
+        background-color: $light-100;
+    }
+
+    &:disabled + .fake::after {
+        content: none;
+    }
+
+    &:disabled + .fake {
+        cursor: default;
+    }
+}
+
+.text {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}

@@ -13,6 +13,7 @@ WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm install -g pnpm
+RUN mkdir -p /app/out
 RUN pnpm run build:production
 
 #Стейдж запуска

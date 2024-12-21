@@ -1,0 +1,138 @@
+$border-radius: 3px;
+
+.custom-select {
+    font-family: Inter, sans-serif;
+    $text-styles: regular-16;
+
+    letter-spacing: 0.02em;
+    position: relative;
+    width: fit-content;
+
+    .selected {
+        display: flex;
+        align-items: center;
+        justify-content: normal;
+        background-color: $dark-900;
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        border: 1px solid $dark-100;
+        border-radius: $border-radius;
+        padding: 5px 35px 5px 12px;
+        cursor: pointer;
+
+        &:hover {
+            border: 1px solid $light-900;
+            border-radius: $border-radius;
+            color: $light-900;
+        }
+
+        &:focus {
+            border: 1px solid $accent-500;
+            box-shadow: 0 0 0 1px $accent-500;
+            outline: none;
+        }
+
+        &.disabled {
+            background-color: $dark-900;
+            border: 1px solid $dark-100;
+            color: $dark-100;
+            pointer-events: none;
+        }
+
+        &.open {
+            background-image: url('/svg/arrow-up.svg');
+            border: 1px solid $light-100;
+        }
+
+        &.open:focus {
+            box-shadow: 0 0 0 0;
+        }
+
+        &.closed {
+            background-image: url('/svg/arrow-down.svg');
+        }
+
+        &.with-language {
+            min-width: 163px;
+            min-height: 36px;
+        }
+
+        &.without-language {
+            min-width: 210px;
+            min-height: 36px;
+        }
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin-top: -1px;
+        z-index: $z-index-tooltip;
+        overflow-y: auto;
+        background-color: $dark-900;
+        border: 1px solid $light-100;
+        border-radius: $border-radius;
+
+        li {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 4px 12px 5px;
+
+            &:hover {
+                background-color: $dark-300;
+                color: $accent-500;
+            }
+        }
+    }
+
+    .flag {
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+        .selected {
+            background-position: right 0 center;
+            border: 1px solid $dark-900;
+            border-radius: $border-radius;
+            padding: 1px 0;
+            cursor: pointer;
+
+            span {
+                display: none;
+            }
+
+            &.open {
+                border: 1px solid $dark-900;
+                border-radius: $border-radius;
+            }
+
+            &.with-language {
+                min-width: 22px;
+                min-height: 22px;
+                width: 44px;
+            }
+        }
+
+        .dropdown {
+            border: 1px solid $dark-900;
+            border-radius: $border-radius;
+
+            span {
+                display: none;
+            }
+
+            li {
+                padding: 1px 0;
+            }
+        }
+
+        .flag {
+            margin-right: 0;
+        }
+    }
+}

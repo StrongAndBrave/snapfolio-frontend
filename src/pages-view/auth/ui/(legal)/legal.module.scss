@@ -1,0 +1,47 @@
+.container {
+    padding: 24px 160px 228px;
+    text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.title {
+    margin: 22px 0 20px;
+}
+
+.back {
+    display: flex;
+    gap: 12px;
+    color: $light-100;
+    transition: $transition-normal;
+
+    &:hover {
+        color: $accent-100;
+    }
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .container {
+        padding: 0 15px 20px;
+    }
+
+    .header {
+        display: flex;
+        position: relative;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 0 26px;
+    }
+
+    .back {
+        position: absolute;
+        left: 0;
+        font-size: 0;
+    }
+
+    .title {
+        align-self: center;
+    }
+}

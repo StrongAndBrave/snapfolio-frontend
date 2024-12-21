@@ -1,0 +1,109 @@
+.inputWrapper {
+    @include apply-text-style(regular-16);
+}
+
+.eyeIcon {
+    color: $light-900;
+}
+
+.inputContainer {
+    position: relative;
+
+    .eyeIcon {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-40%);
+        color: $light-100;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .loupeIcon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-35%);
+    }
+}
+
+.label {
+    color: $light-900;
+}
+
+.inputField {
+    font-size: 16px;
+    color: $light-100;
+    padding: 8px;
+    border: 1px solid $dark-100;
+    border-radius: 2px;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    outline: 0;
+    transition:
+        border-color $transition-normal,
+        color $transition-normal;
+
+    &::placeholder {
+        color: $light-900;
+    }
+
+    &:active {
+        border-color: $light-100;
+    }
+
+    &:hover {
+        border-color: $light-900;
+    }
+
+    &:focus-visible {
+        border-color: $accent-500;
+    }
+
+    &:focus-visible::placeholder {
+        color: transparent;
+    }
+
+    &[type='search'] {
+        padding-left: 41px;
+    }
+
+    &[type='password'] {
+        padding-right: 40px;
+    }
+}
+
+.passwordInput {
+    padding-right: 40px;
+}
+
+.searchInput {
+    padding-left: 41px;
+}
+
+.errorMessage {
+    color: $danger-500;
+    min-height: 24px;
+
+    @include apply-text-style(regular-14);
+}
+
+.inputField.error {
+    border-color: $danger-500;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.inputField:-webkit-autofill,
+.inputField:-webkit-autofill:hover,
+.inputField:-webkit-autofill:focus,
+.inputField:-webkit-autofill:active {
+    background-clip: text;
+    -webkit-text-fill-color: $light-100;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: $light-100;
+}

@@ -1,0 +1,49 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: $accent-500;
+
+    @include link-style($regular-link);
+}
+
+button {
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+}
+
+body {
+    font-family: var(--font-inter), sans-serif;
+    background: $dark-700;
+    color: $light-100;
+
+    @include apply-text-style(regular-16);
+}
+
+h1 {
+    @include apply-text-style(h1);
+}
+
+h2 {
+    @include apply-text-style(h2);
+}
+
+h3 {
+    @include apply-text-style(h3);
+}
+
+p {
+    @include apply-text-style(regular-14);
+}

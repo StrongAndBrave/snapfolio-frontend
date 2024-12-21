@@ -22,15 +22,14 @@ pnpm-debug.log*
 pnpm-error.log*
 
 # env files (can opt-in for committing if needed)
-.env*
-
+.env.local
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
 # Storybook
-.storybook/
+storybook-static
 
 # IDEs
 .idea/
@@ -39,3 +38,5 @@ next-env.d.ts
 dist/
 *.log
 
+
+*storybook.log

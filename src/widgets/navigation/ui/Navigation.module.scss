@@ -1,0 +1,55 @@
+.sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 220px;
+    padding: 72px 20px 110px 60px;
+    height: calc(100vh - 60px);
+    border-right: 1px solid $dark-300;
+    background-color: $dark-700;
+    position: fixed;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.linkItem:nth-child(5) {
+    margin-bottom: 36px;
+}
+
+.link {
+    color: #ffffff;
+    gap: 12px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 500;
+    transition: $transition-normal;
+
+    &:hover {
+        color: $accent-100;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $accent-700;
+    }
+}
+
+.link .icon {
+    height: 24px;
+    width: 24px;
+}
+
+.link.linkActive {
+    color: $accent-500;
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    .sidebar {
+        display: none;
+    }
+}
