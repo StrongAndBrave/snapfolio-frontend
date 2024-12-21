@@ -58,7 +58,7 @@ export const SignUpForm = () => {
                 type={'email'}
                 label={'Email'}
                 error={errors.email && errors.email.message}
-                placeholder={'Name@gmail.com.'}
+                placeholder={'Example@mail.com'}
                 {...register('email')}
             />
             <Password

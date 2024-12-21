@@ -49,8 +49,9 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 url: `/api/v1/auth/logout`,
             }),
-            async onQueryStarted(arg, { dispatch }) {
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
+                    await queryFulfilled;
                     dispatch(logout());
                     localStorage.removeItem('accessToken');
                 } catch (error) {
@@ -62,8 +63,9 @@ export const authApi = baseApi.injectEndpoints({
             query: () => ({
                 url: `/api/v1/auth/me`,
             }),
-            async onQueryStarted(arg, { dispatch }) {
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
+                    await queryFulfilled;
                     dispatch(login());
                 } catch (error) {
                     console.error('Me failed:', error);
