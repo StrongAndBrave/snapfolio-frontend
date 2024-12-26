@@ -42,3 +42,29 @@ interface GetPostsQueryParams {
     sortBy: string;
     sortDirection: 'asc' | 'desc';
 }
+
+type ChildMetadata = {
+    uploadId: string;
+};
+
+type CreatePostMutationParams = {
+    description: string;
+    childrenMetadata: ChildMetadata[];
+};
+
+interface ImageUploadRequest {
+    files: File[];
+}
+
+interface ImageInfo {
+    url: string;
+    width: number;
+    height: number;
+    fileSize: number;
+    createdAt: string;
+    uploadId: string;
+}
+
+interface ImageUploadResponse {
+    images: ImageInfo[];
+}
