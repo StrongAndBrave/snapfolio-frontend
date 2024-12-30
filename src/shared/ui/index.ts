@@ -8,3 +8,5 @@ export { Input } from './input';
 export { Password } from './password';
 export { Search } from './search';
 export { Modal } from './modal';
+export { ActionModal } from './action-modal';
+export { PhotoSlider } from './slider';

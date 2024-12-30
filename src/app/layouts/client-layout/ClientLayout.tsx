@@ -28,7 +28,8 @@ export const ClientLayout = ({ children }: PropsWithChildren<unknown>) => {
                         {isAuthorized && <Navigation />}
                         <main className={`${styles.main} ${isAuthorized && styles.spacer}`}>{children}</main>
                     </div>
-                    <div id="modal-root"></div>
+                    <div id='modal-root'></div>
+                    <div id='modal-action'></div>
                 </>
             )}
 

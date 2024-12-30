@@ -1,0 +1,1 @@
+export type CreatePostStep = 'upload' | 'crop' | 'filters' | 'details' | 'confirm';
