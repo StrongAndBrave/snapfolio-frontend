@@ -1,9 +1,101 @@
+// export type ImageUploadResponse = {
+//     images: Image[];
+// };
+
+// export type GetCommentsWithPaginationResponse = {
+//     pageSize: number;
+//     totalCount: number;
+//     notReadCount: number;
+//     items: CommentType[];
+// };
+
+// export type CommentType = {
+//     id: number;
+//     postId: number;
+//     from: {
+//         id: number;
+//         username: string;
+//         avatars: [{}];
+//     };
+//     content: string;
+//     createdAt: string;
+//     answerCount: number;
+//     likeCount: number;
+//     isLiked: true;
+// };
+
+// export type AnswerType = Omit<CommentType, 'answerCount'>;
+
+// export type GetAnswersWithPaginationResponse = {
+//     pageSize: number;
+//     totalCount: number;
+//     notReadCount: number;
+//     items: AnswerType[];
+// };
+
+// requests
+
+type GetPostWithPaginationRequest = {
+    postId: number;
+    pageSize: number;
+    pageNumber: number;
+    sortBy: string;
+    sortDirection: 'asc' | 'desc';
+};
+
+type GetLikesRequest = {
+    postId: number;
+    search: string;
+    pageSize: number;
+    pageNumber: number;
+    cursor: number;
+};
+
+type GetCommentLikesRequest = GetLikesRequest | { commentId: number };
+
+export type CreatePostRequest = {
+    description: string;
+    childrenMetadata: ChildMetaData[];
+};
+
+export type ImageUploadRequest = {
+    files: File[];
+};
+
+export type UpdatePostByIdRequest = {
+    postId: number;
+    description: string;
+};
+
+export type GetCommentsWithPaginationRequest = GetPostWithPaginationRequest;
+
+export type GetAnswersWithPaginationRequest = GetPostWithPaginationRequest | { commentId: number };
+
+export type GetAnswerLikesRequest = GetCommentLikesRequest | { answerId: number };
+
+export type GetCommentLikes = GetCommentLikesRequest;
+
+export type UpdateLikeStatusPostRequest = {
+    postId: number;
+    likeStatus: string;
+};
+
+export type GetPostLikesRequest = GetLikesRequest;
+
+export type GetPostsWithPaginationByUsernameRequest = Omit<GetPostLikesRequest, 'postId'> | { userName: string };
+
+// common
+
+type ChildMetaData = {
+    uploadId: string;
+};
+
 type Image = {
     url: string;
     width: number;
     height: number;
     fileSize: number;
-    createdAt: string; // ISO 8601 format
+    createdAt: string;
     uploadId: string;
 };
 
@@ -12,7 +104,7 @@ type Owner = {
     lastName: string;
 };
 
-type Item = {
+export type PostType = {
     id: number;
     userName: string;
     description: string;
@@ -28,43 +120,4 @@ type Item = {
     avatarWhoLikes: boolean;
 };
 
-type ResponseData = {
-    pageSize: number;
-    totalCount: number;
-    notReadCount: number;
-    items: Item[];
-};
-
-interface GetPostsQueryParams {
-    userName: string;
-    pageSize: number;
-    pageNumber: number;
-    sortBy: string;
-    sortDirection: 'asc' | 'desc';
-}
-
-type ChildMetadata = {
-    uploadId: string;
-};
-
-type CreatePostMutationParams = {
-    description: string;
-    childrenMetadata: ChildMetadata[];
-};
-
-interface ImageUploadRequest {
-    files: File[];
-}
-
-interface ImageInfo {
-    url: string;
-    width: number;
-    height: number;
-    fileSize: number;
-    createdAt: string;
-    uploadId: string;
-}
-
-interface ImageUploadResponse {
-    images: ImageInfo[];
-}
+//responses
