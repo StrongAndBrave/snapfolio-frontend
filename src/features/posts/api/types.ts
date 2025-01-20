@@ -5,11 +5,15 @@ type PaginationRequest = {
     pageNumber: number;
 };
 
-type GetPostRequest = PaginationRequest & {
-    postId: number;
+type SortRequest = {
     sortBy: string;
     sortDirection: 'asc' | 'desc';
 };
+
+type GetPostRequest = PaginationRequest &
+    SortRequest & {
+        postId: number;
+    };
 
 type GetLikesRequest = PaginationRequest & {
     postId: number;
@@ -21,7 +25,9 @@ export type GetCommentLikesRequest = GetLikesRequest & { commentId: number };
 
 export type CreatePostRequest = {
     description: string;
-    childrenMetadata: ChildMetaData[];
+    childrenMetadata: {
+        uploadId: string;
+    }[];
 };
 
 export type ImageUploadRequest = {
@@ -48,11 +54,10 @@ export type UpdateLikeStatusPostRequest = {
 
 export type GetPostLikesRequest = GetLikesRequest;
 
-export type GetPostsByUsernameRequest = PaginationRequest & {
-    userName: string;
-    sortBy: string;
-    sortDirection: string;
-};
+export type GetPostsByUsernameRequest = PaginationRequest &
+    SortRequest & {
+        userName: string;
+    };
 
 //responses
 
@@ -78,19 +83,9 @@ export type GetAnswersResponse = {
     items: AnswerType[];
 };
 
-export type GetAnswerLikesResponse = GetLikesResponse;
-
-export type GetCommentLikesResponse = GetLikesResponse;
-
-export type GetPostLikesResponse = GetLikesResponse;
-
 export type GetPostsByUsernameResponse = PostType;
 
 // common
-
-type ChildMetaData = {
-    uploadId: string;
-};
 
 type Image = {
     url: string;
@@ -134,7 +129,7 @@ type CommentType = {
     createdAt: string;
     answerCount: number;
     likeCount: number;
-    isLiked: true;
+    isLiked: boolean;
 };
 
 type Avatar = {
@@ -157,7 +152,7 @@ type User = {
 
 type AnswerType = Omit<CommentType, 'answerCount'>;
 
-type GetLikesResponse = {
+export type GetLikesResponse = {
     pageSize: number;
     totalCount: number;
     notReadCount: number;

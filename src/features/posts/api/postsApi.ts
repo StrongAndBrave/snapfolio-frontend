@@ -11,12 +11,10 @@ import {
     GetCommentsRequest,
     GetAnswersRequest,
     GetAnswerLikesRequest,
-    GetAnswerLikesResponse,
-    GetCommentLikesResponse,
+    GetLikesResponse,
     GetCommentLikesRequest,
     UpdateLikeStatusPostRequest,
     GetPostLikesRequest,
-    GetPostLikesResponse,
     GetPostsByUsernameResponse,
     GetPostsByUsernameRequest,
 } from './types';
@@ -91,14 +89,14 @@ export const postsApi = baseApi.injectEndpoints({
             }),
         }),
 
-        getAnswerLikes: builder.query<GetAnswerLikesResponse, GetAnswerLikesRequest>({
+        getAnswerLikes: builder.query<GetLikesResponse, GetAnswerLikesRequest>({
             query: ({ postId, answerId, commentId, cursor, pageNumber, pageSize, search }) => ({
                 url: `api/v1/posts/${postId}/comments/${commentId}/answers/${answerId}/likes`,
                 params: { cursor, pageNumber, pageSize, search },
             }),
         }),
 
-        getCommentsLikes: builder.query<GetCommentLikesResponse, GetCommentLikesRequest>({
+        getCommentsLikes: builder.query<GetLikesResponse, GetCommentLikesRequest>({
             query: ({ postId, commentId, cursor, pageNumber, pageSize, search }) => ({
                 url: `api/v1/posts/${postId}/comments/${commentId}/likes`,
                 params: { cursor, pageNumber, pageSize, search },
@@ -113,7 +111,7 @@ export const postsApi = baseApi.injectEndpoints({
             }),
         }),
 
-        getPostLikes: builder.query<GetPostLikesResponse, GetPostLikesRequest>({
+        getPostLikes: builder.query<GetLikesResponse, GetPostLikesRequest>({
             query: ({ postId, pageNumber, pageSize, cursor, search }) => ({
                 url: `/api/v1/posts/${postId}/likes`,
                 params: { pageNumber, pageSize, cursor, search },
