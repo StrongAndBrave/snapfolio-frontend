@@ -1,18 +1,19 @@
 // requests
 
-type GetPostWithPaginationRequest = {
-    postId: number;
+type PaginationRequest = {
     pageSize: number;
     pageNumber: number;
+};
+
+type GetPostRequest = PaginationRequest & {
+    postId: number;
     sortBy: string;
     sortDirection: 'asc' | 'desc';
 };
 
-type GetLikesRequest = {
+type GetLikesRequest = PaginationRequest & {
     postId: number;
     search: string;
-    pageSize: number;
-    pageNumber: number;
     cursor: number;
 };
 
@@ -32,9 +33,9 @@ export type UpdatePostByIdRequest = {
     description: string;
 };
 
-export type GetCommentsWithPaginationRequest = GetPostWithPaginationRequest;
+export type GetCommentsRequest = GetPostRequest;
 
-export type GetAnswersWithPaginationRequest = GetPostWithPaginationRequest & { commentId: number };
+export type GetAnswersRequest = GetPostRequest & { commentId: number };
 
 export type GetAnswerLikesRequest = GetCommentLikesRequest & { answerId: number };
 
@@ -47,26 +48,30 @@ export type UpdateLikeStatusPostRequest = {
 
 export type GetPostLikesRequest = GetLikesRequest;
 
-export type GetPostsWithPaginationByUsernameRequest = Omit<GetPostLikesRequest, 'postId'> | { userName: string };
+export type GetPostsByUsernameRequest = PaginationRequest & {
+    userName: string;
+    sortBy: string;
+    sortDirection: string;
+};
 
 //responses
 
 export type CreatePostResponse = PostType;
 
-export type GetPostByIdResponce = PostType;
+export type GetPostByIdResponse = PostType;
 
 export type ImageUploadResponse = {
     images: Image[];
 };
 
-export type GetCommentsWithPaginationResponse = {
+export type GetCommentsResponse = {
     pageSize: number;
     totalCount: number;
     notReadCount: number;
     items: CommentType[];
 };
 
-export type GetAnswersWithPaginationResponse = {
+export type GetAnswersResponse = {
     pageSize: number;
     totalCount: number;
     notReadCount: number;
@@ -79,7 +84,7 @@ export type GetCommentLikesResponse = GetLikesResponse;
 
 export type GetPostLikesResponse = GetLikesResponse;
 
-export type GetPostsWithPaginationByUsernameResponse = PostType;
+export type GetPostsByUsernameResponse = PostType;
 
 // common
 
@@ -123,7 +128,7 @@ type CommentType = {
     from: {
         id: number;
         username: string;
-        avatars: [{}];
+        avatars: object[];
     };
     content: string;
     createdAt: string;

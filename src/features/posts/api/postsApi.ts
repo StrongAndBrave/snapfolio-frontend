@@ -3,17 +3,22 @@ import {
     ImageUploadResponse,
     ImageUploadRequest,
     UpdatePostByIdRequest,
-    GetCommentsWithPaginationResponse,
-    GetAnswersWithPaginationResponse,
+    GetCommentsResponse,
+    GetAnswersResponse,
     CreatePostRequest,
     CreatePostResponse,
-    GetPostByIdResponce,
-    GetCommentsWithPaginationRequest,
-    GetAnswersWithPaginationRequest,
+    GetPostByIdResponse,
+    GetCommentsRequest,
+    GetAnswersRequest,
     GetAnswerLikesRequest,
     GetAnswerLikesResponse,
     GetCommentLikesResponse,
     GetCommentLikesRequest,
+    UpdateLikeStatusPostRequest,
+    GetPostLikesRequest,
+    GetPostLikesResponse,
+    GetPostsByUsernameResponse,
+    GetPostsByUsernameRequest,
 } from './types';
 
 export const postsApi = baseApi.injectEndpoints({
@@ -29,7 +34,7 @@ export const postsApi = baseApi.injectEndpoints({
             }),
         }),
 
-        getPostById: builder.query<GetPostByIdResponce, { postId: number }>({
+        getPostById: builder.query<GetPostByIdResponse, { postId: number }>({
             query: postId => ({
                 url: `/api/v1/posts/id/${postId}`,
             }),
@@ -72,14 +77,14 @@ export const postsApi = baseApi.injectEndpoints({
             }),
         }),
 
-        getCommentsWithPagination: builder.query<GetCommentsWithPaginationResponse, GetCommentsWithPaginationRequest>({
+        getComment: builder.query<GetCommentsResponse, GetCommentsRequest>({
             query: ({ postId, pageNumber, pageSize, sortBy, sortDirection }) => ({
                 url: `/api/v1/${postId}/comments`,
                 params: { pageNumber, pageSize, sortBy, sortDirection },
             }),
         }),
 
-        getAnswersWithPagination: builder.query<GetAnswersWithPaginationResponse, GetAnswersWithPaginationRequest>({
+        getAnswers: builder.query<GetAnswersResponse, GetAnswersRequest>({
             query: ({ commentId, pageNumber, pageSize, postId, sortBy, sortDirection }) => ({
                 url: `/api/v1/posts/${postId}/comments/${commentId}/answers`,
                 params: { pageNumber, pageSize, sortBy, sortDirection },
@@ -92,17 +97,34 @@ export const postsApi = baseApi.injectEndpoints({
                 params: { cursor, pageNumber, pageSize, search },
             }),
         }),
+
         getCommentsLikes: builder.query<GetCommentLikesResponse, GetCommentLikesRequest>({
             query: ({ postId, commentId, cursor, pageNumber, pageSize, search }) => ({
                 url: `api/v1/posts/${postId}/comments/${commentId}/likes`,
                 params: { cursor, pageNumber, pageSize, search },
             }),
         }),
-        // getPosts: builder.query<PostType, GetPostsQueryParams>({
-        //     query: ({ userName, pageSize, pageNumber, sortBy, sortDirection }) => ({
-        //         url: `/api/v1/posts/${userName}`,
-        //         params: { pageSize, pageNumber, sortBy, sortDirection },
-        //     }),
-        // }),
+
+        updateLikeStatusPost: builder.mutation<any, UpdateLikeStatusPostRequest>({
+            query: ({ postId, likeStatus }) => ({
+                url: `/api/v1/posts/${postId}/like-status`,
+                method: 'PUT',
+                body: { likeStatus },
+            }),
+        }),
+
+        getPostLikes: builder.query<GetPostLikesResponse, GetPostLikesRequest>({
+            query: ({ postId, pageNumber, pageSize, cursor, search }) => ({
+                url: `/api/v1/posts/${postId}/likes`,
+                params: { pageNumber, pageSize, cursor, search },
+            }),
+        }),
+
+        getPostsByUserName: builder.query<GetPostsByUsernameResponse, GetPostsByUsernameRequest>({
+            query: ({ userName, pageSize, pageNumber, sortBy, sortDirection }) => ({
+                url: `/api/v1/posts/${userName}`,
+                params: { pageSize, pageNumber, sortBy, sortDirection },
+            }),
+        }),
     }),
 });
