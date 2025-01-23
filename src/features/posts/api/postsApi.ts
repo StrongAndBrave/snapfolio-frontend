@@ -3,16 +3,8 @@ import {
     ImageUploadResponse,
     ImageUploadRequest,
     UpdatePostByIdRequest,
-    GetCommentsResponse,
-    GetAnswersResponse,
     CreatePostRequest,
-    CreatePostResponse,
-    GetPostByIdResponse,
-    GetCommentsRequest,
-    GetAnswersRequest,
-    GetAnswerLikesRequest,
     GetLikesResponse,
-    GetCommentLikesRequest,
     UpdateLikeStatusPostRequest,
     GetPostLikesRequest,
     GetPostsByUsernameResponse,
@@ -21,13 +13,12 @@ import {
     GetAllPostsResponse,
     GetPostsByUserIdResponse,
     GetPostsByUserIdRequest,
-    GetCommentsForUnauthorizedUsersResponse,
-    GetCommentsForUnauthorizedUsersRequest,
-} from './types';
+    PostType,
+} from './types/postTypes';
 
 export const postsApi = baseApi.injectEndpoints({
     endpoints: builder => ({
-        createPost: builder.mutation<CreatePostResponse, CreatePostRequest>({
+        createPost: builder.mutation<PostType, CreatePostRequest>({
             query: ({ description, childrenMetadata }) => ({
                 url: '/api/v1/posts',
                 method: 'POST',
@@ -38,7 +29,7 @@ export const postsApi = baseApi.injectEndpoints({
             }),
         }),
 
-        getPostById: builder.query<GetPostByIdResponse, { postId: number }>({
+        getPostById: builder.query<PostType, { postId: number }>({
             query: postId => ({
                 url: `/api/v1/posts/id/${postId}`,
             }),
@@ -114,22 +105,6 @@ export const postsApi = baseApi.injectEndpoints({
             query: ({ endCursorPostId, pageSize, sortBy, sortDirection, userId }) => ({
                 url: `/api/v1/public-posts/user/${userId}/${endCursorPostId}`,
                 params: { pageSize, sortBy, sortDirection },
-            }),
-        }),
-
-        // getPostById: builder.query<GetPostByIdResponse, { postId: number }>({
-        //     query: ({ postId }) => ({
-        //         url: `/api/v1/public-posts/${postId}`,
-        //     }),
-        // }),
-
-        getCommentsForUnauthorizedUsers: builder.query<
-            GetCommentsForUnauthorizedUsersResponse,
-            GetCommentsForUnauthorizedUsersRequest
-        >({
-            query: ({ pageNumber, pageSize, postId, sortBy, sortDirection }) => ({
-                url: `/api/v1/public-posts/${postId}/comments`,
-                params: { pageNumber, pageSize, sortBy, sortDirection },
             }),
         }),
     }),

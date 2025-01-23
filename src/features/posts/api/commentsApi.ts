@@ -7,12 +7,14 @@ import {
     GetAnswersRequest,
     GetAnswersResponse,
     GetCommentLikesRequest,
+    GetCommentsForUnauthorizedUsersRequest,
+    GetCommentsForUnauthorizedUsersResponse,
     GetCommentsRequest,
     GetCommentsResponse,
     GetLikesResponse,
     UpdateLikeStatusAnswerRequest,
     UpdateLikeStatusCommentRequest,
-} from './types';
+} from './types/commentsTypes';
 
 export const commentApi = baseApi.injectEndpoints({
     endpoints: builder => ({
@@ -71,6 +73,16 @@ export const commentApi = baseApi.injectEndpoints({
                 url: `/api/v1/posts/${postId}/comments/${commentId}/like-status`,
                 method: 'PUT',
                 body: { likeStatus },
+            }),
+        }),
+
+        getCommentsForUnauthorizedUsers: builder.query<
+            GetCommentsForUnauthorizedUsersResponse,
+            GetCommentsForUnauthorizedUsersRequest
+        >({
+            query: ({ pageNumber, pageSize, postId, sortBy, sortDirection }) => ({
+                url: `/api/v1/public-posts/${postId}/comments`,
+                params: { pageNumber, pageSize, sortBy, sortDirection },
             }),
         }),
     }),
