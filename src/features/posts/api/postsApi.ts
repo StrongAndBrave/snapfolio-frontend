@@ -17,6 +17,12 @@ import {
     GetPostLikesRequest,
     GetPostsByUsernameResponse,
     GetPostsByUsernameRequest,
+    GetAllPostsRequest,
+    GetAllPostsResponse,
+    GetPostsByUserIdResponse,
+    GetPostsByUserIdRequest,
+    GetCommentsForUnauthorizedUsersResponse,
+    GetCommentsForUnauthorizedUsersRequest,
 } from './types';
 
 export const postsApi = baseApi.injectEndpoints({
@@ -53,14 +59,14 @@ export const postsApi = baseApi.injectEndpoints({
             },
         }),
 
-        deleteImagePost: builder.mutation<any, { uploadId: string }>({
+        deleteImagePost: builder.mutation<void, { uploadId: string }>({
             query: uploadId => ({
                 url: `/api/v1/posts/image/${uploadId}`,
                 method: 'DELETE',
             }),
         }),
 
-        updatePostById: builder.mutation<any, UpdatePostByIdRequest>({
+        updatePostById: builder.mutation<void, UpdatePostByIdRequest>({
             query: ({ postId, description }) => ({
                 url: `/api/v1/posts/${postId}`,
                 method: 'PUT',
@@ -68,42 +74,14 @@ export const postsApi = baseApi.injectEndpoints({
             }),
         }),
 
-        deletePostById: builder.mutation<any, { postId: number }>({
+        deletePostById: builder.mutation<void, { postId: number }>({
             query: postId => ({
                 url: `/api/v1/posts/${postId}`,
                 method: 'DELETE',
             }),
         }),
 
-        getComment: builder.query<GetCommentsResponse, GetCommentsRequest>({
-            query: ({ postId, pageNumber, pageSize, sortBy, sortDirection }) => ({
-                url: `/api/v1/${postId}/comments`,
-                params: { pageNumber, pageSize, sortBy, sortDirection },
-            }),
-        }),
-
-        getAnswers: builder.query<GetAnswersResponse, GetAnswersRequest>({
-            query: ({ commentId, pageNumber, pageSize, postId, sortBy, sortDirection }) => ({
-                url: `/api/v1/posts/${postId}/comments/${commentId}/answers`,
-                params: { pageNumber, pageSize, sortBy, sortDirection },
-            }),
-        }),
-
-        getAnswerLikes: builder.query<GetLikesResponse, GetAnswerLikesRequest>({
-            query: ({ postId, answerId, commentId, cursor, pageNumber, pageSize, search }) => ({
-                url: `api/v1/posts/${postId}/comments/${commentId}/answers/${answerId}/likes`,
-                params: { cursor, pageNumber, pageSize, search },
-            }),
-        }),
-
-        getCommentsLikes: builder.query<GetLikesResponse, GetCommentLikesRequest>({
-            query: ({ postId, commentId, cursor, pageNumber, pageSize, search }) => ({
-                url: `api/v1/posts/${postId}/comments/${commentId}/likes`,
-                params: { cursor, pageNumber, pageSize, search },
-            }),
-        }),
-
-        updateLikeStatusPost: builder.mutation<any, UpdateLikeStatusPostRequest>({
+        updateLikeStatusPost: builder.mutation<void, UpdateLikeStatusPostRequest>({
             query: ({ postId, likeStatus }) => ({
                 url: `/api/v1/posts/${postId}/like-status`,
                 method: 'PUT',
@@ -124,5 +102,47 @@ export const postsApi = baseApi.injectEndpoints({
                 params: { pageSize, pageNumber, sortBy, sortDirection },
             }),
         }),
+
+        getAllPosts: builder.query<GetAllPostsResponse, GetAllPostsRequest>({
+            query: ({ endCursorPostId, pageSize, sortBy, sortDirection }) => ({
+                url: `/api/v1/public-posts/all/${endCursorPostId}`,
+                params: { pageSize, sortBy, sortDirection },
+            }),
+        }),
+
+        getPostsByUserId: builder.query<GetPostsByUserIdResponse, GetPostsByUserIdRequest>({
+            query: ({ endCursorPostId, pageSize, sortBy, sortDirection, userId }) => ({
+                url: `/api/v1/public-posts/user/${userId}/${endCursorPostId}`,
+                params: { pageSize, sortBy, sortDirection },
+            }),
+        }),
+
+        // getPostById: builder.query<GetPostByIdResponse, { postId: number }>({
+        //     query: ({ postId }) => ({
+        //         url: `/api/v1/public-posts/${postId}`,
+        //     }),
+        // }),
+
+        getCommentsForUnauthorizedUsers: builder.query<
+            GetCommentsForUnauthorizedUsersResponse,
+            GetCommentsForUnauthorizedUsersRequest
+        >({
+            query: ({ pageNumber, pageSize, postId, sortBy, sortDirection }) => ({
+                url: `/api/v1/public-posts/${postId}/comments`,
+                params: { pageNumber, pageSize, sortBy, sortDirection },
+            }),
+        }),
     }),
 });
+
+export const {
+    useCreatePostMutation,
+    useGetPostByIdQuery,
+    useUploadImagePostMutation,
+    useDeleteImagePostMutation,
+    useUpdatePostByIdMutation,
+    useDeletePostByIdMutation,
+    useUpdateLikeStatusPostMutation,
+    useGetPostLikesQuery,
+    useGetPostsByUserNameQuery,
+} = postsApi;

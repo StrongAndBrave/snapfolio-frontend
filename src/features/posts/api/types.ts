@@ -59,6 +59,42 @@ export type GetPostsByUsernameRequest = PaginationRequest &
         userName: string;
     };
 
+export type CreateCommentRequest = {
+    postId: number;
+    content: string;
+};
+
+export type CreateAnswerRequest = {
+    postId: number;
+    commentId: number;
+    content: string;
+};
+
+export type UpdateLikeStatusAnswerRequest = {
+    postId: number;
+    commentId: number;
+    answerId: number;
+    likeStatus: string;
+};
+
+export type UpdateLikeStatusCommentRequest = {
+    likeStatus: string;
+    postId: number;
+    commentId: number;
+};
+
+export type GetAllPostsRequest = {
+    endCursorPostId: number;
+    pageSize: number;
+} & SortRequest;
+
+export type GetPostsByUserIdRequest = { userId: number } & GetAllPostsRequest;
+
+export type GetCommentsForUnauthorizedUsersRequest = {
+    postId: number;
+} & SortRequest &
+    PaginationRequest;
+
 //responses
 
 export type CreatePostResponse = PostType;
@@ -83,7 +119,33 @@ export type GetAnswersResponse = {
     items: AnswerType[];
 };
 
-export type GetPostsByUsernameResponse = PostType;
+export type GetPostsByUsernameResponse = {
+    pageSize: number;
+    totalCount: number;
+    notReadCount: number;
+    items: PostType[];
+};
+
+export type GetAllPostsResponse = {
+    totalCount: number;
+    pageSize: number;
+    totalUsers: number;
+    items: PostType[];
+};
+
+export type GetPostsByUserIdResponse = {
+    totalCount: number;
+    pageSize: number;
+    totalUsers: number;
+    items: PostType[];
+};
+
+export type GetCommentsForUnauthorizedUsersResponse = {
+    pageSize: number;
+    totalCount: number;
+    notReadCount: number;
+    items: CommentType[];
+};
 
 // common
 
@@ -101,7 +163,7 @@ type Owner = {
     lastName: string;
 };
 
-type PostType = {
+export type PostType = {
     id: number;
     userName: string;
     description: string;
@@ -117,7 +179,7 @@ type PostType = {
     avatarWhoLikes: boolean;
 };
 
-type CommentType = {
+export type CommentType = {
     id: number;
     postId: number;
     from: {
@@ -150,7 +212,7 @@ type User = {
     isFollowedBy: boolean;
 };
 
-type AnswerType = Omit<CommentType, 'answerCount'>;
+export type AnswerType = Omit<CommentType, 'answerCount'>;
 
 export type GetLikesResponse = {
     pageSize: number;
