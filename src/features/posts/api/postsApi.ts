@@ -18,6 +18,49 @@ import {
 
 export const postsApi = baseApi.injectEndpoints({
     endpoints: builder => ({
+        // GET
+
+        getPostById: builder.query<PostType, { postId: number }>({
+            query: ({ postId }) => ({
+                url: `/api/v1/posts/id/${postId}`,
+            }),
+            providesTags: ['Post'],
+        }),
+
+        getPostLikes: builder.query<GetLikesResponse, GetPostLikesRequest>({
+            query: ({ postId, pageNumber, pageSize, cursor, search }) => ({
+                url: `/api/v1/posts/${postId}/likes`,
+                params: { pageNumber, pageSize, cursor, search },
+            }),
+            providesTags: ['Post'],
+        }),
+
+        getPostsByUserName: builder.query<GetPostsByUsernameResponse, GetPostsByUsernameRequest>({
+            query: ({ userName, pageSize, pageNumber, sortBy, sortDirection }) => ({
+                url: `/api/v1/posts/${userName}`,
+                params: { pageSize, pageNumber, sortBy, sortDirection },
+            }),
+            providesTags: ['Post'],
+        }),
+
+        getAllPosts: builder.query<GetAllPostsResponse, GetAllPostsRequest>({
+            query: ({ endCursorPostId, pageSize, sortBy, sortDirection }) => ({
+                url: `/api/v1/public-posts/all/${endCursorPostId}`,
+                params: { pageSize, sortBy, sortDirection },
+            }),
+            providesTags: ['Post'],
+        }),
+
+        getPostsByUserId: builder.query<GetPostsByUserIdResponse, GetPostsByUserIdRequest>({
+            query: ({ endCursorPostId, pageSize, sortBy, sortDirection, userId }) => ({
+                url: `/api/v1/public-posts/user/${userId}/${endCursorPostId}`,
+                params: { pageSize, sortBy, sortDirection },
+            }),
+            providesTags: ['Post'],
+        }),
+
+        // POST
+
         createPost: builder.mutation<PostType, CreatePostRequest>({
             query: ({ description, childrenMetadata }) => ({
                 url: '/api/v1/posts',
@@ -27,12 +70,7 @@ export const postsApi = baseApi.injectEndpoints({
                     childrenMetadata,
                 },
             }),
-        }),
-
-        getPostById: builder.query<PostType, { postId: number }>({
-            query: postId => ({
-                url: `/api/v1/posts/id/${postId}`,
-            }),
+            invalidatesTags: [{ type: 'Post' }],
         }),
 
         uploadImagePost: builder.mutation<ImageUploadResponse, ImageUploadRequest>({
@@ -48,14 +86,10 @@ export const postsApi = baseApi.injectEndpoints({
                     body: formData,
                 };
             },
+            invalidatesTags: [{ type: 'Post' }],
         }),
 
-        deleteImagePost: builder.mutation<void, { uploadId: string }>({
-            query: uploadId => ({
-                url: `/api/v1/posts/image/${uploadId}`,
-                method: 'DELETE',
-            }),
-        }),
+        // PUT
 
         updatePostById: builder.mutation<void, UpdatePostByIdRequest>({
             query: ({ postId, description }) => ({
@@ -63,13 +97,7 @@ export const postsApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body: { description },
             }),
-        }),
-
-        deletePostById: builder.mutation<void, { postId: number }>({
-            query: postId => ({
-                url: `/api/v1/posts/${postId}`,
-                method: 'DELETE',
-            }),
+            invalidatesTags: [{ type: 'Post' }],
         }),
 
         updateLikeStatusPost: builder.mutation<void, UpdateLikeStatusPostRequest>({
@@ -78,34 +106,25 @@ export const postsApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body: { likeStatus },
             }),
+            invalidatesTags: [{ type: 'Post' }],
         }),
 
-        getPostLikes: builder.query<GetLikesResponse, GetPostLikesRequest>({
-            query: ({ postId, pageNumber, pageSize, cursor, search }) => ({
-                url: `/api/v1/posts/${postId}/likes`,
-                params: { pageNumber, pageSize, cursor, search },
+        // DELETE
+
+        deleteImagePost: builder.mutation<void, { uploadId: string }>({
+            query: ({ uploadId }) => ({
+                url: `/api/v1/posts/image/${uploadId}`,
+                method: 'DELETE',
             }),
+            invalidatesTags: [{ type: 'Post' }],
         }),
 
-        getPostsByUserName: builder.query<GetPostsByUsernameResponse, GetPostsByUsernameRequest>({
-            query: ({ userName, pageSize, pageNumber, sortBy, sortDirection }) => ({
-                url: `/api/v1/posts/${userName}`,
-                params: { pageSize, pageNumber, sortBy, sortDirection },
+        deletePostById: builder.mutation<void, { postId: number }>({
+            query: ({ postId }) => ({
+                url: `/api/v1/posts/${postId}`,
+                method: 'DELETE',
             }),
-        }),
-
-        getAllPosts: builder.query<GetAllPostsResponse, GetAllPostsRequest>({
-            query: ({ endCursorPostId, pageSize, sortBy, sortDirection }) => ({
-                url: `/api/v1/public-posts/all/${endCursorPostId}`,
-                params: { pageSize, sortBy, sortDirection },
-            }),
-        }),
-
-        getPostsByUserId: builder.query<GetPostsByUserIdResponse, GetPostsByUserIdRequest>({
-            query: ({ endCursorPostId, pageSize, sortBy, sortDirection, userId }) => ({
-                url: `/api/v1/public-posts/user/${userId}/${endCursorPostId}`,
-                params: { pageSize, sortBy, sortDirection },
-            }),
+            invalidatesTags: [{ type: 'Post' }],
         }),
     }),
 });
@@ -120,4 +139,6 @@ export const {
     useUpdateLikeStatusPostMutation,
     useGetPostLikesQuery,
     useGetPostsByUserNameQuery,
+    useGetAllPostsQuery,
+    useGetPostsByUserIdQuery,
 } = postsApi;

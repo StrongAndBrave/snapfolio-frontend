@@ -1,16 +1,18 @@
 'use client';
 
-import { useGetPostsByUserNameQuery } from '@/features/posts/api/postsApi';
-import { PostType } from '../api/types';
+import { useDeletePostByIdMutation, useGetPostsByUserNameQuery } from '@/features/posts/api/postsApi';
+import { PostType } from '../api/types/postTypes';
 
-export const UserPosts = () => {
+export const GetPostByUsername = () => {
     const { data, error, isLoading } = useGetPostsByUserNameQuery({
-        userName: '__Rustem__',
+        userName: '___Rustem___',
         pageSize: 10,
         pageNumber: 1,
         sortBy: 'createdAt',
         sortDirection: 'desc',
     });
+
+    const [deletePost, {}] = useDeletePostByIdMutation();
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error loading posts</p>;
@@ -20,7 +22,6 @@ export const UserPosts = () => {
             {data?.items && data.items.length > 0 ? (
                 data.items.map((post: PostType) => (
                     <div key={post.id} className="post">
-                        {/* Автор поста */}
                         <div className="post-header">
                             <div className="post-owner">
                                 <h4>
@@ -29,20 +30,25 @@ export const UserPosts = () => {
                                 <p className="post-username">{post.userName}</p>
                             </div>
                         </div>
-
-                        {/* Описание поста */}
                         <div className="post-description">
                             <p>Описание: {post.description}</p>
                         </div>
 
-                        {/* Локация (если есть) */}
-                        {post.location && <p className="post-location">📍 {post.location}</p>}
+                        {post.location && <p className="post-location">{post.location}</p>}
 
-                        {/* Дата и время */}
                         <div className="post-timestamp">
                             <p>Создано: {new Date(post.createdAt).toLocaleString()}</p>
                             <p>Обновлено: {new Date(post.updatedAt).toLocaleString()}</p>
                         </div>
+                        <div className="">{post.id}</div>
+                        <button
+                            onClick={() => {
+                                deletePost({ postId: post.id });
+                            }}
+                            style={{ backgroundColor: 'red', padding: '5px' }}
+                        >
+                            Удалить
+                        </button>
                     </div>
                 ))
             ) : (
@@ -51,5 +57,3 @@ export const UserPosts = () => {
         </div>
     );
 };
-
-export default UserPosts;

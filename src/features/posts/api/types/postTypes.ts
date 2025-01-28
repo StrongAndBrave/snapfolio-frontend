@@ -10,11 +10,6 @@ type SortRequest = {
     sortDirection: 'asc' | 'desc';
 };
 
-type GetPostRequest = PaginationRequest &
-    SortRequest & {
-        postId: number;
-    };
-
 type GetLikesRequest = PaginationRequest & {
     postId: number;
     search: string;

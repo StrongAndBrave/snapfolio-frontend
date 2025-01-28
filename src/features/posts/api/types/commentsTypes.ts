@@ -68,10 +68,6 @@ export type GetCommentsForUnauthorizedUsersRequest = {
 
 //responses
 
-export type ImageUploadResponse = {
-    images: Image[];
-};
-
 export type GetCommentsResponse = {
     pageSize: number;
     totalCount: number;
@@ -94,15 +90,6 @@ export type GetCommentsForUnauthorizedUsersResponse = {
 };
 
 // common
-
-type Image = {
-    url: string;
-    width: number;
-    height: number;
-    fileSize: number;
-    createdAt: string;
-    uploadId: string;
-};
 
 export type CommentType = {
     id: number;
