@@ -1,0 +1,19 @@
+.cropPanel{
+  position: absolute;
+  bottom: 49px;
+  left: 11px;
+  width: 156px;
+  height: 152px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba($dark-500, 0.8);
+  z-index: $z-index-modal;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.cropPanel.visible{
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}

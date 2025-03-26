@@ -9,4 +9,5 @@ export { Password } from './password';
 export { Search } from './search';
 export { Modal } from './modal';
 export { ActionModal } from './action-modal';
-export { PhotoSlider } from './slider';
+export { PhotoSlider } from './photo-slider';
+export { Uploader } from './uploader';

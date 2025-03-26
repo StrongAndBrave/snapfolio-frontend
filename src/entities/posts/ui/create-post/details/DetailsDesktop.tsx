@@ -1,10 +1,9 @@
 import styles from "@/entities/posts/ui/create-post/CreatePost.module.scss";
-import SvgArrowBack from '../../../../../../public/svg/arrow-ios-back.svg';
-import {Button, PhotoSlider} from "@/shared/ui";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
+import SvgArrowBack from "../../../../../../public/svg/arrow-ios-back.svg";
+import {Button, PhotoSlider} from "@/shared/ui";
 import {CreatePostStep} from "@/entities/posts/model/types";
-import React from "react";
-import {FilterItems} from "@/entities/posts/ui/create-post/filters/FilterItems/FilterItems";
+import {Info} from "@/entities/posts/ui/create-post/details/info/Info";
 
 type Props = {
     backStep: (step: CreatePostStep) => void
@@ -12,21 +11,21 @@ type Props = {
     images: File[]
 }
 
-export const FiltersDesktop = ({backStep, nextStep, images}: Props) => {
+export const DetailsDesktop = ({backStep, nextStep, images}: Props) => {
 
     const handleBackStep = () => {
-        backStep('crop')
+        backStep('filters')
     }
     const handleNextStep = () => {
-        nextStep('details')
+        nextStep('confirm')
     }
 
     return (
         <>
             <div className={styles.header}>
                 <ImgBtn icon={<SvgArrowBack/>} onClick={handleBackStep}/>
-                <span className={styles.title}>Filters</span>
-                <Button variant={'text'} className={styles.nextButton} onClick={handleNextStep}>Next</Button>
+                <span className={styles.title}>Publication</span>
+                <Button variant={'text'} className={styles.nextButton} onClick={handleNextStep}>Publish</Button>
             </div>
             <div className={styles.content}>
                 <div className={styles.slider}>
@@ -34,7 +33,7 @@ export const FiltersDesktop = ({backStep, nextStep, images}: Props) => {
                         images={images}
                     />
                 </div>
-                <FilterItems/>
+                <Info/>
             </div>
         </>
     );

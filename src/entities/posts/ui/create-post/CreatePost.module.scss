@@ -4,6 +4,10 @@
   height: 567px;
 }
 
+.largeModal{
+  max-width: 972px;
+}
+
 .header{
   padding: 12px 24px;
   display: flex;
@@ -25,11 +29,69 @@
   padding: 6px 12px 6px 0;
 }
 
-.content{
+.contentUpload{
   display: flex;
   flex-direction: column;
   padding: 72px 135px 48px;
+  .image{
+    width: 48px;
+    height: 48px;
+  }
 }
+
+
+
+.contentCrop{
+  height: 506px;
+  position: relative;
+}
+
+.content{
+  width: 972px;
+  display: flex;
+  justify-content: space-between;
+  .slider{
+    width: 490px;
+    height: 506px;
+  }
+}
+
+.uploadBtn{
+  position: absolute;
+  right: 11px;
+  bottom: 11px;
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($dark-500, 0.8);
+  border-radius: 2px;
+  z-index: 101;
+}
+
+.expandBtn{
+  position: absolute;
+  left: 11px;
+  bottom: 11px;
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($dark-500, 0.8);
+  border-radius: 2px;
+  z-index: 101;
+}
+
+.uploadIcon{
+  width: 24px;
+  height: 24px;
+}
+
+
 
 .addingImg{
   width: 100%;
@@ -40,7 +102,7 @@
   background-color: $dark-500;
 }
 
-.selectBtn{
+.labelSelectBtn{
   margin-top: 60px;
 }
 
