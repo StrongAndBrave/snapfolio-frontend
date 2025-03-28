@@ -2,22 +2,28 @@ import styles from "@/entities/posts/ui/create-post/CreatePost.module.scss";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
 import SvgArrowBack from "../../../../../../public/svg/arrow-ios-back.svg";
 import {Button, PhotoSlider} from "@/shared/ui";
-import {CreatePostStep} from "@/entities/posts/model/types";
-import {Info} from "@/entities/posts/ui/create-post/details/info/Info";
+import {CreatePostStep, ImageEditData, InfoPostType,} from "@/entities/posts/model/types";
+import {useState} from "react";
+import {InfoPost} from "@/entities/posts/ui/create-post/details/info/InfoPost";
+
+
 
 type Props = {
-    backStep: (step: CreatePostStep) => void
-    nextStep: (step: CreatePostStep) => void
-    images: File[]
+    backStep: (step: CreatePostStep) => void;
+    nextStep: (step: CreatePostStep) => void;
+    images: ImageEditData[];
 }
 
 export const DetailsDesktop = ({backStep, nextStep, images}: Props) => {
+    const [info, setInfo] = useState<InfoPostType>({description:'', location: ''})
+
 
     const handleBackStep = () => {
         backStep('filters')
     }
     const handleNextStep = () => {
-        nextStep('confirm')
+        console.log('info:', info)
+        console.log('images:', images)
     }
 
     return (
@@ -30,10 +36,12 @@ export const DetailsDesktop = ({backStep, nextStep, images}: Props) => {
             <div className={styles.content}>
                 <div className={styles.slider}>
                     <PhotoSlider
-                        images={images}
+                        images={images.map(img =>
+                            img.filteredImageUrl || img.croppedImageUrl || img.originalPreview
+                        )}
                     />
                 </div>
-                <Info/>
+                <InfoPost info={info} setInfo={setInfo}/>
             </div>
         </>
     );

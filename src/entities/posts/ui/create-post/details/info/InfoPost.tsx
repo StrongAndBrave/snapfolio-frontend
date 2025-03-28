@@ -1,17 +1,28 @@
-import styles from './Info.module.scss'
+import styles from './InfoPost.module.scss'
 import SvgPin from "../../../../../../../public/svg/pin.svg";
-import React, {useState} from "react";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-export const Info = () => {
+import {InfoPostType} from "@/entities/posts/model/types";
+import {ChangeEvent} from "react";
+
+
+type Props = {
+    info: InfoPostType;
+    setInfo: (info: InfoPostType) => void;
+}
+
+export const InfoPost = ({info, setInfo}: Props) => {
 
     const maxLength = 500;
-    const [text, setText] = useState("");
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (e.target.value.length <= maxLength) {
-            setText(e.target.value);
+            setInfo({...info, description: e.target.value});
         }
     };
+
+    const handleChangeLocation = (e: ChangeEvent<HTMLInputElement>) => {
+        setInfo({...info, location: e.target.value});
+    }
 
     return (
         <div className={styles.info}>
@@ -22,18 +33,18 @@ export const Info = () => {
             <div className={styles.descriptions}>
                 <label className={styles.label} htmlFor='textarea'>Add publication descriptions</label>
                 <textarea
-                    value={text}
-                    onChange={handleChange}
+                    value={info.description}
+                    onChange={handleChangeDescription}
                     id='textarea'
                     className={styles.textarea}
                     placeholder='Description'
                 ></textarea>
-                <p className={styles.charCount}>{text.length}/{maxLength}</p>
+                <p className={styles.charCount}>{info.description.length}/{maxLength}</p>
             </div>
             <div className={styles.location}>
                 <label className={styles.label}  htmlFor='field'>Add location</label>
                 <div className={styles.fieldWrapper}>
-                    <input id='field' className={styles.field} type="text"/>
+                    <input value={info.location} onChange={handleChangeLocation} id='field' className={styles.field} type="text"/>
                     <ImgBtn className={styles.pin} icon={<SvgPin/>}/>
                 </div>
             </div>

@@ -1,26 +1,82 @@
+import { useEffect, useState } from "react";
 import styles from "@/entities/posts/ui/create-post/filters/FilterItems/FilterItems.module.scss";
-import React from "react";
+import {generateFilterPreviews} from "@/entities/posts/lib/imageFilters";
 
+type Props = {
+    activeImageUrl?: string;
+    onFilterSelect: (filterId: string) => void;
+};
 
-export const FilterItems = () => {
-    const filtersArr = [
-        { title: 'Normal', image: '/photo.jpg', filter: 'none' },
-        { title: 'Clarendon', image: '/photo.jpg', filter: 'contrast(1.2) saturate(1.35)' },
-        { title: 'Lark', image: '/photo.jpg', filter: 'sepia(0.25) contrast(1.1)' },
-        { title: 'Gingham', image: '/photo.jpg', filter: 'brightness(1.05) hue-rotate(350deg)' },
-        { title: 'Moon', image: '/photo.jpg', filter: 'grayscale(1) contrast(1.1) brightness(1.1)' },
-        { title: 'Perpetua', image: '/photo.jpg', filter: 'contrast(0.85) saturate(1.1)' },
-        { title: 'Reyes', image: '/photo.jpg', filter: 'sepia(0.4) contrast(0.85) brightness(1.1)' },
-        { title: 'Slumber', image: '/photo.jpg', filter: 'brightness(0.9) saturate(0.9)' },
-        { title: 'Valencia', image: '/photo.jpg', filter: 'contrast(1.1) brightness(1.1)' },
+export const FilterItems = ({ activeImageUrl, onFilterSelect }: Props) => {
+    const [previews, setPreviews] = useState<Record<string, string>>({});
+    const [currentPreviewUrls, setCurrentPreviewUrls] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (!activeImageUrl) return;
+
+        let isMounted = true;
+        const newPreviewUrls: string[] = [];
+
+        const loadPreviews = async () => {
+            try {
+                const generatedPreviews = await generateFilterPreviews(activeImageUrl, 100);
+
+                if (isMounted) {
+                    // Сохраняем URL для последующей очистки
+                    setCurrentPreviewUrls(Object.values(generatedPreviews));
+                    setPreviews(generatedPreviews);
+                }
+            } catch (error) {
+                console.error("Error generating filter previews:", error);
+                if (isMounted) {
+                    setPreviews({});
+                }
+            }
+        };
+
+        loadPreviews();
+
+        return () => {
+            isMounted = false;
+            // Очищаем предыдущие превью
+            currentPreviewUrls.forEach(url => URL.revokeObjectURL(url));
+        };
+    }, [activeImageUrl]);
+
+    const filters = [
+        { id: 'normal', name: 'Normal' },
+        { id: 'clarendon', name: 'Clarendon' },
+        { id: 'grayscale', name: 'Grayscale' },
+        { id: 'sepia', name: 'Sepia' },
+        { id: 'invert', name: 'Invert' },
+        { id: 'vintage', name: 'Vintage' },
+        { id: 'cool', name: 'Cool' },
+        { id: 'warm', name: 'Warm' },
+        { id: 'blur', name: 'Blur' }
     ];
 
     return (
         <div className={styles.filters}>
-            {filtersArr.map(filter => <div className={styles.filter}>
-                <img src={filter.image} className={styles.image} style={{ filter: filter.filter }}/>
-                <p className={styles.title}>{filter.title}</p>
-            </div>)}
+            {filters.map(filter => (
+                <div
+                    key={filter.id}
+                    className={styles.filter}
+                    onClick={() => onFilterSelect(filter.id)}
+                >
+                    <img
+                        src={previews[filter.id] || activeImageUrl}
+                        className={styles.image}
+                        alt={filter.name}
+                        onError={(e) => {
+                            // Fallback если изображение не загрузилось
+                            if (activeImageUrl && e.currentTarget.src !== activeImageUrl) {
+                                e.currentTarget.src = activeImageUrl;
+                            }
+                        }}
+                    />
+                    <p className={styles.title}>{filter.name}</p>
+                </div>
+            ))}
         </div>
     );
 };

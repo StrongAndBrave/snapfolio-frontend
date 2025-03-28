@@ -2,41 +2,111 @@ import styles from "@/entities/posts/ui/create-post/CreatePost.module.scss";
 import SvgArrowBack from '../../../../../../public/svg/arrow-ios-back.svg';
 import {Button, PhotoSlider} from "@/shared/ui";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import {CreatePostStep} from "@/entities/posts/model/types";
 import SvgImage from '../../../../../../public/svg/image.svg'
 import SvgExpand from '../../../../../../public/svg/expand.svg'
 import {UploadPanel} from "@/entities/posts/ui/create-post/crop/uploadPanel/UploadPanel";
-import {useState} from "react";
+import {useState, useCallback, useEffect} from "react";
 import { Swiper as SwiperType } from "swiper/types";
-import React, { useRef } from 'react';
 import {CropPanel} from "@/entities/posts/ui/create-post/crop/cropPanel/CropPanel";
+import Cropper, {Area} from "react-easy-crop";
+import {AspectRatioOption, CreatePostStep, ImageEditData} from "@/entities/posts/model/types";
+import {getCroppedImg} from "@/entities/posts/lib/canvasUtils";
 
 type Props = {
-    backStep: (step: CreatePostStep) => void
-    nextStep: (step: CreatePostStep) => void
-    images: File[]
-    changeImages: (files: File[]) => void
+    backStep: (step: CreatePostStep) => void;
+    nextStep: (step: CreatePostStep) => void;
+    images: ImageEditData[];
+    changeImages: (files: ImageEditData[]) => void;
 }
 
 export const CropDesktop = ({backStep, nextStep, images, changeImages}: Props) => {
     const [activeIndex, setActiveIndex] = useState(0);
-
     const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
-
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-
     const [uploadPanelVisible, setUploadPanelVisible] = useState(false)
-
     const [cropPanelVisible, setCropPanelVisible] = useState(false)
-
-
 
     const handleBackStep = () => {
         backStep('upload')
     }
-    const handleNextStep = () => {
-        nextStep('filters')
+    const handleNextStep = async () => {
+        const updatedImages = [...images];
+        for (let i = 0; i < updatedImages.length; i++) {
+            const img = updatedImages[i];
+            if (img.cropData.croppedAreaPixels) {
+                try {
+                    const croppedImage = await getCroppedImg(
+                        img.originalPreview,
+                        img.cropData.croppedAreaPixels
+                    );
+                    updatedImages[i] = { ...img, croppedImage: croppedImage.file, croppedImageUrl: croppedImage.url };
+                } catch (error) {
+                    console.error(`Failed to crop image ${i}:`, error);
+                }
+            }
+        }
+        changeImages(updatedImages);
+        nextStep('filters');
+    };
+
+    const handleCropPanelVisible = () => {
+        setCropPanelVisible(!cropPanelVisible)
+        setUploadPanelVisible(false)
     }
+
+    const handleUploadPanelVisible = () => {
+        setUploadPanelVisible(!uploadPanelVisible)
+        setCropPanelVisible(false)
+    }
+
+    const handleAspectChange = useCallback((aspect: AspectRatioOption) => {
+        changeImages(images.map((img, index) =>
+            index === activeIndex ? {
+                ...img,
+                currentAspect: aspect,
+                cropData: {
+                    ...img.cropData,
+                    aspect: aspect === 'original' ? undefined : Number(aspect.split(':')[0]) / Number(aspect.split(':')[1])
+                }
+            } : img
+        ));
+    }, [activeIndex, images, changeImages]);
+
+    const handleCropChange = useCallback((crop: { x: number; y: number }) => {
+        changeImages(images.map((img, index) =>
+            index === activeIndex ? {
+                ...img,
+                cropData: {
+                    ...img.cropData,
+                    crop
+                }
+            } : img
+        ));
+    }, [activeIndex, images, changeImages]);
+
+    const handleZoomChange = useCallback((zoom: number) => {
+        changeImages(images.map((img, index) =>
+            index === activeIndex ? {
+                ...img,
+                cropData: {
+                    ...img.cropData,
+                    zoom
+                }
+            } : img
+        ));
+    }, [activeIndex, images, changeImages]);
+
+    const handleCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
+        changeImages(images.map((img, index) =>
+            index === activeIndex ? {
+                ...img,
+                cropData: {
+                    ...img.cropData,
+                    croppedAreaPixels
+                }
+            } : img
+        ));
+    }, [activeIndex, images, changeImages]);
 
     return (
         <>
@@ -47,31 +117,47 @@ export const CropDesktop = ({backStep, nextStep, images, changeImages}: Props) =
             </div>
             <div className={styles.contentCrop}>
                 <PhotoSlider
-                    images={images}
                     activeIndex={activeIndex}
                     onSlideChange={(index, swiper) => {
                         setActiveIndex(index);
                         thumbsSwiper?.slideTo(index);
                     }}
                     onSwiperInit={setMainSwiper}
-                />
+                >
+                    {images.map((image) => (
+                        <div key={image.id} className={styles.cropContainer}>
+                            <Cropper
+                                image={image.originalPreview}
+                                crop={image.cropData.crop}
+                                zoom={image.cropData.zoom}
+                                aspect={image.cropData.aspect}
+                                onCropChange={handleCropChange}
+                                onZoomChange={handleZoomChange}
+                                onCropComplete={handleCropComplete}
+                                classes={{ containerClassName: styles.cropperContainer }}
+                            />
+                        </div>
+                    ))}
+                </PhotoSlider>
 
-                <CropPanel cropPanelVisible={cropPanelVisible}/>
+                <CropPanel
+                    aspectRatio={images[activeIndex]?.currentAspect || '1:1'}
+                    getAspectRatio={handleAspectChange}
+                    cropPanelVisible={cropPanelVisible}
+                />
 
                 <UploadPanel
                     images={images}
                     activeIndex={activeIndex}
                     onThumbClick={(index) => mainSwiper?.slideTo(index)}
                     onSwiperInit={setThumbsSwiper}
-                    changeImages={changeImages}
+                    changeImages={(files) => changeImages(files as ImageEditData[])}
                     uploadPanelVisible={uploadPanelVisible}
                 />
 
-                <ImgBtn className={styles.expandBtn} icon={<SvgExpand className={styles.uploadIcon}/>} onClick={() =>
-                 setCropPanelVisible(!cropPanelVisible)}/>
+                <ImgBtn className={styles.expandBtn} icon={<SvgExpand className={styles.uploadIcon}/>} onClick={handleCropPanelVisible} />
 
-                <ImgBtn className={styles.uploadBtn} icon={<SvgImage className={styles.uploadIcon}/>} onClick={() => setUploadPanelVisible(!uploadPanelVisible)}/>
-
+                <ImgBtn className={styles.uploadBtn} icon={<SvgImage className={styles.uploadIcon}/>} onClick={handleUploadPanelVisible}/>
             </div>
         </>
     );

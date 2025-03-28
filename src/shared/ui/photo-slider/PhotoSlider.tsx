@@ -6,9 +6,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styles from './PhotoSlider.module.scss'
 import { Navigation, Pagination } from "swiper/modules";
+import {Children, ReactNode} from "react";
 
 type Props = {
-    images: File[] | string[];
+    images?: File[] | string[];
+    children?: ReactNode;
     activeIndex?: number;
     onSlideChange?: (index: number, swiper: SwiperType) => void;
     onSwiperInit?: (swiper: SwiperType) => void;
@@ -16,13 +18,16 @@ type Props = {
 
 export const PhotoSlider = ({
                                 images,
+                                children,
                                 activeIndex = 0,
                                 onSlideChange = () => {},
                                 onSwiperInit = () => {}
                             }: Props) => {
-    const imageUrls = images.map(image =>
+    const imageUrls = images?.map(image =>
         typeof image === 'string' ? image : URL.createObjectURL(image)
     );
+
+    const hasChildren = Children.count(children) > 0;
 
     return (
         <Swiper
@@ -34,13 +39,20 @@ export const PhotoSlider = ({
             onSwiper={onSwiperInit}
             onSlideChange={(swiper) => onSlideChange(swiper.activeIndex, swiper)}
             initialSlide={activeIndex}
+            allowTouchMove={false}
             className={styles.swiper}
         >
-            {imageUrls.map((src, index) => (
-                <SwiperSlide key={index}>
-                    <img src={src} alt={`Photo ${index}`} className="photo-slide" />
-                </SwiperSlide>
-            ))}
+            {hasChildren ? (
+                Children.map(children, (child, index) => (
+                    <SwiperSlide key={index}>{child}</SwiperSlide>
+                ))
+            ) : (
+                imageUrls?.map((src, index) => (
+                    <SwiperSlide className="swiper-slide" key={index}>
+                        <img src={src} alt={`Photo ${index}`} className="photo-slide" />
+                    </SwiperSlide>
+                ))
+            )}
         </Swiper>
     );
 };

@@ -12,6 +12,7 @@
   z-index: $z-index-modal;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  visibility: hidden;
   :global(.swiper-button-prev),
   :global(.swiper-button-next) {
     top: 65%;
@@ -32,6 +33,7 @@
 .uploadPanel.visible{
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
+  visibility: visible;
 }
 
 .panelSlide{
