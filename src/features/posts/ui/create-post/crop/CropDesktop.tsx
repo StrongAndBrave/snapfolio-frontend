@@ -1,16 +1,19 @@
-import styles from "@/entities/posts/ui/create-post/CreatePost.module.scss";
+'use client'
+import styles from "@/features/posts/ui/create-post/CreatePost.module.scss";
 import SvgArrowBack from '../../../../../../public/svg/arrow-ios-back.svg';
 import {Button, PhotoSlider} from "@/shared/ui";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
 import SvgImage from '../../../../../../public/svg/image.svg'
 import SvgExpand from '../../../../../../public/svg/expand.svg'
-import {UploadPanel} from "@/entities/posts/ui/create-post/crop/uploadPanel/UploadPanel";
-import {useState, useCallback, useEffect} from "react";
+import {useState, useCallback} from "react";
 import { Swiper as SwiperType } from "swiper/types";
-import {CropPanel} from "@/entities/posts/ui/create-post/crop/cropPanel/CropPanel";
 import Cropper, {Area} from "react-easy-crop";
-import {AspectRatioOption, CreatePostStep, ImageEditData} from "@/entities/posts/model/types";
-import {getCroppedImg} from "@/entities/posts/lib/canvasUtils";
+import {AspectRatioOption, CreatePostStep, ImageEditData} from "@/features/posts/model/types";
+import {getCroppedImg} from "@/features/posts/lib/canvasUtils";
+import {CropPanel} from "@/features/posts/ui/create-post/crop/cropPanel/CropPanel";
+import {UploadPanel} from "@/features/posts/ui/create-post/crop/uploadPanel/UploadPanel";
+
+
 
 type Props = {
     backStep: (step: CreatePostStep) => void;

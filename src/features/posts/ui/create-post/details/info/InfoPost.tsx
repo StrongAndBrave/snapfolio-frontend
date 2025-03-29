@@ -1,8 +1,9 @@
+'use client'
 import styles from './InfoPost.module.scss'
 import SvgPin from "../../../../../../../public/svg/pin.svg";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import {InfoPostType} from "@/entities/posts/model/types";
 import {ChangeEvent} from "react";
+import {InfoPostType} from "@/features/posts/model/types";
 
 
 type Props = {
@@ -27,7 +28,7 @@ export const InfoPost = ({info, setInfo}: Props) => {
     return (
         <div className={styles.info}>
             <div className={styles.persona}>
-                <img className={styles.photo} src="" alt="my photo"/>
+                <img className={styles.photo} src={undefined} alt="my photo"/>
                 <p className={styles.name}>User001</p>
             </div>
             <div className={styles.descriptions}>

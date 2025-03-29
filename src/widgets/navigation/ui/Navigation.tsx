@@ -13,8 +13,10 @@ import SvgSearch from '../../../../public/svg/search.svg';
 import SvgTrendingUp from '../../../../public/svg/trending-up.svg';
 import SvgBookMark from '../../../../public/svg/bookmark.svg';
 import SvgLogOut from '../../../../public/svg/log-out.svg';
-import {CreatePost} from "@/entities/posts/ui/create-post/CreatePost";
+
+import {CreatePost} from "@/features/posts/ui/create-post/CreatePost";
 import {useState} from "react";
+
 
 const menuItems = [
     { icon: <SvgHome className={styles.icon} />, title: 'Home', href: '/' },

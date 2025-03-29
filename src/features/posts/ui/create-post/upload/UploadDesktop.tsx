@@ -1,10 +1,10 @@
 'use client'
-import styles from "@/entities/posts/ui/create-post/CreatePost.module.scss";
+import styles from "@/features/posts/ui/create-post/CreatePost.module.scss";
 import SvgImage from "../../../../../../public/svg/image.svg";
 import {Button, Uploader} from "@/shared/ui";
 import SvgClose from "../../../../../../public/svg/close.svg";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import {CreatePostStep} from "@/entities/posts/model/types";
+import {CreatePostStep} from "@/features/posts/model/types";
 
 type Props = {
     onClose: () => void

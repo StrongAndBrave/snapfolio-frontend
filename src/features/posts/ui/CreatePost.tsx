@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useCreatePostMutation } from '../api/postsApi';
 
-export const CreatePost = () => {
+const CreatePost = () => {
     const [description, setDescription] = useState('');
     const [childrenMetadata, setChildrenMetadata] = useState([{ uploadId: '2211' }]);
     const [createPost, { isLoading, isError, isSuccess, error }] = useCreatePostMutation();

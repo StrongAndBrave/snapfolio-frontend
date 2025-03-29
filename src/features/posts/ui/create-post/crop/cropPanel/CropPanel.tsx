@@ -1,10 +1,11 @@
+'use client'
 import styles from './CropPanel.module.scss'
-import {AspectRatioOption} from "@/entities/posts/model/types";
+import {AspectRatioOption} from "@/features/posts/model/types";
 
 
 type Props = {
     cropPanelVisible: boolean;
-    aspectRatio: AspectRatioOption
+    aspectRatio: AspectRatioOption;
     getAspectRatio: (aspectRatio: AspectRatioOption) => void;
 }
 

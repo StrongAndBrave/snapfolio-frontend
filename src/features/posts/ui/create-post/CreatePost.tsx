@@ -2,12 +2,13 @@
 import {useState} from 'react';
 import {Modal} from "@/shared/ui";
 import styles from './CreatePost.module.scss'
-import {UploadDesktop} from "@/entities/posts/ui/create-post/upload/UploadDesktop";
-import {CropDesktop} from "@/entities/posts/ui/create-post/crop/CropDesktop";
 import {useIsMobile} from "@/shared/lib/hooks/useIsMobile";
-import {CreatePostStep, ImageEditData} from "@/entities/posts/model/types";
-import {FiltersDesktop} from "@/entities/posts/ui/create-post/filters/FiltersDesktop";
-import {DetailsDesktop} from "@/entities/posts/ui/create-post/details/DetailsDesktop";
+import {CreatePostStep, ImageEditData} from "@/features/posts/model/types";
+import {UploadDesktop} from "@/features/posts/ui/create-post/upload/UploadDesktop";
+import {CropDesktop} from "@/features/posts/ui/create-post/crop/CropDesktop";
+import {FiltersDesktop} from "@/features/posts/ui/create-post/filters/FiltersDesktop";
+import {DetailsDesktop} from "@/features/posts/ui/create-post/details/DetailsDesktop";
+
 
 type Props = {
     isOpen: boolean,
@@ -47,7 +48,7 @@ export const CreatePost = ({isOpen, onClose}: Props) => {
 
             {step === 'filters' && <FiltersDesktop backStep={setStep} nextStep={setStep} images={images} changeImages={setImages}/>}
 
-            {step === 'details' && <DetailsDesktop backStep={setStep} nextStep={setStep} images={images}/>}
+            {step === 'details' && <DetailsDesktop backStep={setStep} images={images}/>}
         </Modal>
     );
 };

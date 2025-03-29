@@ -10,7 +10,7 @@ import SvgImage from "../../../../../../../public/svg/plus-circle.svg";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
 import {Uploader} from "@/shared/ui";
 import SvgCloseMini from './../../../../../../../public/svg/closeMini.svg'
-import { ImageEditData } from "@/entities/posts/model/types";
+import {ImageEditData} from "@/features/posts/model/types";
 
 type Props = {
     images: ImageEditData[],

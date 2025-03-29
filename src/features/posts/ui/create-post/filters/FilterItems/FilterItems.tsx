@@ -1,6 +1,7 @@
+'use client'
 import { useEffect, useState } from "react";
-import styles from "@/entities/posts/ui/create-post/filters/FilterItems/FilterItems.module.scss";
-import {generateFilterPreviews} from "@/entities/posts/lib/imageFilters";
+import styles from "@/features/posts/ui/create-post/filters/FilterItems/FilterItems.module.scss";
+import {generateFilterPreviews} from "@/features/posts/lib/imageFilters";
 
 type Props = {
     activeImageUrl?: string;

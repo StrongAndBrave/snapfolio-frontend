@@ -1,12 +1,12 @@
-import { useState, useCallback, useEffect } from "react";
-import styles from "@/entities/posts/ui/create-post/CreatePost.module.scss";
+'use client'
+import { useState, useCallback} from "react";
+import styles from "@/features/posts/ui/create-post/CreatePost.module.scss";
 import SvgArrowBack from '../../../../../../public/svg/arrow-ios-back.svg';
 import {Button, PhotoSlider} from "@/shared/ui";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import {CreatePostStep} from "@/entities/posts/model/types";
-import {FilterItems} from "@/entities/posts/ui/create-post/filters/FilterItems/FilterItems";
-import {ImageEditData} from "@/entities/posts/model/types";
-import {applyFilter} from "@/entities/posts/lib/imageFilters";
+import {CreatePostStep, ImageEditData} from "@/features/posts/model/types";
+import {applyFilter} from "@/features/posts/lib/imageFilters";
+import {FilterItems} from "@/features/posts/ui/create-post/filters/FilterItems/FilterItems";
 
 type Props = {
     backStep: (step: CreatePostStep) => void;
