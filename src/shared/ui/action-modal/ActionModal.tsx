@@ -1,30 +1,26 @@
 'use client';
-import { Modal } from '@/shared/ui';
-import styles from './ActionModal.module.scss';
+import {Modal} from "@/shared/ui";
+import styles from './ActionModal.module.scss'
 
 type Props = {
     isOpen: boolean;
     children: React.ReactNode;
-    onCloseAction: () => void;
+    onClose: () => void;
     title: string;
-    className?: string;
+    className?: string
 };
 
-export const ActionModal = ({ isOpen, onCloseAction, children, title, className }: Props) => {
+export const ActionModal = ({isOpen, onClose, children, title, className}: Props) => {
+
     return (
-        <Modal
-            isOpen={isOpen}
-            className={className && className}
-            onCloseAction={onCloseAction}
-            modalId={'modal-action'}
-        >
+        <Modal isOpen={isOpen} className={className && className} onClose={onClose} modalId={'modal-action'}>
             <div className={styles.header}>
                 <span className={styles.title}>{title}</span>
-                <button className={styles.closeButton} onClick={onCloseAction}>
+                <button className={styles.closeButton} onClick={onClose}>
                     &times;
                 </button>
             </div>
             <div className={styles.content}>{children}</div>
         </Modal>
-    );
+    )
 };

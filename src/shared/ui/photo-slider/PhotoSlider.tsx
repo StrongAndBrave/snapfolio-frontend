@@ -1,38 +1,58 @@
-'use client';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import styles from './PhotoSlider.module.scss';
-import { Navigation, Pagination } from 'swiper/modules';
+'use client'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import styles from './PhotoSlider.module.scss'
+import { Navigation, Pagination } from "swiper/modules";
+import {Children, ReactNode} from "react";
 
-type Image = {
-    url: string;
-    width: number;
-    height: number;
-    fileSize: number;
-    createdAt: string;
-    uploadId: string;
-};
-type PhotoSliderProps = {
-    images: Image[];
-};
+type Props = {
+    images?: File[] | string[];
+    children?: ReactNode;
+    activeIndex?: number;
+    onSlideChange?: (index: number, swiper: SwiperType) => void;
+    onSwiperInit?: (swiper: SwiperType) => void;
+}
 
-export const PhotoSlider = ({ images }: PhotoSliderProps) => {
+export const PhotoSlider = ({
+                                images,
+                                children,
+                                activeIndex = 0,
+                                onSlideChange = () => {},
+                                onSwiperInit = () => {}
+                            }: Props) => {
+    const imageUrls = images?.map(image =>
+        typeof image === 'string' ? image : URL.createObjectURL(image)
+    );
+
+    const hasChildren = Children.count(children) > 0;
+
     return (
         <Swiper
             modules={[Navigation, Pagination]}
             navigation
             pagination={{ clickable: true }}
-            spaceBetween={0}
             slidesPerView={1}
+            spaceBetween={10}
+            onSwiper={onSwiperInit}
+            onSlideChange={(swiper) => onSlideChange(swiper.activeIndex, swiper)}
+            initialSlide={activeIndex}
+            allowTouchMove={false}
             className={styles.swiper}
         >
-            {images.map((image, index) => (
-                <SwiperSlide key={image.uploadId}>
-                    <img src={image.url} alt={`Photo ${index}`} className={styles['photo-slide']} />
-                </SwiperSlide>
-            ))}
+            {hasChildren ? (
+                Children.map(children, (child, index) => (
+                    <SwiperSlide key={index}>{child}</SwiperSlide>
+                ))
+            ) : (
+                imageUrls?.map((src, index) => (
+                    <SwiperSlide className="swiper-slide" key={index}>
+                        <img src={src} alt={`Photo ${index}`} className="photo-slide" />
+                    </SwiperSlide>
+                ))
+            )}
         </Swiper>
     );
 };

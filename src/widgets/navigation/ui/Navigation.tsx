@@ -14,9 +14,13 @@ import SvgTrendingUp from '../../../../public/svg/trending-up.svg';
 import SvgBookMark from '../../../../public/svg/bookmark.svg';
 import SvgLogOut from '../../../../public/svg/log-out.svg';
 
+import {CreatePost} from "@/features/posts/ui/create-post/CreatePost";
+import {useState} from "react";
+
+
 const menuItems = [
     { icon: <SvgHome className={styles.icon} />, title: 'Home', href: '/' },
-    { icon: <SvgPlusSquare className={styles.icon} />, title: 'Create', href: '/create' },
+    { icon: <SvgPlusSquare className={styles.icon} />, title: 'Create'},
     { icon: <SvgPerson className={styles.icon} />, title: 'My Profile', href: '/profile' },
     { icon: <SvgMessage className={styles.icon} />, title: 'Messenger', href: '/messenger' },
     { icon: <SvgSearch className={styles.icon} />, title: 'Search', href: '/search' },
@@ -29,16 +33,18 @@ export const Navigation = () => {
 
     const [Logout] = useLogoutMutation();
 
+    const [openCreatePost, setOpenCreatePost] = useState<boolean>(false)
+
     return (
         <nav className={styles.sidebar}>
             <ul className={styles.menu}>
-                {menuItems.map(({ icon, title, href }) => (
-                    <li key={href} className={styles.linkItem}>
+                {menuItems.map(({ icon, title, href}) => (
+                    <li key={title} className={styles.linkItem}>
                         <ImgBtn
-                            className={`${styles.link} ${pathname === href ? styles.linkActive : ''}`}
+                            className={`${styles.link} ${pathname === href && styles.linkActive}`}
                             icon={icon}
-                            as={Link}
-                            href={href}
+                            as={href ? Link : 'button' }
+                            {...(href ? {href: href } : {onClick: () => setOpenCreatePost(true)})}
                         >
                             {title}
                         </ImgBtn>
@@ -50,6 +56,7 @@ export const Navigation = () => {
                     Log Out
                 </ImgBtn>
             </div>
+            <CreatePost isOpen={openCreatePost} onClose={() => setOpenCreatePost(false)}/>
         </nav>
     );
 };

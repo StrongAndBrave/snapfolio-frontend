@@ -11,3 +11,4 @@ export { Modal } from './modal';
 export { ActionModal } from './action-modal';
 export { getTimeAgo } from './time-utils';
 export { PhotoSlider } from './photo-slider';
+export { Uploader } from './uploader';
