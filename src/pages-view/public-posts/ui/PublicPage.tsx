@@ -1,7 +1,6 @@
 import styles from './PublicPage.module.scss';
 import Link from 'next/link';
 import { AllUsers } from '@/features/public-posts/ui/AllUsers';
-import { PublicPosts } from '@/features/public-posts/ui/PublicPosts';
 import { PostList } from '@/features/public-posts';
 
 export const PublicPage = () => {

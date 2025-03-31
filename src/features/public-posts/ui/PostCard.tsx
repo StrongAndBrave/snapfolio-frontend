@@ -16,7 +16,6 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
     const toggleDescription = () => {
         setIsExpanded(!isExpanded);
     };
-    const isTextShort = post.description.length >= 30;
 
     const detectLanguage = (text: string) => {
         // Регулярное выражение для поиска кириллицы
