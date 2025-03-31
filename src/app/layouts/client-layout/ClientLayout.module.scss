@@ -16,6 +16,11 @@
 .main.spacer {
     margin-left: 220px;
 }
+// добавил этот класс
+//.main.public {
+//    margin: 0 auto 0 auto;
+//}
+//
 
 @media screen and (max-width: $breakpoint-tablet) {
     .main.spacer {

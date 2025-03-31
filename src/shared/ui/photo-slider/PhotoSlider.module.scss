@@ -1,0 +1,36 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+
+  :global(.photo-slide) {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  :global(.swiper-button-prev),
+  :global(.swiper-button-next) {
+    background: rgba(0, 0, 0, 0.8);
+    color: $light-100;
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    &:after {
+      font-size: 16px;
+    }
+  }
+  :global(.swiper-button-disabled) {
+    display: none;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    background: $light-900;
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+  }
+  :global(.swiper-pagination-bullet-active) {
+    background: $accent-500;
+  }
+}
+

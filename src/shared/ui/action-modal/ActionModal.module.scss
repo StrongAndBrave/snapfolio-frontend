@@ -1,0 +1,20 @@
+.header {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid $dark-100;
+}
+
+.title {
+  @include apply-text-style(h1);
+}
+
+.closeButton {
+  color: $light-100;
+  font-size: 30px;
+}
+
+.content {
+  padding: 30px 24px 36px;
+}

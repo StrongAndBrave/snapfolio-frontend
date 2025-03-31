@@ -47,3 +47,24 @@ h3 {
 p {
     @include apply-text-style(regular-14);
 }
+
+/* styles/globals.css */
+::-webkit-scrollbar {
+    display: none;
+    width: 20px; /* Ширина скроллбара */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: black; /* Цвет ползунка */
+    border-radius: 30px; /* Закругление углов */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Цвет дорожки */
+}
+
+/* Для Firefox */
+html {
+    scrollbar-width: thin; /* Установить тонкий скроллбар */
+    scrollbar-color: darkgrey #f1f1f1; /* Цвет ползунка и дорожки */
+}
