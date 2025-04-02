@@ -97,7 +97,8 @@ export type CommentType = {
     from: {
         id: number;
         username: string;
-        avatars: object[];
+        //avatars: object[]; изменяю посмотрим что будет
+        avatars: Avatar[];
     };
     content: string;
     createdAt: string;

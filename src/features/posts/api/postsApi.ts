@@ -14,6 +14,8 @@ import {
     GetPostsByUserIdResponse,
     GetPostsByUserIdRequest,
     PostType,
+    PublicProfile,
+    ResponseCountRegisteredUsers,
 } from './types/postTypes';
 
 export const postsApi = baseApi.injectEndpoints({
@@ -57,6 +59,28 @@ export const postsApi = baseApi.injectEndpoints({
                 params: { pageSize, sortBy, sortDirection },
             }),
             providesTags: ['Post'],
+        }),
+
+        //I add
+        getPublicPostById: builder.query<PostType, { postId: number }>({
+            query: ({ postId }) => ({
+                url: `/api/v1/public-posts/${postId}`,
+            }),
+            providesTags: ['Post'],
+        }),
+
+        getAllPublicUsers: builder.query<ResponseCountRegisteredUsers, void>({
+            query: () => ({
+                url: `/api/v1/public-user`,
+            }),
+            providesTags: ['User'],
+        }),
+
+        getPublicUserProfile: builder.query<PublicProfile, string>({
+            query: userName => ({
+                url: `/api/v1/public-user/profile/${userName}`,
+            }),
+            providesTags: ['User'],
         }),
 
         // POST
@@ -141,4 +165,8 @@ export const {
     useGetPostsByUserNameQuery,
     useGetAllPostsQuery,
     useGetPostsByUserIdQuery,
+
+    useGetPublicUserProfileQuery,
+    useGetAllPublicUsersQuery,
+    useGetPublicPostByIdQuery,
 } = postsApi;

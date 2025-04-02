@@ -10,7 +10,7 @@
   :global(.photo-slide) {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   :global(.swiper-button-prev),
@@ -38,7 +38,3 @@
     background: $accent-500;
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> develop

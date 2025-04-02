@@ -1,5 +1,7 @@
 // requests
 
+import { number } from 'zod';
+
 type PaginationRequest = {
     pageSize: number;
     pageNumber: number;
@@ -52,6 +54,10 @@ export type GetAllPostsRequest = {
 export type GetPostsByUserIdRequest = { userId: number } & GetAllPostsRequest;
 
 //responses
+
+export type ResponseCountRegisteredUsers = {
+    totalCount: number;
+};
 
 export type ImageUploadResponse = {
     images: Image[];
@@ -118,7 +124,7 @@ type Avatar = {
     createdAt: string;
 };
 
-type User = {
+export type User = {
     id: number;
     userId: number;
     userName: string;
@@ -133,4 +139,19 @@ export type GetLikesResponse = {
     totalCount: number;
     notReadCount: number;
     items: User[];
+};
+
+type UserMetadata = {
+    following: number;
+    followers: number;
+    publications: number;
+};
+
+export type PublicProfile = {
+    id: number;
+    userName: string;
+    aboutMe: string;
+    avatars: Avatar[];
+    userMetadata: UserMetadata;
+    hasPaymentSubscription: boolean;
 };

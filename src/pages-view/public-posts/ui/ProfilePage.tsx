@@ -1,41 +1,73 @@
 'use client';
-
 import { notFound, useParams } from 'next/navigation';
-import { useGetMockUserProfileQuery } from '@/shared/api/baseApi';
 import React, { useEffect, useRef, useState } from 'react';
-import { PostModalContent } from '@/features/public-posts';
-import styles from '../../../features/public-posts/ui/PublicPosts.module.scss';
+import styles from './PublicPage.module.scss';
 import { Modal } from '@/shared/ui';
-import { comments, posts, commentsAnswers } from '@/features/public-posts/api/mockUserPosts';
 import Image from 'next/image';
+import { PostModalContent } from '@/features/posts/ui/view-post';
+import {
+    useGetPostsByUserIdQuery,
+    useGetPublicPostByIdQuery,
+    useGetPublicUserProfileQuery,
+} from '@/features/posts/api/postsApi';
+import { useGetCommentsForUnauthorizedUsersQuery } from '@/features/posts/api/commentsApi';
 
 export const ProfilePage = () => {
-    const { id } = useParams();
+    const { id: userName } = useParams<{ id: string }>();
     const [openedPostId, setOpenedPostId] = useState<number | null>(null);
     const [visiblePosts, setVisiblePosts] = useState(4);
     const loaderRef = useRef<HTMLDivElement | null>(null);
 
-    const { data: userProfile, isLoading, isError } = useGetMockUserProfileQuery(id);
+    const {
+        data: userProfile,
+        isLoading: isProfileLoading,
+        isError: isProfileError,
+    } = useGetPublicUserProfileQuery(userName);
 
-    // Фильтруем посты для этого пользователя
-    const userPosts = posts.filter(post => post.ownerId === userProfile?.id);
+    const {
+        data: postsData,
+        isLoading: isPostsLoading,
+        isError: isPostsError,
+    } = useGetPostsByUserIdQuery(
+        {
+            userId: userProfile?.id || 0,
+            endCursorPostId: 0,
+            pageSize: visiblePosts,
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+        },
+        { skip: !userProfile?.id },
+    );
 
-    // Находим текущий открытый пост
-    const currentPost = userPosts.find(post => post.id === openedPostId);
-    const currentPostComments = comments.filter(comment => comment.postId === openedPostId);
+    const { data: currentPost, isLoading: isCurrentPostLoading } = useGetPublicPostByIdQuery(
+        { postId: openedPostId! },
+        { skip: !openedPostId },
+    );
+    const { data: postComments } = useGetCommentsForUnauthorizedUsersQuery(
+        {
+            postId: openedPostId!,
+            pageSize: 10,
+            pageNumber: 1,
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+        },
+        { skip: !openedPostId },
+    );
 
     const formatNumber = (number: number) => {
         return new Intl.NumberFormat('ru-RU').format(number);
     };
 
     const loadMorePosts = () => {
-        setVisiblePosts(prev => prev + 4);
+        if (postsData && visiblePosts < postsData.totalCount) {
+            setVisiblePosts(prev => prev + 4);
+        }
     };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             entries => {
-                if (entries[0].isIntersecting && visiblePosts < userPosts.length) {
+                if (entries[0].isIntersecting && postsData?.items && visiblePosts < postsData.totalCount) {
                     loadMorePosts();
                 }
             },
@@ -51,25 +83,35 @@ export const ProfilePage = () => {
                 observer.unobserve(loaderRef.current);
             }
         };
-    }, [visiblePosts, userPosts.length]);
+    }, [visiblePosts, postsData?.totalCount]);
 
-    if (!id || Array.isArray(id)) {
+    if (!userName || Array.isArray(userName)) {
         return notFound();
     }
 
-    if (isLoading) {
+    if (isProfileLoading || isPostsLoading) {
         return <div>Загрузка...</div>;
     }
 
-    if (isError || !userProfile) {
+    if (isProfileError || !userProfile || isPostsError) {
         return notFound();
     }
+
+    const userPosts = postsData?.items || [];
 
     return (
         <div className={styles.profilePage}>
             <header className={styles.profileContainer}>
                 <section className={styles.profileAvatarImg}>
-                    <Image src={userProfile.avatars[0]} alt={userProfile.userName} width={1} height={1} />
+                    {userProfile.avatars?.length > 0 && (
+                        <Image
+                            src={userProfile.avatars[0].url}
+                            alt={userProfile.userName}
+                            width={1}
+                            height={1}
+                            priority
+                        />
+                    )}
                 </section>
                 <section className={styles.profileUserName}>
                     <h1>{userProfile.userName}</h1>
@@ -97,36 +139,38 @@ export const ProfilePage = () => {
                     </ul>
                 </section>
                 <section className={styles.profileInfo}>
-                    <p>{userProfile.aboutMe || 'Нет информации о себе'}</p>
+                    <p>{userProfile.aboutMe || 'Информация о пользователе отсутствует'}</p>
                 </section>
             </header>
             <div className={styles.profilePosts}>
-                {/*<h1>Profile Page</h1>*/}
-                <div className={styles.postsGrid}>
-                    {userPosts.slice(0, visiblePosts).map(post => (
-                        <Image
-                            key={post.id}
-                            src={post.images[0].url}
-                            alt="Post"
-                            width={1}
-                            height={1}
-                            onClick={() => setOpenedPostId(post.id)}
-                        />
-                    ))}
-                </div>
-                <div ref={loaderRef} style={{ height: '20px' }}></div>
-                {currentPost && (
-                    <Modal
-                        isOpen={Boolean(openedPostId)}
-                        className={styles.postModal}
-                        onCloseAction={() => setOpenedPostId(null)}
-                    >
-                        <PostModalContent
-                            post={currentPost}
-                            comments={currentPostComments}
-                            commentAnswer={commentsAnswers}
-                        />
-                    </Modal>
+                {userPosts.length === 0 ? (
+                    <div className={styles.noPostsMessage}>У пользователя нет постов</div>
+                ) : (
+                    <>
+                        <div className={styles.postsGrid}>
+                            {userPosts.map(post => (
+                                <Image
+                                    key={post.id}
+                                    src={post.images[0]?.url || '/default-post-image.png'}
+                                    alt="Post"
+                                    width={1}
+                                    height={1}
+                                    onClick={() => setOpenedPostId(post.id)}
+                                    loading="lazy"
+                                />
+                            ))}
+                        </div>
+                        <div ref={loaderRef} style={{ height: '20px' }}></div>
+                        {currentPost && (
+                            <Modal
+                                isOpen={Boolean(openedPostId)}
+                                className={styles.postModal}
+                                onClose={() => setOpenedPostId(null)}
+                            >
+                                <PostModalContent postId={currentPost.id} comments={postComments?.items} />
+                            </Modal>
+                        )}
+                    </>
                 )}
             </div>
         </div>

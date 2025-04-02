@@ -1,17 +1,109 @@
-.public-page {
+.publicPage {
   max-width: 972px;
   height: 100%;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 60px auto;
   display: flex;
   flex-direction: column;
-}
-
-// no work
-.main.public {
-  margin: 0 auto 0 auto;
 }
 
 .nav {
   display: flex;
   gap: 15px;
+}
+
+.profilePage {
+  max-width: 972px;
+  margin:35px auto 35px auto;
+}
+
+.profilePosts {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  .postsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    img {
+      cursor: pointer;
+      width: 234px;
+      height: 228px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+  }
+}
+
+.profileContainer {
+  display: grid;
+  margin-bottom: 35px;
+}
+
+.profileAvatarImg {
+  grid-row-start: 1;
+  grid-row-end: 5;
+  max-width: 204px;
+  margin-right: 35px;
+
+  img {
+    width: 204px;
+    height: 204px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.profileUserName {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  margin: 10px 0 25px 0;
+}
+
+.profileStats {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+.profileInfo {
+  grid-row-start: 3;
+  grid-column-start: 2;
+
+  p {
+    @include apply-text-style(regular-16);
+  }
+}
+
+.profileStatus {
+  margin-bottom: 33px;
+
+  span {
+    line-height: 34px;
+  }
+}
+
+.profileStatus ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 125px;
+}
+
+.profileStatus ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  white-space: nowrap;
+}
+
+.profileStatus .statsNumber {
+  @include apply-text-style(bold-16);
+  line-height: 34px;
+}
+
+.postModal {
+  position: fixed;
+  max-width: 972px;
+  height: 564px;
+  display: flex;
+  flex-direction: row;
 }
