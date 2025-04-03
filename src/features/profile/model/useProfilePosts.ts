@@ -1,7 +1,7 @@
-import { useGetPostsByUserIdQuery, useGetPublicPostByIdQuery } from '@/features/posts/api/postsApi';
+import { useGetPostsByUserIdQuery } from '@/features/posts/api/postsApi';
 
 export const useProfilePosts = (userId: number, visiblePosts: number) => {
-    const postsQuery = useGetPostsByUserIdQuery(
+    return useGetPostsByUserIdQuery(
         {
             userId,
             endCursorPostId: 0,
@@ -11,6 +11,4 @@ export const useProfilePosts = (userId: number, visiblePosts: number) => {
         },
         { skip: !userId },
     );
-
-    return postsQuery;
 };
