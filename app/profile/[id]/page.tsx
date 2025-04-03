@@ -1,1 +1,5 @@
-export { ProfilePage as default } from '@/pages-view/public-posts/ui/ProfilePage';
+import { ProfilePageWrapper } from '@/features/profile/ui/ProfilePageWrapper';
+
+export default function ProfilePage() {
+    return <ProfilePageWrapper />;
+}

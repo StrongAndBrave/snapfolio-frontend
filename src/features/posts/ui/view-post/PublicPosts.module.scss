@@ -274,4 +274,83 @@
   padding-top: 8px;
 }
 
+.postActions {
+  position: relative;
+  display: flex;
+  margin: 5px 0 0 auto;
+}
 
+.dotsButton {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 55%;
+  right: 45%;
+  padding-left: 12px;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  background: $dark-500;
+  border: 1px solid $dark-100;
+  z-index: 100;
+  min-width: 137px;
+  overflow: hidden;
+
+  button {
+    @include apply-text-style(regular-14);
+  }
+}
+
+.dropdownMenu button {
+  padding: 7px 4px 4px 0;
+
+  &:hover {
+    padding: 7px 4px 4px 0;
+  }
+}
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+
+  &:hover {
+
+  }
+  .icon {
+    margin-right: 7px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.modalDeletePost {
+  max-width: 378px;
+  height: 216px;
+
+}
+.modalDeletePostButton {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.modalDeletePostButton button {
+  padding: 5px 30px 5px 30px;
+
+  &:hover {
+    padding: 5px 30px 5px 30px;
+  }
+}

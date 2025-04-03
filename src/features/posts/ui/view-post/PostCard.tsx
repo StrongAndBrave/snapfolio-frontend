@@ -99,8 +99,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
                                 {isExpanded ? (
                                     <>
                                         {post.description.length > 150
-                                            ? truncateText(post.description, 150)
-                                            : post.description}
+                                            ? truncateText(post.description, 170) // надо добавить проверку все же
+                                            : // для русской раскладки 170 для английской 230
+                                              post.description}
                                         <button onClick={toggleDescription} className={styles['hide-button']}>
                                             Hide
                                         </button>
