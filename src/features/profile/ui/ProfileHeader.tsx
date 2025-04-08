@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './Profile.module.scss';
 
-interface ProfileHeaderProps {
+type ProfileHeaderProps = {
     userProfile: {
         avatars: { url: string }[];
         userName: string;
@@ -13,7 +13,7 @@ interface ProfileHeaderProps {
         aboutMe?: string;
     };
     formatNumber: (num: number) => string;
-}
+};
 
 export const ProfileHeader = ({ userProfile, formatNumber }: ProfileHeaderProps) => (
     <header className={styles.profileContainer}>
