@@ -1,28 +1,24 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
+import { useState, useCallback, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { PostType } from '@/features/posts/api/types/postTypes';
 import { useUpdatePostByIdMutation, useDeletePostByIdMutation } from '@/features/posts/api/postsApi';
-import { EditPostModal } from '@/features/posts/ui/view-post/modal/EditPostModal';
 
 export const usePostActions = (post: PostType | undefined, onClose?: () => void) => {
     const router = useRouter();
     const [updatePost] = useUpdatePostByIdMutation();
     const [deletePost] = useDeletePostByIdMutation();
 
-    // Состояния для редактирования
     const [isEditing, setIsEditing] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editedDescription, setEditedDescription] = useState(post?.description || '');
     const maxLength = 500;
 
-    // Состояния для удаления
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
     const remainingChars = maxLength - editedDescription.length;
     const isNearLimit = remainingChars < 20;
 
-    // Обработчики редактирования
     const handleEditClick = useCallback(() => {
         if (post) {
             setEditedDescription(post.description);
@@ -63,7 +59,6 @@ export const usePostActions = (post: PostType | undefined, onClose?: () => void)
         setIsEditing(false);
     };
 
-    // Обработчики удаления
     const handleDeleteClick = useCallback(() => {
         setIsDeleteModalOpen(true);
     }, []);

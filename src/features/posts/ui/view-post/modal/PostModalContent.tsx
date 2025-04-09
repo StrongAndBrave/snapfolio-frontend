@@ -9,7 +9,6 @@ import { PostType } from '@/features/posts/api/types/postTypes';
 import { CommentType } from '@/features/posts/api/types/commentsTypes';
 import { useAppSelector } from '@/app/store/store';
 import { useMeQuery } from '@/features/auth/api/authApi';
-import { PostDescription } from '../comment/PostDescription';
 import { Comment } from '@/features/posts/ui/view-post/comment/Comment';
 import { DEFAULT_AVATAR } from '@/pages-view/public-posts/ui/PublicPage';
 import { PostActionsMenu } from '@/features/posts/ui/view-post/PostActionsMenu';
@@ -17,6 +16,7 @@ import { DeletePostModal } from '@/features/posts/ui/view-post/modal/DeletePostM
 import { EditPostModal } from '@/features/posts/ui/view-post/modal/EditPostModal';
 import { usePostActions } from '@/features/posts/model/usePostActions';
 import { useComments } from '@/features/posts/model/useCommnets';
+import { PostDescription } from '@/features/posts/ui';
 
 type Props = {
     postId: number;
