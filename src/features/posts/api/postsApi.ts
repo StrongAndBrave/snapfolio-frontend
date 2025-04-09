@@ -61,7 +61,6 @@ export const postsApi = baseApi.injectEndpoints({
             providesTags: ['Post'],
         }),
 
-        //I add
         getPublicPostById: builder.query<PostType, { postId: number }>({
             query: ({ postId }) => ({
                 url: `/api/v1/public-posts/${postId}`,

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from './PublicPosts.module.scss';
+import styles from './Comment.module.scss';
 import { DEFAULT_AVATAR } from '@/pages-view/public-posts/ui/PublicPage';
 import { PostType } from '@/features/posts/api/types/postTypes';
 import { getTimeAgo } from '@/shared/ui/time-utils';

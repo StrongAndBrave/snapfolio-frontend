@@ -4,7 +4,7 @@ import styles from './PublicPosts.module.scss';
 
 import { Modal } from '@/shared/ui';
 import Image from 'next/image';
-import { PostModalContent } from '@/features/posts/ui/view-post/PostModalContent';
+import { PostModalContent } from '@/features/posts/ui/view-post/modal/PostModalContent';
 import { useGetAllPostsQuery, useGetPostByIdQuery } from '@/features/posts/api/postsApi';
 import { useGetCommentsForUnauthorizedUsersQuery } from '@/features/posts/api/commentsApi';
 
@@ -59,10 +59,7 @@ export const PublicPosts = () => {
                     className={styles.postModal}
                     onClose={() => setOpenedPostId(null)}
                 >
-                    <PostModalContent
-                        postId={openedPostId!}
-                        // comments={postComments?.items || []} commentAnswer={[]}
-                    />
+                    <PostModalContent postId={openedPostId!} />
                 </Modal>
             )}
         </div>
