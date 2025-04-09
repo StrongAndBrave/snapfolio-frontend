@@ -3,17 +3,12 @@ import styles from "@/features/posts/ui/create-post/CreatePost.module.scss";
 import SvgArrowBack from '../../../../../../public/svg/arrow-ios-back.svg';
 import {Button, PhotoSlider} from "@/shared/ui";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import SvgImage from '../../../../../../public/svg/image.svg'
-import SvgExpand from '../../../../../../public/svg/expand.svg'
 import {useState, useCallback} from "react";
 import { Swiper as SwiperType } from "swiper/types";
 import Cropper, {Area} from "react-easy-crop";
 import {AspectRatioOption, CreatePostStep, ImageEditData} from "@/features/posts/model/types";
 import {getCroppedImg} from "@/features/posts/lib/canvasUtils";
-import {CropPanel} from "@/features/posts/ui/create-post/crop/cropPanel/CropPanel";
-import {UploadPanel} from "@/features/posts/ui/create-post/crop/uploadPanel/UploadPanel";
-
-
+import {PhotoOptions} from "@/features/posts/ui/create-post/crop/photo-options/PhotoOptions";
 
 type Props = {
     backStep: (step: CreatePostStep) => void;
@@ -26,8 +21,6 @@ export const CropDesktop = ({backStep, nextStep, images, changeImages}: Props) =
     const [activeIndex, setActiveIndex] = useState(0);
     const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-    const [uploadPanelVisible, setUploadPanelVisible] = useState(false)
-    const [cropPanelVisible, setCropPanelVisible] = useState(false)
 
     const handleBackStep = () => {
         backStep('upload')
@@ -51,16 +44,6 @@ export const CropDesktop = ({backStep, nextStep, images, changeImages}: Props) =
         changeImages(updatedImages);
         nextStep('filters');
     };
-
-    const handleCropPanelVisible = () => {
-        setCropPanelVisible(!cropPanelVisible)
-        setUploadPanelVisible(false)
-    }
-
-    const handleUploadPanelVisible = () => {
-        setUploadPanelVisible(!uploadPanelVisible)
-        setCropPanelVisible(false)
-    }
 
     const handleAspectChange = useCallback((aspect: AspectRatioOption) => {
         changeImages(images.map((img, index) =>
@@ -143,24 +126,13 @@ export const CropDesktop = ({backStep, nextStep, images, changeImages}: Props) =
                     ))}
                 </PhotoSlider>
 
-                <CropPanel
-                    aspectRatio={images[activeIndex]?.currentAspect || '1:1'}
-                    getAspectRatio={handleAspectChange}
-                    cropPanelVisible={cropPanelVisible}
-                />
-
-                <UploadPanel
+                <PhotoOptions
+                    aspectRatio={images[activeIndex]?.currentAspect || '1:1'} getAspectRatio={handleAspectChange}
                     images={images}
                     activeIndex={activeIndex}
                     onThumbClick={(index) => mainSwiper?.slideTo(index)}
                     onSwiperInit={setThumbsSwiper}
-                    changeImages={(files) => changeImages(files as ImageEditData[])}
-                    uploadPanelVisible={uploadPanelVisible}
-                />
-
-                <ImgBtn className={styles.expandBtn} icon={<SvgExpand className={styles.uploadIcon}/>} onClick={handleCropPanelVisible} />
-
-                <ImgBtn className={styles.uploadBtn} icon={<SvgImage className={styles.uploadIcon}/>} onClick={handleUploadPanelVisible}/>
+                    changeImages={(files) => changeImages(files as ImageEditData[])}/>
             </div>
         </>
     );

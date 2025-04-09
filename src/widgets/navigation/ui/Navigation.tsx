@@ -16,6 +16,7 @@ import SvgLogOut from '../../../../public/svg/log-out.svg';
 
 import {CreatePost} from "@/features/posts/ui/create-post/CreatePost";
 import {useState} from "react";
+import {CreatePostExitModal} from "@/features/posts/ui/create-post/exit-modal/ExitModal";
 
 
 const menuItems = [
@@ -34,6 +35,24 @@ export const Navigation = () => {
     const [Logout] = useLogoutMutation();
 
     const [openCreatePost, setOpenCreatePost] = useState<boolean>(false)
+    const [openExitModal, setOpenExitModal] = useState<boolean>(false)
+
+    const handleClearCreatePost = () => {
+        setOpenExitModal(false)
+        setOpenCreatePost(false)
+    }
+
+    const handleCreatPost = () => {
+        setOpenCreatePost(true)
+    }
+
+    const handleCloseCreatPost = (variant?: boolean) => {
+        if(!!variant){
+            handleClearCreatePost()
+        }else {
+            setOpenExitModal(true)
+        }
+    }
 
     return (
         <nav className={styles.sidebar}>
@@ -44,7 +63,7 @@ export const Navigation = () => {
                             className={`${styles.link} ${pathname === href && styles.linkActive}`}
                             icon={icon}
                             as={href ? Link : 'button' }
-                            {...(href ? {href: href } : {onClick: () => setOpenCreatePost(true)})}
+                            {...(href ? {href: href } : {onClick: handleCreatPost})}
                         >
                             {title}
                         </ImgBtn>
@@ -56,7 +75,8 @@ export const Navigation = () => {
                     Log Out
                 </ImgBtn>
             </div>
-            <CreatePost isOpen={openCreatePost} onClose={() => setOpenCreatePost(false)}/>
+            <CreatePost isOpen={openCreatePost} onClose={handleCloseCreatPost}/>
+            <CreatePostExitModal clearCreatePost={handleClearCreatePost} onClose={()=> setOpenExitModal(false)} isOpen={openExitModal}/>
         </nav>
     );
 };

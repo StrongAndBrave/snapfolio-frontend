@@ -7,7 +7,7 @@ import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
 import {CreatePostStep} from "@/features/posts/model/types";
 
 type Props = {
-    onClose: () => void
+    onClose: (variant: boolean) => void
     nextStep: (step: CreatePostStep) => void
     uploadImages: (files: File[]) => void;
 }
@@ -19,11 +19,15 @@ export const UploadDesktop = ({onClose, nextStep, uploadImages}: Props) => {
         nextStep('crop')
     }
 
+    const handleCloseCreatePost = () =>{
+        onClose(true)
+    }
+
     return (
         <>
             <div className={styles.header}>
                 <span className={styles.title}>Add Photo</span>
-                <ImgBtn icon={<SvgClose/>} onClick={onClose}/>
+                <ImgBtn icon={<SvgClose/>} onClick={handleCloseCreatePost}/>
             </div>
             <div className={styles.contentUpload}>
                 <Uploader uploadImages={images => handleUploadImages(images)}>

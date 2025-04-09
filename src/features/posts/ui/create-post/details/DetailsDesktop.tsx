@@ -8,17 +8,19 @@ import {CreatePostStep, ImageEditData, InfoPostType} from "@/features/posts/mode
 import {InfoPost} from "@/features/posts/ui/create-post/details/info/InfoPost";
 import {useCreatePostMutation, useUploadImagePostMutation} from "@/features/posts/api/postsApi";
 import {CreatePostRequest} from "@/features/posts/api/types/postTypes";
+import { useRouter } from 'next/navigation';
 
 type Props = {
     backStep: (step: CreatePostStep) => void;
     images: ImageEditData[];
+    onClose: (variant: boolean)=> void
 }
 
-export const DetailsDesktop = ({backStep, images}: Props) => {
+export const DetailsDesktop = ({onClose, backStep, images}: Props) => {
     const [info, setInfo] = useState<InfoPostType>({description:'', location: ''});
     const [uploadImagesPost] = useUploadImagePostMutation()
     const [addDescriptionPost] = useCreatePostMutation()
-
+    const router = useRouter();
 
     const handleBackStep = () => {
         backStep('filters')
@@ -41,6 +43,8 @@ export const DetailsDesktop = ({backStep, images}: Props) => {
             };
 
             await addDescriptionPost(postData).unwrap()
+            onClose(true)
+            router.push('/');
         }
         catch (e) {
             console.log('error:', e)

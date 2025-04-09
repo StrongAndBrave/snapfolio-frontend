@@ -1,0 +1,16 @@
+.modal{
+  width: 100%;
+  max-width: 378px;
+}
+
+.btnContainer{
+  margin-top: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnContainer button.btn{
+  width: 108px;
+  height: 36px;
+}

@@ -13,7 +13,7 @@ import SvgCloseMini from './../../../../../../../public/svg/closeMini.svg'
 import {ImageEditData} from "@/features/posts/model/types";
 
 type Props = {
-    images: ImageEditData[],
+    images: ImageEditData[];
     activeIndex: number;
     onThumbClick: (index: number) => void;
     onSwiperInit: (swiper: SwiperType) => void;

@@ -4,7 +4,8 @@ import SvgPin from "../../../../../../../public/svg/pin.svg";
 import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
 import {ChangeEvent} from "react";
 import {InfoPostType} from "@/features/posts/model/types";
-
+import {useGetProfileQuery} from "@/features/profile/api/profileApi";
+import DefaultAvatar from './../../../../../../../public/default_avatar.png'
 
 type Props = {
     info: InfoPostType;
@@ -12,6 +13,11 @@ type Props = {
 }
 
 export const InfoPost = ({info, setInfo}: Props) => {
+
+    const { data: profile, isLoading, error } = useGetProfileQuery();
+
+    let avatar = profile?.avatars?.length ? profile.avatars[0].url : DefaultAvatar.src
+    let userName = profile?.userName ? profile.userName : 'no name'
 
     const maxLength = 500;
 
@@ -28,8 +34,8 @@ export const InfoPost = ({info, setInfo}: Props) => {
     return (
         <div className={styles.info}>
             <div className={styles.persona}>
-                <img className={styles.photo} src={undefined} alt="my photo"/>
-                <p className={styles.name}>User001</p>
+                <img className={styles.photo} src={avatar} alt="my photo"/>
+                <p className={styles.name}>{userName}</p>
             </div>
             <div className={styles.descriptions}>
                 <label className={styles.label} htmlFor='textarea'>Add publication descriptions</label>

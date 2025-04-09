@@ -1,5 +1,5 @@
 'use client'
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Modal} from "@/shared/ui";
 import styles from './CreatePost.module.scss'
 import {useIsMobile} from "@/shared/lib/hooks/useIsMobile";
@@ -9,17 +9,14 @@ import {CropDesktop} from "@/features/posts/ui/create-post/crop/CropDesktop";
 import {FiltersDesktop} from "@/features/posts/ui/create-post/filters/FiltersDesktop";
 import {DetailsDesktop} from "@/features/posts/ui/create-post/details/DetailsDesktop";
 
-
 type Props = {
-    isOpen: boolean,
-    onClose: () => void
+    isOpen: boolean;
+    onClose: (variant:boolean) => void;
 }
-
 export const CreatePost = ({isOpen, onClose}: Props) => {
     const isMobile = useIsMobile()
     const [step, setStep] = useState<CreatePostStep>('upload');
     const [images, setImages] = useState<ImageEditData[]>([]);
-
     const handleUpload = (files: File[]) => {
         const newImages: ImageEditData[] = files.map(file => ({
             id: Math.random().toString(36).substring(2, 9),
@@ -36,10 +33,19 @@ export const CreatePost = ({isOpen, onClose}: Props) => {
         setImages(newImages);
     };
 
+    const handleCloseCreatePost = () => {
+        step !== 'upload' ? onClose(false) : onClose(true)
+    }
+
+    useEffect(()=>{
+        setStep('upload')
+        handleUpload([])
+    },[!isOpen])
+
     let largeModal = step !== 'upload' && step !== 'crop'
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} className={`${styles.modal} ${largeModal && styles.largeModal}`}>
+        <Modal isOpen={isOpen} onClose={handleCloseCreatePost} className={`${styles.modal} ${largeModal && styles.largeModal}`}>
             {step === 'upload' && (isMobile ? '' :
                 <UploadDesktop uploadImages={handleUpload} onClose={onClose} nextStep={() => setStep('crop')}/>)}
 
@@ -48,7 +54,7 @@ export const CreatePost = ({isOpen, onClose}: Props) => {
 
             {step === 'filters' && <FiltersDesktop backStep={setStep} nextStep={setStep} images={images} changeImages={setImages}/>}
 
-            {step === 'details' && <DetailsDesktop backStep={setStep} images={images}/>}
+            {step === 'details' && <DetailsDesktop onClose={onClose} backStep={setStep} images={images}/>}
         </Modal>
     );
 };
