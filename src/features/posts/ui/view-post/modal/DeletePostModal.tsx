@@ -16,7 +16,7 @@ export const DeletePostModal = ({ isOpen, onClose, onConfirm, isDeleting }: Prop
             <Button onClick={onConfirm} variant={'outlined'}>
                 Yes
             </Button>
-            <Button onClick={onClose} disabled={isDeleting} variant={'outlined'}>
+            <Button onClick={onClose} disabled={isDeleting} variant={'contained'}>
                 No
             </Button>
         </div>

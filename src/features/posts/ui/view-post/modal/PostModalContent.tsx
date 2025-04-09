@@ -166,7 +166,7 @@ export const PostModalContent = ({ postId, postData, comments = [], onClose }: P
                 )}
                 {isEditing && (
                     <div className={styles.saveChangesContainer}>
-                        <Button onClick={handleSaveChanges} className={styles.saveButton} variant={'outlined'}>
+                        <Button onClick={handleSaveChanges} className={styles.saveButton} variant={'contained'}>
                             Save Changes
                         </Button>
                     </div>
