@@ -14,7 +14,7 @@ export const EditPostModal = ({ isOpen, onClose, onConfirm }: Props) => (
             <Button onClick={onConfirm} variant={'outlined'}>
                 Yes
             </Button>
-            <Button onClick={onClose} variant={'outlined'}>
+            <Button onClick={onClose} variant={'contained'}>
                 No
             </Button>
         </div>
