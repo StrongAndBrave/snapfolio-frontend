@@ -1,9 +1,8 @@
-import { useGetAnswersQuery } from '@/features/posts/api/commentsApi';
-import { AnswerType } from '@/features/posts/api/types/commentsTypes';
-import styles from './PublicPosts.module.scss';
+import styles from './Comment.module.scss';
 import Image from 'next/image';
 import { getTimeAgo } from '@/shared/ui';
 import { DEFAULT_AVATAR } from '@/pages-view/public-posts/ui/PublicPage';
+import { useCommentAnswers } from '@/features/posts/model/useCommnets';
 
 type Props = {
     postId: number;
@@ -11,22 +10,15 @@ type Props = {
 };
 
 export const CommentAnswers = ({ postId, commentId }: Props) => {
-    const { data, isLoading, isError } = useGetAnswersQuery({
-        postId,
-        commentId,
-        pageSize: 10,
-        pageNumber: 1,
-        sortBy: 'createdAt',
-        sortDirection: 'asc',
-    });
+    const { answers, isLoading, isError } = useCommentAnswers(postId, commentId);
 
     if (isLoading) return <div>Загрузка ответов...</div>;
     if (isError) return <div>Ошибка загрузки ответов</div>;
-    if (!data?.items?.length) return null;
+    if (!answers.length) return null;
 
     return (
         <div className={styles.answersContainer}>
-            {data.items.map((answer: AnswerType) => (
+            {answers.map(answer => (
                 <div key={answer.id} className={styles.commentAnswer}>
                     <Image
                         src={answer.from.avatars[0]?.url || DEFAULT_AVATAR}

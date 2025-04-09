@@ -1,5 +1,5 @@
 'use client';
-import styles from './PublicPosts.module.scss';
+import styles from './AllUsers.module.scss';
 import { useGetAllPublicUsersQuery } from '@/features/posts/api/postsApi';
 
 export const AllUsers = () => {

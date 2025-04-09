@@ -37,9 +37,19 @@ export const PostActionsMenu = ({ onEdit, onDelete }: Props) => {
         setIsMenuOpen(prev => !prev);
     }, []);
 
+    const handleEditClick = useCallback(() => {
+        setIsMenuOpen(false);
+        onEdit();
+    }, [onEdit]);
+
+    const handleDeleteClick = useCallback(() => {
+        setIsMenuOpen(false);
+        onDelete();
+    }, [onDelete]);
+
     return (
         <div className={styles.postActions} ref={menuRef}>
-            <Button
+            <button
                 onClick={toggleMenu}
                 className={styles.dotsButton}
                 aria-label="Post actions"
@@ -51,15 +61,15 @@ export const PostActionsMenu = ({ onEdit, onDelete }: Props) => {
                 ) : (
                     <DotsIconActive width={24} height={24} />
                 )}
-            </Button>
+            </button>
 
             {isMenuOpen && (
                 <div className={styles.dropdownMenu}>
-                    <Button onClick={onEdit} className={styles.dropdownItem}>
+                    <Button onClick={handleEditClick} className={styles.dropdownItem}>
                         <EditIcon alt="Edit" width={24} height={24} className={styles.icon} />
                         Edit Post
                     </Button>
-                    <Button onClick={onDelete} className={styles.dropdownItem}>
+                    <Button onClick={handleDeleteClick} className={styles.dropdownItem}>
                         <DeleteIcon alt="Delete" width={24} height={24} className={styles.icon} />
                         Delete Post
                     </Button>

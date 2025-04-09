@@ -1,46 +1,3 @@
-.registeredUsers {
-  background-color: $dark-500;
-  border: 1px solid $dark-300;
-  max-width: 972px;
-  height: 72px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin: 24px 0 24px 0;
-
-  h2 {
-    letter-spacing: 0.05em;
-  }
-
-}
-
-.userCount {
-  min-width: 200px;
-  height: 48px;
-  border: 1px solid $dark-300;
-  padding: 0 18px 0 18px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-}
-
-.userCountItem {
-  display: inline-flex;
-  align-items: center;
-}
-
-.userRowItem {
-  display: inline-block;
-  width: 1px;
-  height: 30px;
-  background-color: $dark-300;
-  margin: 0 10px 0 10px;
-}
-
 .post-list {
   display: flex;
   flex-wrap: wrap;
@@ -50,8 +7,7 @@
 
 .post-card {
   width: 234px;
-  max-height: 390px;
-  height: 100%;
+  height: 390px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -143,137 +99,6 @@
   flex-direction: row;
 }
 
-.postImage {
-  width: 492px;
-  height: 562px;
-
-  img {
-    width: 492px;
-    height: 562px;
-  }
-}
-
-.postContent {
-  display: flex;
-  flex-direction: column;
-  width: 480px;
-  height: 100%;
-
-  img {
-    border-radius: 25px;
-  }
-
-  strong {
-    letter-spacing: 0.05em;
-    padding-right: 3px;
-  }
-
-  small {
-    @include apply-text-style(small);
-    color: $light-900;
-  }
-}
-
-.postOwner {
-  display: flex;
-  height: 58px;
-  padding: 10px 0 0 20px;
-  border-bottom: 1px solid $dark-100;
-
-  strong {
-    display: inline-block;
-    padding-top: 6px;
-  }
-}
-
-.postInformation {
-  @include apply-text-style(regular-14);
-  padding: 12px 0 0 20px;
-  display: flex;
-  border-top: 1px solid $dark-100;
-}
-
-.avatarsWhoLikes {
-  padding-right: 12px;
-  display: flex;
-
-  img {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-.avatarWhoLikes {
-  margin-left: -12px;
-  position: relative;
-}
-
-.avatarWhoLikes:first-child {
-  margin-left: 0;
-  z-index: 3;
-}
-
-.avatarWhoLikes:nth-child(2) {
-  z-index: 2;
-}
-
-.avatarWhoLikes:nth-child(3) {
-  z-index: 1;
-}
-
-.postDate {
-  padding: 0 0 20px 20px;
-  height: 40px;
-}
-
-.commentsSection {
-  min-height: 180px;
-  max-height: 428px;
-  height: auto;
-  overflow-y: auto;
-  padding: 0 20px 10px 20px;
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.comment {
-  display: flex;
-  padding-top: 12px;
-}
-
-.commentAvatar {
-  margin-right: 12px;
-}
-
-.commentContent {
-  flex: 1;
-}
-
-.viewMore {
-  position: relative;
-  padding-left: 32px;
-  cursor: pointer;
-  color: $light-900;
-  margin-top: 10px; //надо бы убрать куда-то
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 1px;
-    background-color: $light-900;
-  }
-}
-
-.commentAnswer {
-  display: flex;
-  padding-top: 8px;
-}
-
 .postActions {
   position: relative;
   display: flex;
@@ -283,6 +108,7 @@
 .dotsButton {
   width: 24px;
   height: 24px;
+  padding: 0;
   border: none;
   cursor: pointer;
   display: flex;
@@ -298,7 +124,7 @@
   padding-left: 12px;
   padding-top: 5px;
   padding-bottom: 7px;
-  background: $dark-500;
+  background-color: $dark-500;
   border: 1px solid $dark-100;
   z-index: 100;
   min-width: 137px;
@@ -306,6 +132,10 @@
 
   button {
     @include apply-text-style(regular-14);
+
+    &:hover {
+      background-color: $dark-500;
+    }
   }
 }
 
@@ -316,6 +146,7 @@
     padding: 7px 4px 4px 0;
   }
 }
+
 .dropdownItem {
   display: flex;
   align-items: center;
@@ -335,22 +166,13 @@
   }
 }
 
-.modalDeletePost {
-  max-width: 378px;
-  height: 216px;
 
-}
-.modalDeletePostButton {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-}
 
-.modalDeletePostButton button {
-  padding: 5px 30px 5px 30px;
 
-  &:hover {
-    padding: 5px 30px 5px 30px;
-  }
-}
+
+
+
+
+
+
+

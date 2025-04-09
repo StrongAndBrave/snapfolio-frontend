@@ -1,5 +1,6 @@
 import styles from './PublicPage.module.scss';
-import { AllUsers, PostList } from '@/features/posts/ui/view-post';
+import { PostList } from '@/features/posts/ui';
+import { AllUsers } from '@/features/all-users';
 import DefaultAvatar from '../../../../public/default_avatar.png';
 
 export const DEFAULT_AVATAR = DefaultAvatar;

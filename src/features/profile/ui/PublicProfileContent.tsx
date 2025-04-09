@@ -1,59 +1,49 @@
 'use client';
-import { notFound, useParams, useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import styles from './PublicPage.module.scss';
+import styles from './Profile.module.scss';
 import Image from 'next/image';
 import { Modal } from '@/shared/ui';
-import { PostModalContent } from '@/features/posts/ui/view-post';
+import { PostModalContent } from '@/features/posts/ui';
 import { useGetCommentsForUnauthorizedUsersQuery } from '@/features/posts/api/commentsApi';
 import { useProfileData } from '@/features/profile/model/useProfileData';
 import { useProfilePosts } from '@/features/profile/model/useProfilePosts';
 import { useGetPublicPostByIdQuery } from '@/features/posts/api/postsApi';
 import { ProfileHeader } from '@/features/profile';
 
-export const ProfilePage = ({ initialPostId }: { initialPostId?: number }) => {
-    const { id: userName } = useParams<{ id: string }>();
+type Props = {
+    userName: string;
+    initialPostId?: number;
+    onNotFound: () => void;
+};
+
+export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Props) => {
     const [openedPostId, setOpenedPostId] = useState<number | null>(initialPostId || null);
     const [visiblePosts, setVisiblePosts] = useState(4);
     const loaderRef = useRef<HTMLDivElement | null>(null);
-    const router = useRouter();
 
     const { data: userProfile, isLoading: isProfileLoading, isError: isProfileError } = useProfileData(userName);
-
     const {
         data: postsData,
         isLoading: isPostsLoading,
         isError: isPostsError,
     } = useProfilePosts(userProfile?.id || 0, visiblePosts);
-
     const { data: currentPost } = useGetPublicPostByIdQuery({ postId: openedPostId! }, { skip: !openedPostId });
-
     const { data: postComments } = useGetCommentsForUnauthorizedUsersQuery(
-        { postId: openedPostId!, pageSize: 10, pageNumber: 1, sortBy: 'createdAt', sortDirection: 'desc' },
+        {
+            postId: openedPostId!,
+            pageSize: 10,
+            pageNumber: 1,
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+        },
         { skip: !openedPostId },
     );
 
-    // Обработчики и эффекты
     const handleCloseModal = useCallback(() => {
         setOpenedPostId(null);
-        router.replace(`/profile/${userName}`, { scroll: false });
-    }, [userName, router]);
+    }, []);
 
-    useEffect(() => {
-        if (initialPostId) setOpenedPostId(initialPostId);
-    }, [initialPostId]);
-
-    useEffect(() => {
-        if (openedPostId) {
-            const url = new URL(window.location.href);
-            url.searchParams.set('postId', String(openedPostId));
-            window.history.pushState({}, '', url.toString());
-        }
-    }, [openedPostId]);
-
-    const formatNumber = (number: number) => new Intl.NumberFormat('ru-RU').format(number);
-
-    // Логика бесконечной загрузки
+    // Бесконечная загрузка постов
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -68,10 +58,19 @@ export const ProfilePage = ({ initialPostId }: { initialPostId?: number }) => {
         return () => observer.disconnect();
     }, [visiblePosts, postsData?.totalCount]);
 
-    // Обработка состояний загрузки и ошибок
-    if (!userName || Array.isArray(userName)) return notFound();
+    // useEffect(() => {
+    //     if (isProfileError || isPostsError || !userProfile) {
+    //         onNotFound();
+    //     }
+    // }, [isProfileError, isPostsError, userProfile, onNotFound]);
+
+    const formatNumber = (number: number) => new Intl.NumberFormat('ru-RU').format(number);
+
     if (isProfileLoading || isPostsLoading) return <div>Загрузка...</div>;
-    if (isProfileError || !userProfile || isPostsError) return notFound();
+    if (isProfileError || !userProfile || isPostsError) {
+        onNotFound();
+        return null;
+    }
 
     const userPosts = postsData?.items || [];
 
