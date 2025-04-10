@@ -34,7 +34,7 @@ export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Pr
     const { data: postComments } = useGetCommentsForUnauthorizedUsersQuery(
         {
             postId: openedPostId!,
-            pageSize: 10,
+            pageSize: 8,
             pageNumber: 1,
             sortBy: 'createdAt',
             sortDirection: 'desc',

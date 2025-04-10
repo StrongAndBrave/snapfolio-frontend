@@ -7,11 +7,11 @@ import Link from 'next/link';
 import { PostType } from '@/features/posts/api/types/postTypes';
 import { DEFAULT_AVATAR } from '@/pages-view/public-posts/ui/PublicPage';
 
-type PostCardProps = {
+type Props = {
     post: PostType;
 };
 
-export const PostCard: React.FC<PostCardProps> = ({ post }) => {
+export const PostCard: React.FC<Props> = ({ post }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [descriptionError, setDescriptionError] = useState('');
 
