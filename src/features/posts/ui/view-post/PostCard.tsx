@@ -44,7 +44,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
     return (
         <article className={styles['post-card']}>
-            <Link href={`/profile/${post.ownerId}`}>
+            <Link href={`/profile/${post.ownerId}?postId=${post.id}`}>
                 {hasImages ? (
                     <Image src={post.images[0].url} alt="Post" className={styles['post-image']} width={1} height={1} />
                 ) : (
