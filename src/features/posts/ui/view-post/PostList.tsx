@@ -6,12 +6,17 @@ import { PostCard } from '@/features/posts/ui/view-post/PostCard';
 
 export const PostList: React.FC = () => {
     // pageSize: количество постов на главной
-    const { data, isLoading, isError } = useGetAllPostsQuery({
-        endCursorPostId: 0,
-        pageSize: 12,
-        sortBy: 'createdAt',
-        sortDirection: 'desc',
-    });
+    const { data, isLoading, isError } = useGetAllPostsQuery(
+        {
+            endCursorPostId: 0,
+            pageSize: 12,
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+        },
+        {
+            pollingInterval: 60000,
+        },
+    );
 
     if (isLoading) {
         return <div>Загрузка...</div>;
