@@ -9,6 +9,7 @@ import { useProfileData } from '@/features/profile/model/useProfileData';
 import { useProfilePosts } from '@/features/profile/model/useProfilePosts';
 import { useGetPublicPostByIdQuery } from '@/features/posts/api/postsApi';
 import { ProfileHeader } from '@/features/profile';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Props = {
     userName: string;
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Props) => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const [openedPostId, setOpenedPostId] = useState<number | null>(initialPostId || null);
     const [visiblePosts, setVisiblePosts] = useState(4);
     const loaderRef = useRef<HTMLDivElement | null>(null);
@@ -39,9 +42,22 @@ export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Pr
         { skip: !openedPostId },
     );
 
+    const handleOpenPost = useCallback(
+        (postId: number) => {
+            setOpenedPostId(postId);
+            const params = new URLSearchParams(searchParams?.toString() || '');
+            params.set('postId', postId.toString());
+            router.replace(`?${params.toString()}`, { scroll: false });
+        },
+        [router, searchParams],
+    );
+
     const handleCloseModal = useCallback(() => {
         setOpenedPostId(null);
-    }, []);
+        const params = new URLSearchParams(searchParams?.toString() || '');
+        params.delete('postId');
+        router.replace(`?${params.toString()}`, { scroll: false });
+    }, [router, searchParams]);
 
     // Бесконечная загрузка постов
     useEffect(() => {
@@ -57,12 +73,6 @@ export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Pr
         if (loaderRef.current) observer.observe(loaderRef.current);
         return () => observer.disconnect();
     }, [visiblePosts, postsData?.totalCount]);
-
-    // useEffect(() => {
-    //     if (isProfileError || isPostsError || !userProfile) {
-    //         onNotFound();
-    //     }
-    // }, [isProfileError, isPostsError, userProfile, onNotFound]);
 
     const formatNumber = (number: number) => new Intl.NumberFormat('ru-RU').format(number);
 
@@ -91,7 +101,7 @@ export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Pr
                                     alt="Post"
                                     width={1}
                                     height={1}
-                                    onClick={() => setOpenedPostId(post.id)}
+                                    onClick={() => handleOpenPost(post.id)}
                                     loading="lazy"
                                 />
                             ))}
