@@ -12,7 +12,7 @@ export const PostList = ({ posts }: Props) => {
     }
 
     return (
-        <section className={styles['post-list']}>
+        <section className={styles.postList}>
             {posts.map(post => (
                 <PostCard key={post.id} post={post} />
             ))}
