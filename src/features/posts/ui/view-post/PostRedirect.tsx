@@ -4,7 +4,11 @@ import { useGetPublicPostByIdQuery } from '@/features/posts/api/postsApi';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export function PostRedirect({ postId }: { postId: number }) {
+type Props = {
+    postId: number
+}
+
+export function PostRedirect({ postId }: Props) {
     const { data: post, isLoading, isError } = useGetPublicPostByIdQuery({ postId });
     const router = useRouter();
 
