@@ -1,14 +1,12 @@
 'use client';
 
 import { useGetPublicPostByIdQuery } from '@/features/posts/api/postsApi';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-type Props = {
-    postId: number
-}
-
-export function PostRedirect({ postId }: Props) {
+export function PostRedirect() {
+    const params = useParams();
+    const postId = Number(params.postId)
     const { data: post, isLoading, isError } = useGetPublicPostByIdQuery({ postId });
     const router = useRouter();
 
