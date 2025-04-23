@@ -1,0 +1,93 @@
+.info {
+    width: 482px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.persona {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.photo {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    background-color: $dark-500;
+    border-radius: 50%;
+}
+
+.name {
+    @include apply-text-style(regular-16);
+}
+
+.descriptions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.label {
+    color: $light-900;
+
+    @include apply-text-style(regular-14);
+}
+
+.textarea {
+    width: 433px;
+    height: 120px;
+    padding: 6px 12px;
+    background-color: $dark-500;
+    border: 1px solid $dark-100;
+
+    @include apply-text-style(regular-14);
+
+    color: $light-100;
+    resize: none;
+
+    &:focus-visible {
+        outline: 1px solid $light-900;
+    }
+}
+
+.charCount {
+    text-align: right;
+    color: $light-900;
+
+    @include apply-text-style(small);
+}
+
+.location {
+    margin-top: 44px;
+    display: flex;
+    flex-direction: column;
+
+    .field {
+        width: 279px;
+        height: 36px;
+        padding: 6px 36px 6px 12px;
+        background-color: $dark-300;
+        color: $light-100;
+        border: 1px solid $dark-100;
+        cursor: pointer;
+
+        &:focus-visible {
+            outline: 1px solid $light-900;
+        }
+    }
+}
+
+.fieldWrapper {
+    position: relative;
+    width: 279px;
+    height: 36px;
+
+    .pin {
+        position: absolute;
+        right: 6px;
+        bottom: 6px;
+    }
+}

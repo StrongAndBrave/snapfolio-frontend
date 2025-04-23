@@ -1,0 +1,40 @@
+.registeredUsers {
+    background-color: $dark-500;
+    border: 1px solid $dark-300;
+    max-width: 972px;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin: 24px 0;
+
+    h2 {
+        letter-spacing: 0.05em;
+    }
+}
+
+.userCount {
+    min-width: 200px;
+    height: 48px;
+    border: 1px solid $dark-300;
+    padding: 0 18px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.userCountItem {
+    display: inline-flex;
+    align-items: center;
+}
+
+.userRowItem {
+    display: inline-block;
+    width: 1px;
+    height: 30px;
+    background-color: $dark-300;
+    margin: 0 10px;
+}

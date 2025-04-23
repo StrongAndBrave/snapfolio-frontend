@@ -7,11 +7,12 @@ type Props = {
     isOpen: boolean;
     children: React.ReactNode;
     onClose: () => void;
-    title: string;
+    className?: string;
+    modalId?: string;
 };
 
-export const Modal = ({ isOpen, onClose, children, title }: Props) => {
-    const modal = document.getElementById('modal-root');
+export const Modal = ({ isOpen, children, onClose, className, modalId }: Props) => {
+    const modal = document.getElementById(modalId || 'modal-root');
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -25,17 +26,28 @@ export const Modal = ({ isOpen, onClose, children, title }: Props) => {
         };
     }, [onClose]);
 
+    useEffect(() => {
+        if (isOpen) {
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        };
+    }, [isOpen]);
+
     if (!isOpen) return null;
+
     return ReactDOM.createPortal(
         <div className={styles.overlay} onClick={onClose}>
-            <div className={styles.modal} onClick={e => e.stopPropagation()}>
-                <div className={styles.header}>
-                    <span className={styles.title}>{title}</span>
-                    <button className={styles.closeButton} onClick={onClose}>
-                        &times;
-                    </button>
-                </div>
-                <div className={styles.content}>{children}</div>
+            <div className={`${styles.modal} ${className}`} onClick={e => e.stopPropagation()}>
+                {children}
             </div>
         </div>,
         modal || document.body,

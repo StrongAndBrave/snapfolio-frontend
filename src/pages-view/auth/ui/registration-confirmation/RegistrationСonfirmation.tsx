@@ -23,7 +23,7 @@ export const RegistrationConfirmation = () => {
             .catch(() => {
                 router.push(`/auth/email-resending?email=${email}`);
             });
-    }, [confirmationCode]);
+    }, [confirmationCode, email, router, confirmationToken]);
 
     return (
         <div className={styles.wrapper}>

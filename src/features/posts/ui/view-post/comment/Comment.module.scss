@@ -1,0 +1,36 @@
+.comment {
+    display: flex;
+    padding-top: 12px;
+}
+
+.commentAvatar {
+    margin-right: 12px;
+}
+
+.commentContent {
+    flex: 1;
+}
+
+.viewMore {
+    position: relative;
+    padding-left: 32px;
+    cursor: pointer;
+    color: $light-900;
+    margin-top: 10px; //надо бы убрать куда-то
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 1px;
+        background-color: $light-900;
+    }
+}
+
+.commentAnswer {
+    display: flex;
+    padding-top: 8px;
+}

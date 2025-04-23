@@ -1,0 +1,25 @@
+.filters {
+    padding: 24px 55px 30px 54px;
+    width: 482px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 24px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.image {
+    width: 108px;
+    height: 108px;
+}
+
+.title {
+    padding-top: 6px;
+    text-align: center;
+
+    @include apply-text-style(regular-16);
+}

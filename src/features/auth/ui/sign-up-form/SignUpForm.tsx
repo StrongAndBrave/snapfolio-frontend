@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Button, Checkbox, Input, Modal, Password } from '@/shared/ui';
+import { ActionModal, Button, Checkbox, Input, Password } from '@/shared/ui';
 import Link from 'next/link';
 import styles from '@/features/auth/ui/Form.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -86,14 +86,14 @@ export const SignUpForm = () => {
                 Sign Up
             </Button>
 
-            <Modal isOpen={isOpen} title={'Email sent'} onClose={() => setIsOpen(() => false)}>
+            <ActionModal isOpen={isOpen} title={'Email sent'} onClose={() => setIsOpen(false)} className={styles.modal}>
                 <div className={styles.modalInfo}>
                     <span>We have sent a link to confirm your email to {email}</span>
-                    <Button variant={'contained'} onClick={() => setIsOpen(() => false)}>
+                    <Button variant={'contained'} onClick={() => setIsOpen(false)}>
                         OK
                     </Button>
                 </div>
-            </Modal>
+            </ActionModal>
         </form>
     );
 };
