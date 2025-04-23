@@ -1,16 +1,18 @@
-'use client'
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Swiper as SwiperType } from "swiper/types";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation} from "swiper/modules";
-import styles from './UploadPanel.module.scss'
-import SvgImage from "../../../../../../../public/svg/plus-circle.svg";
-import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import {Uploader} from "@/shared/ui";
-import SvgCloseMini from './../../../../../../../public/svg/closeMini.svg'
-import {ImageEditData} from "@/features/posts/model/types";
+'use client';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperType } from 'swiper/types';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation } from 'swiper/modules';
+import styles from './UploadPanel.module.scss';
+import SvgImage from '../../../../../../../public/svg/plus-circle.svg';
+import { ImgBtn } from '@/shared/ui/img-btn/ImgBtn';
+import { Uploader } from '@/shared/ui';
+import SvgCloseMini from './../../../../../../../public/svg/closeMini.svg';
+import { ImageEditData } from '@/features/posts/model/types';
+import Image from 'next/image';
+import type { MouseEvent } from 'react';
 
 type Props = {
     images: ImageEditData[];
@@ -19,13 +21,20 @@ type Props = {
     onSwiperInit: (swiper: SwiperType) => void;
     changeImages: (files: ImageEditData[]) => void;
     uploadPanelVisible: boolean;
-}
+};
 
-export const UploadPanel = ({images, activeIndex, onThumbClick, onSwiperInit, changeImages, uploadPanelVisible}: Props) => {
+export const UploadPanel = ({
+    images,
+    activeIndex,
+    onThumbClick,
+    onSwiperInit,
+    changeImages,
+    uploadPanelVisible,
+}: Props) => {
     const handleUploadImages = (newFiles: File[]) => {
         const remainingSlots = 8 - images.length;
 
-        const filesToAdd :ImageEditData[] = newFiles.slice(0, remainingSlots).map(file => ({
+        const filesToAdd: ImageEditData[] = newFiles.slice(0, remainingSlots).map(file => ({
             id: Math.random().toString(36).substring(2, 9),
             original: file,
             originalPreview: URL.createObjectURL(file),
@@ -33,9 +42,9 @@ export const UploadPanel = ({images, activeIndex, onThumbClick, onSwiperInit, ch
                 aspect: 1,
                 zoom: 1,
                 crop: { x: 0, y: 0 },
-                croppedAreaPixels: null
+                croppedAreaPixels: null,
             },
-            currentAspect: '1:1'
+            currentAspect: '1:1',
         }));
 
         changeImages([...images, ...filesToAdd]);
@@ -57,34 +66,33 @@ export const UploadPanel = ({images, activeIndex, onThumbClick, onSwiperInit, ch
                 className={styles.swiper}
             >
                 {images.map((image, index) => (
-                    <SwiperSlide key={image.id}
-                                 className={styles.panelSlide}
-                                 onClick={() => onThumbClick(index)}>
+                    <SwiperSlide key={image.id} className={styles.panelSlide} onClick={() => onThumbClick(index)}>
                         <ImgBtn
-                            onClick={(e: any) => {
+                            onClick={(e: MouseEvent<HTMLButtonElement>) => {
                                 e.stopPropagation();
                                 handleRemoveImage(index);
                             }}
                             className={styles.deleteBtn}
-                            icon={<SvgCloseMini/>}
+                            icon={<SvgCloseMini />}
                         />
-                        <img
+                        <Image
                             src={image.originalPreview}
                             alt={`Photo ${index}`}
+                            width={80}
+                            height={82}
                             className={`${styles.slideImage} 
                             ${activeIndex === index && styles.slideActive}`}
                         />
                     </SwiperSlide>
                 ))}
             </Swiper>
-            {
-                images.length < 8 &&
+            {images.length < 8 && (
                 <Uploader uploadImages={handleUploadImages}>
                     <div className={styles.uploadBtnAdd}>
-                        <SvgImage className={styles.addImages}/>
+                        <SvgImage className={styles.addImages} />
                     </div>
                 </Uploader>
-            }
+            )}
         </div>
     );
 };

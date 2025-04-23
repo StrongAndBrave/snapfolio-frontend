@@ -70,7 +70,11 @@ export const usePostActions = (post: PostType | undefined, onClose?: () => void)
         try {
             await deletePost({ postId: post.id }).unwrap();
             setIsDeleteModalOpen(false);
-            onClose ? onClose() : router.back();
+            if (onClose) {
+                onClose();
+            } else {
+                router.back();
+            }
         } catch (error) {
             console.error('Ошибка при удалении поста: ', error);
         } finally {

@@ -22,7 +22,7 @@ export const Recovery = () => {
             .catch(() => {
                 router.push('/auth/forgot-password');
             });
-    }, [recoveryCode]);
+    }, [recoveryCode, checkRecoveryCode, router]);
 
     return (
         <div className={styles.wrapper}>

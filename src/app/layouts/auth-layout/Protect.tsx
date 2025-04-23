@@ -19,7 +19,7 @@ export const Protect = ({ children }: Props) => {
         if (isAuthorized && pathname.includes(protectedRoutes)) {
             router.push('/');
         }
-    }, [isAuthorized, pathname]);
+    }, [isAuthorized, pathname, router]);
 
     return <div>{isAuthorized ? null : children}</div>;
 };

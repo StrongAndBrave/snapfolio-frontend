@@ -1,7 +1,8 @@
-'use client'
-import { useEffect, useState } from "react";
-import styles from "@/features/posts/ui/create-post/filters/FilterItems/FilterItems.module.scss";
-import {generateFilterPreviews} from "@/features/posts/lib/imageFilters";
+'use client';
+import { useEffect, useState } from 'react';
+import styles from '@/features/posts/ui/create-post/filters/FilterItems/FilterItems.module.scss';
+import { generateFilterPreviews } from '@/features/posts/lib/imageFilters';
+import Image from 'next/image';
 
 type Props = {
     activeImageUrl?: string;
@@ -16,7 +17,6 @@ export const FilterItems = ({ activeImageUrl, onFilterSelect }: Props) => {
         if (!activeImageUrl) return;
 
         let isMounted = true;
-        const newPreviewUrls: string[] = [];
 
         const loadPreviews = async () => {
             try {
@@ -28,7 +28,7 @@ export const FilterItems = ({ activeImageUrl, onFilterSelect }: Props) => {
                     setPreviews(generatedPreviews);
                 }
             } catch (error) {
-                console.error("Error generating filter previews:", error);
+                console.error('Error generating filter previews:', error);
                 if (isMounted) {
                     setPreviews({});
                 }
@@ -42,7 +42,7 @@ export const FilterItems = ({ activeImageUrl, onFilterSelect }: Props) => {
             // Очищаем предыдущие превью
             currentPreviewUrls.forEach(url => URL.revokeObjectURL(url));
         };
-    }, [activeImageUrl]);
+    }, [activeImageUrl, currentPreviewUrls]);
 
     const filters = [
         { id: 'normal', name: 'Normal' },
@@ -53,22 +53,20 @@ export const FilterItems = ({ activeImageUrl, onFilterSelect }: Props) => {
         { id: 'vintage', name: 'Vintage' },
         { id: 'cool', name: 'Cool' },
         { id: 'warm', name: 'Warm' },
-        { id: 'blur', name: 'Blur' }
+        { id: 'blur', name: 'Blur' },
     ];
 
     return (
         <div className={styles.filters}>
             {filters.map(filter => (
-                <div
-                    key={filter.id}
-                    className={styles.filter}
-                    onClick={() => onFilterSelect(filter.id)}
-                >
-                    <img
-                        src={previews[filter.id] || activeImageUrl}
+                <div key={filter.id} className={styles.filter} onClick={() => onFilterSelect(filter.id)}>
+                    <Image
+                        src={previews[filter.id] || activeImageUrl || ''}
                         className={styles.image}
                         alt={filter.name}
-                        onError={(e) => {
+                        width={108}
+                        height={108}
+                        onError={e => {
                             // Fallback если изображение не загрузилось
                             if (activeImageUrl && e.currentTarget.src !== activeImageUrl) {
                                 e.currentTarget.src = activeImageUrl;

@@ -1,8 +1,8 @@
-import {Area} from "react-easy-crop";
+import { Area } from 'react-easy-crop';
 
 export type CreatePostStep = 'upload' | 'crop' | 'filters' | 'details';
 
-export type AspectRatioOption = '1:1' | '4:5' | '16:9' | 'original'
+export type AspectRatioOption = '1:1' | '4:5' | '16:9' | 'original';
 
 export type CropData = {
     aspect: number | undefined;
@@ -27,4 +27,4 @@ export type ImageEditData = {
 export type InfoPostType = {
     description: string;
     location: string;
-}
+};

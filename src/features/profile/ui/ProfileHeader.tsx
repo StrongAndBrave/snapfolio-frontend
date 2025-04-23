@@ -19,7 +19,14 @@ export const ProfileHeader = ({ userProfile, formatNumber }: ProfileHeaderProps)
     <header className={styles.profileContainer}>
         <section className={styles.profileAvatarImg}>
             {userProfile.avatars?.length > 0 && (
-                <Image src={userProfile.avatars[0].url} alt={userProfile.userName} width={1} height={1} priority />
+                <Image
+                    src={userProfile.avatars[0].url}
+                    className={styles.avatar}
+                    alt={userProfile.userName}
+                    width={1}
+                    height={1}
+                    priority
+                />
             )}
         </section>
         <section className={styles.profileUserName}>

@@ -66,7 +66,51 @@ export type GetCommentsForUnauthorizedUsersRequest = {
 } & SortRequest &
     PaginationRequest;
 
-//responses
+// common
+
+type Avatar = {
+    url: string;
+    width: number;
+    height: number;
+    fileSize: number;
+    createdAt: string;
+};
+
+export type CommentType = {
+    id: number;
+    postId: number;
+    from: {
+        id: number;
+        username: string;
+        avatars: Avatar[];
+    };
+    content: string;
+    createdAt: string;
+    answerCount: number;
+    likeCount: number;
+    isLiked: boolean;
+};
+
+type User = {
+    id: number;
+    userId: number;
+    userName: string;
+    createdAt: string;
+    avatars: Avatar[];
+    isFollowing: boolean;
+    isFollowedBy: boolean;
+};
+
+export type AnswerType = Omit<CommentType, 'answerCount'>;
+
+export type GetLikesResponse = {
+    pageSize: number;
+    totalCount: number;
+    notReadCount: number;
+    items: User[];
+};
+
+// responses
 
 export type GetCommentsResponse = {
     pageSize: number;
@@ -87,49 +131,4 @@ export type GetCommentsForUnauthorizedUsersResponse = {
     totalCount: number;
     notReadCount: number;
     items: CommentType[];
-};
-
-// common
-
-export type CommentType = {
-    id: number;
-    postId: number;
-    from: {
-        id: number;
-        username: string;
-        //avatars: object[]; изменяю посмотрим что будет
-        avatars: Avatar[];
-    };
-    content: string;
-    createdAt: string;
-    answerCount: number;
-    likeCount: number;
-    isLiked: boolean;
-};
-
-type Avatar = {
-    url: string;
-    width: number;
-    height: number;
-    fileSize: number;
-    createdAt: string;
-};
-
-type User = {
-    id: number;
-    userId: number;
-    userName: string;
-    createdAt: string;
-    avatars: Avatar[];
-    isFollowing: boolean;
-    isFollowedBy: boolean;
-};
-
-export type AnswerType = Omit<CommentType, 'answerCount'>;
-
-export type GetLikesResponse = {
-    pageSize: number;
-    totalCount: number;
-    notReadCount: number;
-    items: User[];
 };

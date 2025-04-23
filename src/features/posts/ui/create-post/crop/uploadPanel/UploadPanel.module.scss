@@ -1,70 +1,71 @@
-.uploadPanel{
-  position: absolute;
-  bottom: 49px;
-  right: 11px;
-  width: auto;
-  max-width: 470px;
-  height: 108px;
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgba($dark-500, 0.8);
-  z-index: $z-index-modal;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  visibility: hidden;
-  :global(.swiper-button-prev),
-  :global(.swiper-button-next) {
-    top: 65%;
-    background: rgba($dark-500, 0.8);
-    color: $light-100;
-    width: 18px;
-    height: 18px;
-    border-radius: 2px;
-    &:after {
-      font-size: 10px;
+.uploadPanel {
+    position: absolute;
+    bottom: 49px;
+    right: 11px;
+    width: auto;
+    max-width: 470px;
+    height: 108px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba($dark-500, 0.8);
+    z-index: $z-index-modal;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+
+    :global(.swiper-button-prev),
+    :global(.swiper-button-next) {
+        top: 65%;
+        background: rgba($dark-500, 0.8);
+        color: $light-100;
+        width: 18px;
+        height: 18px;
+        border-radius: 2px;
+
+        &::after {
+            font-size: 10px;
+        }
     }
-  }
-  :global(.swiper-button-disabled) {
-    display: none;
-  }
+
+    :global(.swiper-button-disabled) {
+        display: none;
+    }
 }
 
-.uploadPanel.visible{
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
-  visibility: visible;
+.uploadPanel.visible {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    visibility: visible;
 }
 
-.panelSlide{
-  position: relative;
-  width: 80px;
-  cursor: pointer;
+.panelSlide {
+    position: relative;
+    width: 80px;
+    cursor: pointer;
 }
 
-
-
-.slideImage{
-  width: 80px;
-  height: 82px;
-  filter: brightness(50%);
-  transition: filter 0.3s ease;
+.slideImage {
+    width: 80px;
+    height: 82px;
+    filter: brightness(50%);
+    transition: filter 0.3s ease;
 }
 
-.slideImage.slideActive{
-  filter: brightness(100%);
+.slideImage.slideActive {
+    filter: brightness(100%);
 }
 
-.addImages{
-  margin-left: 12px;
+.addImages {
+    margin-left: 12px;
 }
 
-.deleteBtn{
-  width: 12px;
-  height: 12px;
-  top:2px;
-  right: 2px;
-  position: absolute;
-  background-color: rgba($dark-500, 0.8);
-  z-index: $z-index-modal;
+.deleteBtn {
+    width: 12px;
+    height: 12px;
+    top: 2px;
+    right: 2px;
+    position: absolute;
+    background-color: rgba($dark-500, 0.8);
+    z-index: $z-index-modal;
 }

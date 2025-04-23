@@ -18,12 +18,9 @@ export const PublicPosts = () => {
         sortDirection: 'desc',
     });
 
-    const { data: currentPost, isLoading: isPostLoading } = useGetPostByIdQuery(
-        { postId: openedPostId! },
-        { skip: !openedPostId },
-    );
+    const { data: currentPost } = useGetPostByIdQuery({ postId: openedPostId! }, { skip: !openedPostId });
 
-    const { data: postComments, isLoading: isCommentsLoading } = useGetCommentsForUnauthorizedUsersQuery(
+    useGetCommentsForUnauthorizedUsersQuery(
         {
             postId: openedPostId!,
             pageNumber: 1,

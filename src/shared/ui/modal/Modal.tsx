@@ -7,12 +7,12 @@ type Props = {
     isOpen: boolean;
     children: React.ReactNode;
     onClose: () => void;
-    className?: string
-    modalId?: string
+    className?: string;
+    modalId?: string;
 };
 
-export const Modal = ({ isOpen, children, onClose, className, modalId}: Props) => {
-     const modal = document.getElementById(modalId ? modalId : 'modal-root');
+export const Modal = ({ isOpen, children, onClose, className, modalId }: Props) => {
+    const modal = document.getElementById(modalId || 'modal-root');
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {

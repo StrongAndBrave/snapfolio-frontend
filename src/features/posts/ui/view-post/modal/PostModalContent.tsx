@@ -156,7 +156,7 @@ export const PostModalContent = ({ postId, postData, comments = [], onClose }: P
                                 </div>
                             )}
                             <span className={styles.postLikes}>
-                                {currentPost.likesCount.toLocaleString('ru-Ru')} <strong>"Like"</strong>
+                                {currentPost.likesCount.toLocaleString('ru-Ru')} <strong>{'"Like"'}</strong>
                             </span>
                         </div>
                         <div className={styles.postDate}>

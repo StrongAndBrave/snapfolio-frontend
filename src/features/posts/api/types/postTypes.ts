@@ -1,7 +1,5 @@
 // requests
 
-import { number } from 'zod';
-
 type PaginationRequest = {
     pageSize: number;
     pageNumber: number;
@@ -52,37 +50,6 @@ export type GetAllPostsRequest = {
 } & SortRequest;
 
 export type GetPostsByUserIdRequest = { userId: number } & GetAllPostsRequest;
-
-//responses
-
-export type ResponseCountRegisteredUsers = {
-    totalCount: number;
-};
-
-export type ImageUploadResponse = {
-    images: Image[];
-};
-
-export type GetPostsByUsernameResponse = {
-    pageSize: number;
-    totalCount: number;
-    notReadCount: number;
-    items: PostType[];
-};
-
-export type GetAllPostsResponse = {
-    totalCount: number;
-    pageSize: number;
-    totalUsers: number;
-    items: PostType[];
-};
-
-export type GetPostsByUserIdResponse = {
-    totalCount: number;
-    pageSize: number;
-    totalUsers: number;
-    items: PostType[];
-};
 
 // common
 
@@ -154,4 +121,35 @@ export type PublicProfile = {
     avatars: Avatar[];
     userMetadata: UserMetadata;
     hasPaymentSubscription: boolean;
+};
+
+// responses
+
+export type ResponseCountRegisteredUsers = {
+    totalCount: number;
+};
+
+export type ImageUploadResponse = {
+    images: Image[];
+};
+
+export type GetPostsByUsernameResponse = {
+    pageSize: number;
+    totalCount: number;
+    notReadCount: number;
+    items: PostType[];
+};
+
+export type GetAllPostsResponse = {
+    totalCount: number;
+    pageSize: number;
+    totalUsers: number;
+    items: PostType[];
+};
+
+export type GetPostsByUserIdResponse = {
+    totalCount: number;
+    pageSize: number;
+    totalUsers: number;
+    items: PostType[];
 };

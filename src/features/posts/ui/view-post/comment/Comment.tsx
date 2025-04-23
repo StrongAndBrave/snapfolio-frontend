@@ -37,3 +37,5 @@ export const Comment = React.memo(({ comment, postId, isExpanded, onToggle }: Pr
         </div>
     </div>
 ));
+
+Comment.displayName = 'Comment';

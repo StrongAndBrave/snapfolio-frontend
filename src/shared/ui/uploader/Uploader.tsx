@@ -1,21 +1,22 @@
-import styles from './Uploader.module.scss'
+import styles from './Uploader.module.scss';
 
 type Props = {
-    children: React.ReactNode
-    multiple?: boolean
+    children: React.ReactNode;
+    multiple?: boolean;
     uploadImages: (files: File[]) => void;
-    className?: string
-}
+    className?: string;
+};
 
-export const Uploader = ({children, multiple = true, uploadImages, className}: Props) => {
-
+export const Uploader = ({ children, multiple = true, uploadImages, className }: Props) => {
     const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
-            const validFiles = Array.from(files).filter(file =>
-                file.type.startsWith('image/') // Проверяем тип файла
+            const validFiles = Array.from(files).filter(
+                file => file.type.startsWith('image/'), // Проверяем тип файла
             );
-            validFiles.length &&  uploadImages(validFiles)
+            if (validFiles.length > 0) {
+                uploadImages(validFiles);
+            }
         }
     };
 

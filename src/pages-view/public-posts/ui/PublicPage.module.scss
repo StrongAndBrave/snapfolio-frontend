@@ -1,18 +1,17 @@
 .publicPage {
-  max-width: 972px;
-  height: 100%;
-  margin: 0 auto 60px auto;
-  display: flex;
-  flex-direction: column;
+    max-width: 972px;
+    height: 100%;
+    margin: 0 auto 60px;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav {
-  display: flex;
-  gap: 15px;
+    display: flex;
+    gap: 15px;
 }
 
 .profileStats {
-  grid-row-start: 2;
-  grid-column-start: 2;
+    grid-row-start: 2;
+    grid-column-start: 2;
 }
-

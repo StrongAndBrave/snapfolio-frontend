@@ -1,35 +1,37 @@
-'use client'
-import styles from "@/features/posts/ui/create-post/CreatePost.module.scss";
-import {ImgBtn} from "@/shared/ui/img-btn/ImgBtn";
-import SvgArrowBack from "../../../../../../public/svg/arrow-ios-back.svg";
-import {Button, PhotoSlider} from "@/shared/ui";
-import {useState} from "react";
-import {CreatePostStep, ImageEditData, InfoPostType} from "@/features/posts/model/types";
-import {InfoPost} from "@/features/posts/ui/create-post/details/info/InfoPost";
-import {useCreatePostMutation, useUploadImagePostMutation} from "@/features/posts/api/postsApi";
-import {CreatePostRequest} from "@/features/posts/api/types/postTypes";
+'use client';
+import styles from '@/features/posts/ui/create-post/CreatePost.module.scss';
+import { ImgBtn } from '@/shared/ui/img-btn/ImgBtn';
+import SvgArrowBack from '../../../../../../public/svg/arrow-ios-back.svg';
+import { Button, PhotoSlider } from '@/shared/ui';
+import { useState } from 'react';
+import { CreatePostStep, ImageEditData, InfoPostType } from '@/features/posts/model/types';
+import { InfoPost } from '@/features/posts/ui/create-post/details/info/InfoPost';
+import { useCreatePostMutation, useUploadImagePostMutation } from '@/features/posts/api/postsApi';
+import { CreatePostRequest } from '@/features/posts/api/types/postTypes';
 import { useRouter } from 'next/navigation';
 
 type Props = {
     backStep: (step: CreatePostStep) => void;
     images: ImageEditData[];
-    onClose: (variant: boolean)=> void
-}
+    onClose: (variant: boolean) => void;
+};
 
-export const DetailsDesktop = ({onClose, backStep, images}: Props) => {
-    const [info, setInfo] = useState<InfoPostType>({description:'', location: ''});
-    const [uploadImagesPost] = useUploadImagePostMutation()
-    const [addDescriptionPost] = useCreatePostMutation()
+export const DetailsDesktop = ({ onClose, backStep, images }: Props) => {
+    const [info, setInfo] = useState<InfoPostType>({ description: '', location: '' });
+    const [uploadImagesPost] = useUploadImagePostMutation();
+    const [addDescriptionPost] = useCreatePostMutation();
     const router = useRouter();
 
     const handleBackStep = () => {
-        backStep('filters')
-    }
+        backStep('filters');
+    };
     const handleNextStep = async () => {
         try {
-            const files:File[] = images.map(imagObj => imagObj.filteredImage || imagObj.croppedImage || imagObj.original)
+            const files: File[] = images.map(
+                imagObj => imagObj.filteredImage || imagObj.croppedImage || imagObj.original,
+            );
 
-            const uploadResponse = await uploadImagesPost({files}).unwrap();
+            const uploadResponse = await uploadImagesPost({ files }).unwrap();
 
             if (!uploadResponse?.images?.length) {
                 throw new Error('No image data received from server');
@@ -37,36 +39,35 @@ export const DetailsDesktop = ({onClose, backStep, images}: Props) => {
 
             const postData: CreatePostRequest = {
                 description: info.description,
-                childrenMetadata: uploadResponse.images.map((image) => ({
-                    uploadId: image.uploadId
-                }))
+                childrenMetadata: uploadResponse.images.map(image => ({
+                    uploadId: image.uploadId,
+                })),
             };
 
-            await addDescriptionPost(postData).unwrap()
-            onClose(true)
+            await addDescriptionPost(postData).unwrap();
+            onClose(true);
             router.push('/');
+        } catch (e) {
+            console.log('error:', e);
         }
-        catch (e) {
-            console.log('error:', e)
-        }
-    }
+    };
 
     return (
         <>
             <div className={styles.header}>
-                <ImgBtn icon={<SvgArrowBack/>} onClick={handleBackStep}/>
+                <ImgBtn icon={<SvgArrowBack />} onClick={handleBackStep} />
                 <span className={styles.title}>Publication</span>
-                <Button variant={'text'} className={styles.nextButton} onClick={handleNextStep}>Publish</Button>
+                <Button variant={'text'} className={styles.nextButton} onClick={handleNextStep}>
+                    Publish
+                </Button>
             </div>
             <div className={styles.content}>
                 <div className={styles.slider}>
                     <PhotoSlider
-                        images={images.map(img =>
-                            img.filteredImageUrl || img.croppedImageUrl || img.originalPreview
-                        )}
+                        images={images.map(img => img.filteredImageUrl || img.croppedImageUrl || img.originalPreview)}
                     />
                 </div>
-                <InfoPost info={info} setInfo={setInfo}/>
+                <InfoPost info={info} setInfo={setInfo} />
             </div>
         </>
     );

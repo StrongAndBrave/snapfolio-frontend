@@ -13,7 +13,7 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
     {
         id: 'normal',
         name: 'Normal',
-        apply: () => {} // No operation
+        apply: () => {}, // No operation
     },
     {
         id: 'clarendon',
@@ -24,13 +24,13 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
 
             for (let i = 0; i < data.length; i += 4) {
                 // Увеличиваем контраст и насыщенность
-                data[i] = Math.min(255, data[i] * 1.1);     // R
+                data[i] = Math.min(255, data[i] * 1.1); // R
                 data[i + 1] = Math.min(255, data[i + 1] * 1.05); // G
                 data[i + 2] = Math.min(255, data[i + 2] * 1.05); // B
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'grayscale',
@@ -41,13 +41,13 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
 
             for (let i = 0; i < data.length; i += 4) {
                 const avg = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-                data[i] = avg;     // R
+                data[i] = avg; // R
                 data[i + 1] = avg; // G
                 data[i + 2] = avg; // B
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'sepia',
@@ -61,13 +61,13 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
                 const g = data[i + 1];
                 const b = data[i + 2];
 
-                data[i] = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
-                data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
-                data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
+                data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189);
+                data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168);
+                data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131);
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'invert',
@@ -77,13 +77,13 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
             const data = imageData.data;
 
             for (let i = 0; i < data.length; i += 4) {
-                data[i] = 255 - data[i];     // R
+                data[i] = 255 - data[i]; // R
                 data[i + 1] = 255 - data[i + 1]; // G
                 data[i + 2] = 255 - data[i + 2]; // B
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'vintage',
@@ -93,13 +93,13 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
             const data = imageData.data;
 
             for (let i = 0; i < data.length; i += 4) {
-                data[i] = Math.min(255, data[i] * 0.9);     // R
+                data[i] = Math.min(255, data[i] * 0.9); // R
                 data[i + 1] = Math.min(255, data[i + 1] * 0.7); // G
                 data[i + 2] = Math.min(255, data[i + 2] * 0.8); // B
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'cool',
@@ -109,13 +109,13 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
             const data = imageData.data;
 
             for (let i = 0; i < data.length; i += 4) {
-                data[i] = Math.min(255, data[i] * 0.9);     // R
+                data[i] = Math.min(255, data[i] * 0.9); // R
                 data[i + 1] = Math.min(255, data[i + 1] * 1.1); // G
                 data[i + 2] = Math.min(255, data[i + 2] * 1.2); // B
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'warm',
@@ -125,30 +125,30 @@ export const AVAILABLE_FILTERS: ImageFilter[] = [
             const data = imageData.data;
 
             for (let i = 0; i < data.length; i += 4) {
-                data[i] = Math.min(255, data[i] * 1.2);     // R
+                data[i] = Math.min(255, data[i] * 1.2); // R
                 data[i + 1] = Math.min(255, data[i + 1] * 1.1); // G
                 data[i + 2] = Math.min(255, data[i + 2] * 0.9); // B
             }
 
             ctx.putImageData(imageData, 0, 0);
-        }
+        },
     },
     {
         id: 'blur',
         name: 'Blur',
-        apply: (ctx, width, height) => {
+        apply: ctx => {
             // Упрощенный blur эффект
             ctx.filter = 'blur(4px)';
             ctx.drawImage(ctx.canvas, 0, 0);
             ctx.filter = 'none';
-        }
-    }
+        },
+    },
 ];
 
 export const applyFilter = async (
     imageUrl: string,
     filterId: string,
-    options?: { width?: number; height?: number }
+    options?: { width?: number; height?: number },
 ): Promise<FilterApplicationResult> => {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -175,17 +175,20 @@ export const applyFilter = async (
                 filter.apply(ctx, canvas.width, canvas.height);
 
                 // Конвертируем в Blob
-                canvas.toBlob((blob) => {
-                    if (!blob) {
-                        throw new Error('Failed to create blob');
-                    }
+                canvas.toBlob(
+                    blob => {
+                        if (!blob) {
+                            throw new Error('Failed to create blob');
+                        }
 
-                    resolve({
-                        file: new File([blob], `filtered-${Date.now()}.jpg`, { type: 'image/jpeg' }),
-                        url: URL.createObjectURL(blob)
-                    });
-                }, 'image/jpeg', 0.9);
-
+                        resolve({
+                            file: new File([blob], `filtered-${Date.now()}.jpg`, { type: 'image/jpeg' }),
+                            url: URL.createObjectURL(blob),
+                        });
+                    },
+                    'image/jpeg',
+                    0.9,
+                );
             } catch (error) {
                 reject(error);
             }
@@ -203,18 +206,18 @@ export const generateFilterPreviews = async (imageUrl: string, size = 100): Prom
     const previews: Record<string, string> = {};
 
     await Promise.all(
-        AVAILABLE_FILTERS.map(async (filter) => {
+        AVAILABLE_FILTERS.map(async filter => {
             try {
                 const result = await applyFilter(imageUrl, filter.id, {
                     width: size,
-                    height: size
+                    height: size,
                 });
                 previews[filter.id] = result.url;
             } catch (error) {
                 console.error(`Error generating preview for ${filter.name}:`, error);
                 previews[filter.id] = imageUrl;
             }
-        })
+        }),
     );
 
     return previews;

@@ -1,20 +1,20 @@
-'use client'
-import {useEffect, useState} from 'react';
-import {Modal} from "@/shared/ui";
-import styles from './CreatePost.module.scss'
-import {useIsMobile} from "@/shared/lib/hooks/useIsMobile";
-import {CreatePostStep, ImageEditData} from "@/features/posts/model/types";
-import {UploadDesktop} from "@/features/posts/ui/create-post/upload/UploadDesktop";
-import {CropDesktop} from "@/features/posts/ui/create-post/crop/CropDesktop";
-import {FiltersDesktop} from "@/features/posts/ui/create-post/filters/FiltersDesktop";
-import {DetailsDesktop} from "@/features/posts/ui/create-post/details/DetailsDesktop";
+'use client';
+import { useEffect, useState } from 'react';
+import { Modal } from '@/shared/ui';
+import styles from './CreatePost.module.scss';
+import { useIsMobile } from '@/shared/lib/hooks/useIsMobile';
+import { CreatePostStep, ImageEditData } from '@/features/posts/model/types';
+import { UploadDesktop } from '@/features/posts/ui/create-post/upload/UploadDesktop';
+import { CropDesktop } from '@/features/posts/ui/create-post/crop/CropDesktop';
+import { FiltersDesktop } from '@/features/posts/ui/create-post/filters/FiltersDesktop';
+import { DetailsDesktop } from '@/features/posts/ui/create-post/details/DetailsDesktop';
 
 type Props = {
     isOpen: boolean;
-    onClose: (variant:boolean) => void;
-}
-export const CreatePost = ({isOpen, onClose}: Props) => {
-    const isMobile = useIsMobile()
+    onClose: (variant: boolean) => void;
+};
+export const CreatePost = ({ isOpen, onClose }: Props) => {
+    const isMobile = useIsMobile();
     const [step, setStep] = useState<CreatePostStep>('upload');
     const [images, setImages] = useState<ImageEditData[]>([]);
     const handleUpload = (files: File[]) => {
@@ -26,35 +26,50 @@ export const CreatePost = ({isOpen, onClose}: Props) => {
                 aspect: 1,
                 zoom: 1,
                 crop: { x: 0, y: 0 },
-                croppedAreaPixels: null
+                croppedAreaPixels: null,
             },
-            currentAspect: '1:1'
+            currentAspect: '1:1',
         }));
         setImages(newImages);
     };
 
     const handleCloseCreatePost = () => {
-        step !== 'upload' ? onClose(false) : onClose(true)
-    }
+        if (step !== 'upload') {
+            onClose(false);
+        } else {
+            onClose(true);
+        }
+    };
 
-    useEffect(()=>{
-        setStep('upload')
-        handleUpload([])
-    },[!isOpen])
+    useEffect(() => {
+        setStep('upload');
+        handleUpload([]);
+    }, [isOpen]);
 
-    let largeModal = step !== 'upload' && step !== 'crop'
+    const largeModal = step !== 'upload' && step !== 'crop';
 
     return (
-        <Modal isOpen={isOpen} onClose={handleCloseCreatePost} className={`${styles.modal} ${largeModal && styles.largeModal}`}>
-            {step === 'upload' && (isMobile ? '' :
-                <UploadDesktop uploadImages={handleUpload} onClose={onClose} nextStep={() => setStep('crop')}/>)}
+        <Modal
+            isOpen={isOpen}
+            onClose={handleCloseCreatePost}
+            className={`${styles.modal} ${largeModal && styles.largeModal}`}
+        >
+            {step === 'upload' &&
+                (isMobile ? (
+                    ''
+                ) : (
+                    <UploadDesktop uploadImages={handleUpload} onClose={onClose} nextStep={() => setStep('crop')} />
+                ))}
 
-            {step === 'crop' &&
-                <CropDesktop backStep={setStep} nextStep={setStep} images={images} changeImages={setImages}/>}
+            {step === 'crop' && (
+                <CropDesktop backStep={setStep} nextStep={setStep} images={images} changeImages={setImages} />
+            )}
 
-            {step === 'filters' && <FiltersDesktop backStep={setStep} nextStep={setStep} images={images} changeImages={setImages}/>}
+            {step === 'filters' && (
+                <FiltersDesktop backStep={setStep} nextStep={setStep} images={images} changeImages={setImages} />
+            )}
 
-            {step === 'details' && <DetailsDesktop onClose={onClose} backStep={setStep} images={images}/>}
+            {step === 'details' && <DetailsDesktop onClose={onClose} backStep={setStep} images={images} />}
         </Modal>
     );
 };

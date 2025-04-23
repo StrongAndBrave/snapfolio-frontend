@@ -30,8 +30,8 @@ export const ClientLayout = ({ children }: PropsWithChildren<unknown>) => {
                             {children}
                         </main>
                     </div>
-                    <div id='modal-root'></div>
-                    <div id='modal-action'></div>
+                    <div id="modal-root"></div>
+                    <div id="modal-action"></div>
                 </>
             )}
 

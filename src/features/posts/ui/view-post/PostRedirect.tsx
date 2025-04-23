@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 export function PostRedirect() {
     const params = useParams();
-    const postId = Number(params.postId)
+    const postId = Number(params.postId);
     const { data: post, isLoading, isError } = useGetPublicPostByIdQuery({ postId });
     const router = useRouter();
 

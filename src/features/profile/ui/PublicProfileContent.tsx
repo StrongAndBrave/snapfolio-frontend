@@ -99,6 +99,7 @@ export const PublicProfileContent = ({ userName, initialPostId, onNotFound }: Pr
                                     key={post.id}
                                     src={post.images[0]?.url || '/default-post-image.png'}
                                     alt="Post"
+                                    className={styles.postImage}
                                     width={1}
                                     height={1}
                                     onClick={() => handleOpenPost(post.id)}

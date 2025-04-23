@@ -1,5 +1,5 @@
 import { baseApi } from '@/shared/api/baseApi';
-import {UserProfile} from "@/features/profile/api/types";
+import { UserProfile } from '@/features/profile/api/types';
 
 export const profileApi = baseApi.injectEndpoints({
     endpoints: builder => ({
@@ -11,6 +11,4 @@ export const profileApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {
-    useGetProfileQuery,
-} = profileApi;
+export const { useGetProfileQuery } = profileApi;
